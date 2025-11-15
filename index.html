@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerospace Engineer Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #000, #444);
+            z-index: 9998;
+            transition: width 0.1s ease;
+        }
+
+        /* Page Load Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Particles Background */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #fff;
+            padding: 60px 40px;
+            margin-bottom: 60px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .subtitle-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch::before {
+            animation: glitch-1 2.5s infinite;
+            color: #00ffff;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 2.5s infinite;
+            color: #ff00ff;
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            33% { transform: translate(-2px, 2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            33% { transform: translate(2px, -2px); }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cv-button-inline {
+            padding: 8px 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cv-button-inline:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .intro-text {
+            max-width: 800px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+        }
+
+        /* Timeline in Header */
+        .header-timeline {
+            max-width: 350px;
+        }
+
+        .header-timeline .section-title {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .header-timeline .timeline {
+            padding-left: 30px;
+        }
+
+        .header-timeline .timeline::before {
+            background: linear-gradient(180deg, #666 0%, #444 100%);
+        }
+
+        .header-timeline .timeline-item {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .header-timeline .timeline-item::before {
+            width: 8px;
+            height: 8px;
+            left: -34px;
+            background: #666;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #666;
+        }
+
+        .header-timeline .timeline-year {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .header-timeline .timeline-content {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .cv-button {
+            padding: 12px 24px;
+            background: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+            display: none;
+        }
+
+        .cv-button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0 40px 40px 40px;
+        }
+
+        /* Section Titles */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 2px 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .separator {
+            background: linear-gradient(180deg, transparent 0%, #ddd 20%, #ddd 80%, transparent 100%);
+            width: 2px;
+            justify-self: center;
+        }
+
+        /* Project Blocks */
+        .project-block {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-block:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+
+        .project-content {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: rgba(230, 230, 230, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .project-block:hover .project-content {
+            background: rgba(200, 200, 200, 0.8);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .project-image {
+            width: 200px;
+            height: 150px;
+            background: #000;
+            z-index: 2;
+            position: relative;
+            flex-shrink: 0;
+            border-radius: 8px;
+            margin: 20px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .project-block:hover .project-image {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .project-text {
+            padding: 30px 30px 30px 10px;
+            z-index: 1;
+            flex-grow: 1;
+        }
+
+        .project-text h3 {
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+
+        .project-count {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(40, 40, 40, 0.9);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            z-index: 3;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            margin-bottom: 80px;
+            display: none;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #000 0%, #666 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #000;
+        }
+
+        .timeline-year {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: block;
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 5% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            animation: modalContentZoom 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes modalContentZoom {
+            from {
+                transform: scale(0.9) translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 30px 40px;
+            border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .close {
+            font-size: 36px;
+            font-weight: 200;
+            color: #000;
+            cursor: pointer;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(230, 230, 230, 0.7);
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .item-list {
+            list-style: none;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(230, 230, 230, 0.5);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            max-height: 120px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .item:hover {
+            background: rgba(200, 200, 200, 0.7);
+            transform: scale(1.01) translateX(5px);
+            max-height: 500px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .item-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: #000;
+            border-radius: 8px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover .item-image {
+            transform: scale(1.05);
+        }
+
+        .item-info {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .item-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .item-year {
+            font-size: 14px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+
+        .item-year::before {
+            content: 'v';
+        }
+
+        .item-tools {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-top: 10px;
+            opacity: 0;
+            max-height: 0;
+            transition: all 0.4s ease;
+        }
+
+        .item:hover .item-description {
+            opacity: 1;
+            max-height: 300px;
+        }
+
+        .item-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .view-btn, .download-btn {
+            padding: 8px 16px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .view-btn:hover, .download-btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .download-btn {
+            background: #444;
+        }
+
+        .download-btn:hover {
+            background: #666;
+        }
+
+        /* Future Projects */
+        .future-projects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .future-project-card {
+            border: 1px solid #ddd;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(230, 230, 230, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .future-project-card:hover {
+            border-color: #000;
+            background: rgba(200, 200, 200, 0.8);
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .future-project-card h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .future-project-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(230, 230, 230, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 15px 30px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .contact-btn:hover {
+            background: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* CV Modal specific styles */
+        #cvModal .modal-content {
+            max-width: 900px;
+            max-height: 90vh;
+        }
+
+        .cv-viewer {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        /* Easter Egg */
+        .easter-egg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            display: none;
+            z-index: 10000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .easter-egg.show {
+            display: block;
+        }
+
+        @media (max-width: 968px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header-timeline {
+                max-width: 100%;
+            }
+
+            .subtitle-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .separator {
+                display: none;
+            }
+
+            .project-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .project-image {
+                width: 100%;
+                height: 200px;
+                margin: 20px 20px 0 20px;
+            }
+
+            .project-text {
+                padding: 20px 30px 30px 30px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .item-content {
+                width: 100%;
+            }
+
+            .item-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .view-btn, .download-btn {
+                width: 100%;
+            }
+
+            .stats-section {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Header / Introduction -->
+    <header class="fade-in">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="glitch" data-text="Rayan CHENNAOUI">Rayan CHENNAOUI</h1>
+                    <div class="subtitle-row">
+                        <div class="subtitle">Mechanical Engineer | Aerospace</div>
+                        <button class="cv-button-inline" onclick="openModal('cv')">View CV</button>
+                    </div>
+                    <div class="intro-text">
+                        <p>Passionate mechanical engineer specializing in aerospace systems with a strong foundation in structural analysis, fluid dynamics, and propulsion systems. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
+                    </div>
+                </div>
+                <div class="header-timeline">
+                    <div class="section-title">Career Timeline</div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2024</div>
+                            <div class="timeline-content">Lead Engineer - Regional Aircraft Development</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2023</div>
+                            <div class="timeline-content">Aerospace Engineering Internship</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2022</div>
+                            <div class="timeline-content">Master's - Aerospace Engineering</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2020</div>
+                            <div class="timeline-content">Bachelor's - Mechanical Engineering</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <!-- TP and Projects Grid -->
+        <div class="projects-grid fade-in delay-2">
+            <!-- Practical Work Block -->
+            <div class="project-block" onclick="openModal('tp')">
+                <div class="section-title">Practical Work</div>
+                <div class="project-content">
+                    <div class="project-image"></div>
+                    <div class="project-text">
+                        <h3>My Most Notable Practical Work</h3>
+                    </div>
+                    <div class="project-count">${tpData.length} documents</div>
+                </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="separator"></div>
+
+            <!-- Projects Block -->
+            <div class="project-block" onclick="openModal('projects')">
+                <div class="section-title">Projects</div>
+                <div class="project-content">
+                    <div class="project-image"></div>
+                    <div class="project-text">
+                        <h3>My Most Notable Projects</h3>
+                    </div>
+                    <div class="project-count">${projectsData.length} documents</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <section class="section timeline-section fade-in delay-3">
+            <div class="section-title">Career Timeline</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">Lead Engineer - Regional Aircraft Development Project</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">Aerospace Engineering Internship - Satellite Design Division</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">Master's Degree - Aerospace Engineering</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-content">Bachelor's Degree - Mechanical Engineering</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Projects Section -->
+        <section class="section fade-in delay-4">
+            <div class="section-title">Future Projects</div>
+            <div class="future-projects-list">
+                <div class="future-project-card">
+                    <h3>Advanced Composite Wing Design</h3>
+                    <p>Research and development of next-generation composite materials for improved aerodynamic efficiency and weight reduction in commercial aircraft.</p>
+                </div>
+                <div class="future-project-card">
+                    <h3>Drone Propulsion Optimization</h3>
+                    <p>Computational study of electric propulsion systems for long-range autonomous drones, focusing on energy efficiency and flight time maximization.</p>
+                </div>
+                <div class="future-project-card">
+                    <h3>Thermal Management Systems</h3>
+                    <p>Development of innovative cooling solutions for high-performance aerospace components operating in extreme temperature environments.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section fade-in delay-4">
+            <h2 style="margin-bottom: 20px; font-size: 32px;">Get In Touch</h2>
+            <p style="color: #666; max-width: 600px; margin: 0 auto;">
+                Interested in collaboration or have questions about my work? Feel free to reach out through any of the channels below.
+            </p>
+            <div class="contact-buttons">
+                <a href="mailto:john@aerospace.com" class="contact-btn">
+                    <span>📧</span> Email
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="contact-btn">
+                    <span>💼</span> LinkedIn
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for TP -->
+    <div id="tpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Practical Work</h2>
+                <span class="close" onclick="closeModal('tp')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="filter-buttons" id="tpFilters"></div>
+                <ul class="item-list" id="tpList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Projects -->
+    <div id="projectsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Projects</h2>
+                <span class="close" onclick="closeModal('projects')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="filter-buttons" id="projectsFilters"></div>
+                <ul class="item-list" id="projectsList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for CV -->
+    <div id="cvModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Curriculum Vitae</h2>
+                <span class="close" onclick="closeModal('cv')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe class="cv-viewer" src="your-cv.pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg -->
+    <div class="easter-egg" id="easterEgg">
+        <p>🎉 You found the easter egg!</p>
+        <p style="margin-top: 10px;">Konami Code Master Detected!</p>
+        <p style="margin-top: 5px; font-size: 12px;">- The Hiring Team Will Love You -</p>
+    </div>
+
+    <script>
+        // Data structure for TPs
+        const tpData = [
+            { 
+                name: "Structural Analysis of Aircraft Wing", 
+                year: "2024", 
+                tools: "ANSYS, CATIA, Python",
+                description: "Comprehensive structural analysis of a commercial aircraft wing under various load conditions. Performed FEA simulations to optimize weight while maintaining structural integrity and safety margins.",
+                pdf: "wing-analysis.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Fluid Dynamics Lab - Wind Tunnel Testing", 
+                year: "2024", 
+                tools: "PIV, MATLAB, LabVIEW",
+                description: "Experimental study of airflow patterns around different airfoil profiles using particle image velocimetry in a subsonic wind tunnel.",
+                pdf: "fluid-dynamics.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Propulsion Systems Study", 
+                year: "2023", 
+                tools: "GasTurb, Excel, CFD",
+                description: "Thermodynamic analysis and performance optimization of a turbofan engine. Evaluated different bypass ratios and their impact on fuel efficiency.",
+                pdf: "propulsion.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Materials Testing - Composite Analysis", 
+                year: "2023", 
+                tools: "Instron, MTS, Minitab",
+                description: "Mechanical testing of carbon fiber reinforced composites. Determined tensile strength, fatigue life, and failure modes under various loading conditions.",
+                pdf: "materials.pdf", 
+                image: "" 
+            },
+            { 
+                name: "CAD Modeling - Turbine Blade Design", 
+                year: "2023", 
+                tools: "SolidWorks, CATIA, Siemens NX",
+                description: "Parametric design of a turbine blade with optimized cooling channels. Created detailed 3D models and technical drawings for manufacturing.",
+                pdf: "cad-turbine.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Thermodynamics - Heat Exchanger Optimization", 
+                year: "2022", 
+                tools: "MATLAB, Simulink, EES",
+                description: "Design and optimization of a compact heat exchanger for aircraft environmental control systems. Balanced thermal performance with weight constraints.",
+                pdf: "thermodynamics.pdf", 
+                image: "" 
+            }
+        ];
+
+        // Data structure for Projects
+        const projectsData = [
+            { 
+                name: "Design Bureau: Regional Aircraft Development", 
+                year: "2024", 
+                tools: "CATIA V5, ANSYS, TeamCenter",
+                description: "Led a team of 5 engineers in developing preliminary design concepts for a 70-seat regional aircraft. Focused on aerodynamic efficiency and operational economics.",
+                pdf: "regional-aircraft.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Satellite Structure Design Competition", 
+                year: "2024", 
+                tools: "SolidWorks, Abaqus, Python",
+                description: "Designed and analyzed a CubeSat structure for a university competition. Optimized for launch loads while minimizing mass and maintaining payload accommodation.",
+                pdf: "satellite-design.pdf", 
+                image: "" 
+            },
+            { 
+                name: "UAV Flight Control System", 
+                year: "2023", 
+                tools: "Arduino, C++, MATLAB",
+                description: "Developed autonomous flight control algorithms for a fixed-wing UAV. Implemented PID controllers for stable flight and waypoint navigation.",
+                pdf: "uav-control.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Rocket Engine Nozzle Optimization", 
+                year: "2023", 
+                tools: "ANSYS Fluent, Python, SolidWorks",
+                description: "CFD-based optimization of a rocket nozzle geometry to maximize thrust efficiency. Analyzed flow patterns and shock wave formations.",
+                pdf: "nozzle-optimization.pdf", 
+                image: "" 
+            },
+            { 
+                name: "Landing Gear Mechanism Design", 
+                year: "2022", 
+                tools: "CATIA, Adams, Excel",
+                description: "Kinematic analysis and design of a retractable landing gear mechanism. Optimized linkage geometry for smooth operation and minimal actuator loads.",
+                pdf: "landing-gear.pdf", 
+                image: "" 
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function openModal(type) {
+            if (type === 'cv') {
+                const modal = document.getElementById('cvModal');
+                modal.classList.add('show');
+                modal.style.display = 'block';
+                return;
+            }
+
+            const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
+            const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
+            const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
+            const data = type === 'tp' ? tpData : projectsData;
+            
+            // Create filter buttons
+            const years = [...new Set(data.map(item => item.year))].sort().reverse();
+            filterContainer.innerHTML = '<button class="filter-btn active" onclick="filterItems(\'' + type + '\', \'all\')">All</button>';
+            years.forEach(year => {
+                filterContainer.innerHTML += '<button class="filter-btn" onclick="filterItems(\'' + type + '\', \'' + year + '\')">' + year + '</button>';
+            });
+            
+            renderItems(type, data);
+            
+            modal.classList.add('show');
+            modal.style.display = 'block';
+        }
+
+        function renderItems(type, data) {
+            const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
+            const filteredData = currentFilter === 'all' ? data : data.filter(item => item.year === currentFilter);
+            
+            list.innerHTML = '';
+            
+            filteredData.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'item';
+                li.innerHTML = `
+                    <div class="item-content">
+                        <div class="item-image" style="background-image: url('${item.image}'); background-size: cover; background-position: center;"></div>
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-meta">
+                                <div class="item-year">${item.year}</div>
+                                <div class="item-tools">${item.tools}</div>
+                            </div>
+                            <div class="item-description">
+                                <strong>Description:</strong> ${item.description}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-buttons">
+                        <button class="view-btn" onclick="viewPDF('${item.pdf}')">View</button>
+                        <button class="download-btn" onclick="downloadPDF('${item.pdf}')">Download</button>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        function filterItems(type, year) {
+            currentFilter = year;
+            const data = type === 'tp' ? tpData : projectsData;
+            const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
+            
+            // Update active button
+            const buttons = filterContainer.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            renderItems(type, data);
+        }
+
+        function closeModal(type) {
+            if (type === 'cv') {
+                const modal = document.getElementById('cvModal');
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 400);
+                return;
+            }
+            const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 400);
+            currentFilter = 'all';
+        }
+
+        function viewPDF(filename) {
+            window.open(filename, '_blank');
+        }
+
+        function downloadPDF(filename) {
+            const link = document.createElement('a');
+            link.href = filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const tpModal = document.getElementById('tpModal');
+            const projectsModal = document.getElementById('projectsModal');
+            const cvModal = document.getElementById('cvModal');
+            if (event.target === tpModal) {
+                closeModal('tp');
+            }
+            if (event.target === projectsModal) {
+                closeModal('projects');
+            }
+            if (event.target === cvModal) {
+                closeModal('cv');
+            }
+        }
+
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+
+        // Particles Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Easter Egg - Konami Code
+        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.getElementById('easterEgg').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('easterEgg').classList.remove('show');
+                        konamiIndex = 0;
+                    }, 5000);
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</body>
+</html>
