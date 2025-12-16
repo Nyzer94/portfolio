@@ -701,13 +701,70 @@
             padding-bottom: 10px;
         }
 
+        .wip-project-image, .personal-project-image {
+            position: relative;
+            overflow: hidden;
+            background-color: #e0e0e0; /* Placeholder background */
+        }
+
         .wip-project-image {
             width: 150px;
             height: 150px;
-            background-size: cover;
-            background-position: center;
             border-radius: 8px;
             flex-shrink: 0;
+        }
+
+        .card-image-carousel {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .card-image {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-carousel-controls {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .wip-project-image:hover .card-carousel-controls,
+        .personal-project-image:hover .card-carousel-controls {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .card-carousel-btn {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            transition: background-color 0.2s ease;
+        }
+
+        .card-carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .wip-project-card {
@@ -772,8 +829,6 @@
         .personal-project-image {
             width: 100%;
             height: 200px;
-            background-size: cover;
-            background-position: center;
         }
 
         .personal-project-content {
@@ -1286,7 +1341,7 @@
                 name: "UAV Stability Derivatives Analysis",
                 description: "Stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods are being tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by using XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.",
                 progress: 60, // Percentage
-                image: "images/uavwip.png"
+                images: ["images/uavwip.png", "images/uav.png"] // Example with 2 images
             },
         
         ];
@@ -1364,7 +1419,7 @@
             {
                 name: "President of BeHard eSport",
                 description: "As president of the BeHard eSport association at IPSA, I led a team of 20 members, managed a budget, and organized multiple gaming tournaments and events for the student community. This role developed my leadership, project management, and communication skills.",
-                image: "images/behard_esport.jpg", // Placeholder image
+                images: ["images/behard_esport.jpg", "images/pig.png"], // Example with 2 images
                 pdf: "projets/behard_report.pdf", // Placeholder PDF
                 skills: ["Leadership", "Project Management", "Budgeting", "Event Organization", "Teamwork"]
             },
@@ -1443,15 +1498,60 @@
             renderItems(type, data);
         }
 
+        function navigateCardCarousel(button, direction) {
+            const wrapper = button.closest('.wip-project-image, .personal-project-image');
+            const carousel = wrapper.querySelector('.card-image-carousel');
+            const totalImages = carousel.children.length;
+            
+            let currentIndex = parseInt(carousel.dataset.index || '0');
+
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % totalImages;
+            } else {
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            }
+
+            carousel.dataset.index = currentIndex;
+            const imageWidth = wrapper.clientWidth;
+            carousel.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
+        }
+
+        function createImageCarouselHTML(images) {
+            if (!images || images.length === 0) {
+                return '<div class="card-image"></div>'; // Return empty div with placeholder background
+            }
+
+            const imageSlides = images.map(img => 
+                `<div class="card-image" style="background-image: url('${img}')"></div>`
+            ).join('');
+
+            const carouselHTML = `
+                <div class="card-image-carousel" data-index="0">
+                    ${imageSlides}
+                </div>
+            `;
+
+            const controlsHTML = images.length > 1 ? `
+                <div class="card-carousel-controls">
+                    <button class="card-carousel-btn" onclick="navigateCardCarousel(this, 'prev')">‹</button>
+                    <button class="card-carousel-btn" onclick="navigateCardCarousel(this, 'next')">›</button>
+                </div>
+            ` : '';
+
+            return carouselHTML + controlsHTML;
+        }
+
         function renderWipProjects() {
             const list = document.getElementById('wip-list');
             if (!list) return;
             list.innerHTML = '';
-            wipData.forEach(item => {
+            wipData.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'wip-project-card';
                 card.innerHTML = `
-                    <div class="wip-project-image" style="background-image: url('${item.image}')"></div>
+                    <div class="wip-project-image">
+                        ${createImageCarouselHTML(item.images)}
+                    </div>
                     <div class="wip-project-content">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
@@ -1468,14 +1568,16 @@
             const list = document.getElementById('personal-projects-list');
             if (!list) return;
             list.innerHTML = '';
-            personalProjectsData.forEach(item => {
+            personalProjectsData.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'personal-project-card';
 
                 const skillsHtml = item.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('');
 
                 card.innerHTML = `
-                    <div class="personal-project-image" style="background-image: url('${item.image}')"></div>
+                    <div class="personal-project-image">
+                        ${createImageCarouselHTML(item.images)}
+                    </div>
                     <div class="personal-project-content">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
@@ -1672,4 +1774,3 @@
     </script>
 </body>
 </html>
-
