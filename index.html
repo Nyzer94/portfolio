@@ -831,13 +831,6 @@
             height: 200px;
         }
 
-        .personal-project-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
         .wip-project-content h3 {
             font-size: 18px;
             font-weight: 500;
@@ -855,18 +848,69 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        .personal-project-content h3 {
+        .pp-page h3 {
             font-size: 20px;
             font-weight: 500;
             margin-bottom: 10px;
         }
 
-        .personal-project-content p {
+        .pp-page p {
             font-size: 14px;
             color: #666;
             line-height: 1.6;
             margin-bottom: 15px;
             flex-grow: 1;
+        }
+        
+        /* Personal Project Slider Styles */
+        .pp-slider-wrapper {
+            overflow: hidden;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pp-slider {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pp-page {
+            width: 50%;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .more-details-btn {
+            background: transparent;
+            border: 1px solid #000;
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px 0 15px 0;
+            align-self: flex-start;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .more-details-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .details-list li {
+            margin-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
         }
 
         .skills-list {
@@ -886,10 +930,6 @@
             font-size: 12px;
             font-weight: 500;
             font-style: italic;
-        }
-
-        .personal-project-buttons {
-            margin-top: auto;
         }
 
         .section-title-container {
@@ -1423,13 +1463,25 @@
                 description: "As president of the BeHard eSport association, I led a team of more than 40 members, managed a budget, and organized multiple gaming tournaments and events for the student community. This role developed my leadership, project management, and communication skills.",
                 images: ["images/jersey.png", "images/collection.png"], // Example with 2 images
                 pdf: "projets/doss_mark.pdf", // Placeholder PDF
-                skills: ["Leadership", "Project Management", "Budgeting", "Event Organization", "Teamwork", "Communication"]
+                skills: ["Leadership", "Project Management", "Budgeting", "Event Organization", "Teamwork", "Communication"],
+                details: [
+                    { label: "Cash Prize Won", value: "1500€" },
+                    { label: "Events Organized", value: "10+" },
+                    { label: "Community Size", value: "500+ students" },
+                    { label: "Sponsors Managed", value: "3" }
+                ]
             },
             {
-                name: "Mental Health App & Landing Website",
+                name: "Mental Health App & Website",
                 description: "Design and development of a well-being mobile application focused on mood and habit tracking, alongside the creation of a responsive landing website to present the product and collect early user feedback. The project covers the full process from UX thinking and visual identity to front-end development, beta testing setup, and user feedback analysis.",
                 images: ["images/app2.png", "images/app.png"], // Example with 2 images // Placeholder PDF
-                skills: ["UX/UI design", "Teamwork","Communication",  "Feedback collection & analysis", "Translate needs into concrete features"]
+                skills: ["UX/UI design", "Teamwork","Communication",  "Feedback collection & analysis", "Translate needs into concrete features"],
+                details: [
+                    { label: "Beta Testers", value: "50+" },
+                    { label: "User Retention", value: "40% (1 month)" },
+                    { label: "Tech Stack", value: "Flutter, Firebase" },
+                    { label: "Status", value: "In Development" }
+                ]
             },
         ];
 
@@ -1549,6 +1601,11 @@
             return carouselHTML + controlsHTML;
         }
 
+        function slideProjectCard(btn, pageIndex) {
+            const slider = btn.closest('.pp-slider-wrapper').querySelector('.pp-slider');
+            slider.style.transform = `translateX(-${pageIndex * 50}%)`;
+        }
+
         function renderWipProjects() {
             const list = document.getElementById('wip-list');
             if (!list) return;
@@ -1581,20 +1638,35 @@
                 card.className = 'personal-project-card';
 
                 const skillsHtml = item.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('');
+                const detailsHtml = item.details ? item.details.map(d => `<li><strong>${d.label}:</strong> ${d.value}</li>`).join('') : '';
 
                 card.innerHTML = `
                     <div class="personal-project-image">
                         ${createImageCarouselHTML(item.images)}
                     </div>
-                    <div class="personal-project-content">
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
-                        <strong>Skills Acquired:</strong>
-                        <ul class="skills-list">
-                            ${skillsHtml}
-                        </ul>
-                        <div class="personal-project-buttons">
-                            <button class="view-btn" onclick="viewPDF('${item.pdf}')">View Document</button>
+                    <div class="pp-slider-wrapper">
+                        <div class="pp-slider">
+                            <!-- Page 1 -->
+                            <div class="pp-page">
+                                <h3>${item.name}</h3>
+                                <p>${item.description}</p>
+                                <button class="more-details-btn" onclick="slideProjectCard(this, 1)">More Details &rarr;</button>
+                                <strong>Skills Acquired:</strong>
+                                <ul class="skills-list">
+                                    ${skillsHtml}
+                                </ul>
+                                <div class="personal-project-buttons" style="margin-top: auto;">
+                                    ${item.pdf ? `<button class="view-btn" onclick="viewPDF('${item.pdf}')">View Document</button>` : ''}
+                                </div>
+                            </div>
+                            <!-- Page 2 -->
+                            <div class="pp-page">
+                                <h3>Project Details</h3>
+                                <ul class="details-list" style="list-style: none; padding: 0;">
+                                    ${detailsHtml}
+                                </ul>
+                                <button class="more-details-btn" style="margin-top: auto;" onclick="slideProjectCard(this, 0)">&larr; Back</button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -1783,6 +1855,94 @@
 </body>
 </html>
 
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Carousel controls for Future Projects
+        const scrollContainer = document.querySelector('.future-projects-carousel');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+
+        if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
+            scrollLeftBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
+            });
+
+            scrollRightBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
+            });
+        }
+
+        // Carousel controls for Work in Progress
+        const wipScrollContainer = document.querySelector('.wip-projects-carousel');
+        const wipScrollLeftBtn = document.getElementById('wip-scroll-left');
+        const wipScrollRightBtn = document.getElementById('wip-scroll-right');
+
+        if (wipScrollContainer && wipScrollLeftBtn && wipScrollRightBtn) {
+            wipScrollLeftBtn.addEventListener('click', () => {
+                wipScrollContainer.scrollBy({ left: -510, behavior: 'smooth' }); // Card width 480 + gap 30
+            });
+
+            wipScrollRightBtn.addEventListener('click', () => {
+                wipScrollContainer.scrollBy({ left: 510, behavior: 'smooth' });
+            });
+        }
+
+        // Easter Egg - Konami Code
+        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.getElementById('easterEgg').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('easterEgg').classList.remove('show');
+                        konamiIndex = 0;
+                    }, 5000);
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</body>
+</html>
 
 
 
