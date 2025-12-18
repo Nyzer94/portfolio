@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aerospace Engineer Portfolio</title>
+    <title>Rayan CHENNAOUI</title>
     <style>
         * {
             margin: 0;
@@ -950,17 +950,6 @@
             align-items: center;
         }
 
-        .email-display-area {
-            margin-top: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            color: #333;
-            background: #eee;
-            padding: 8px 15px;
-            border-radius: 4px;
-            display: none;
-        }
-
         .contact-buttons {
             display: flex;
             justify-content: center;
@@ -1158,7 +1147,7 @@
                         <button class="cv-button-inline" onclick="openModal('cv')">View CV</button>
                     </div>
                     <div class="intro-text">
-                        <p>Passionate mechanical engineer specializing in aerospace systems with a strong foundation in structural analysis, fluid dynamics, and propulsion systems. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
+                        <p>Passionate mechanical engineer specializing in aerospace systems with a strong interest in structural analysis, fluid dynamics, and system design. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
                     </div>
                 </div>
                 <div class="header-timeline">
@@ -1301,7 +1290,6 @@
                     <a href="#" id="email-btn" class="contact-btn">
                         <span>📧</span> Email
                     </a>
-                    <div id="email-display" class="email-display-area"></div>
                 </div>
                 <a href="https://www.linkedin.com/in/rayan-chennaoui-4b7608156/" target="_blank" class="contact-btn">
                     <span>💼</span> LinkedIn
@@ -1492,6 +1480,7 @@
                 const modal = document.getElementById('cvModal');
                 modal.classList.add('show');
                 modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
                 return;
             }
 
@@ -1511,6 +1500,7 @@
             
             modal.classList.add('show');
             modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
         function renderItems(type, data) {
@@ -1679,11 +1669,13 @@
                 const modal = document.getElementById('cvModal');
                 modal.classList.remove('show');
                 setTimeout(() => modal.style.display = 'none', 400);
+                document.body.style.overflow = '';
                 return;
             }
             const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
             modal.classList.remove('show');
             setTimeout(() => modal.style.display = 'none', 400);
+            document.body.style.overflow = '';
             currentFilter = 'all';
         }
 
@@ -1726,11 +1718,17 @@
             if (emailBtn) {
                 emailBtn.addEventListener('click', (e) => {
                     e.preventDefault(); // Prevent mailto link
-                    const emailDisplay = document.getElementById('email-display');
                     const email = 'rayan.chennaoui@ipsa.fr';
                     
-                    emailDisplay.textContent = email;
-                    emailDisplay.style.display = 'block';
+                    // Copy to clipboard and update button
+                    navigator.clipboard.writeText(email).then(() => {
+                        emailBtn.innerHTML = '<span>✅</span> Copied!';
+                        setTimeout(() => {
+                            emailBtn.innerHTML = '<span>📧</span> ' + email;
+                        }, 2000);
+                    }).catch(err => {
+                        emailBtn.innerHTML = '<span>📧</span> ' + email;
+                    });
                 });
             }
         });
@@ -1854,103 +1852,3 @@
     </script>
 </body>
 </html>
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Carousel controls for Future Projects
-        const scrollContainer = document.querySelector('.future-projects-carousel');
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
-
-        if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
-            scrollLeftBtn.addEventListener('click', () => {
-                scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
-            });
-
-            scrollRightBtn.addEventListener('click', () => {
-                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-            });
-        }
-
-        // Carousel controls for Work in Progress
-        const wipScrollContainer = document.querySelector('.wip-projects-carousel');
-        const wipScrollLeftBtn = document.getElementById('wip-scroll-left');
-        const wipScrollRightBtn = document.getElementById('wip-scroll-right');
-
-        if (wipScrollContainer && wipScrollLeftBtn && wipScrollRightBtn) {
-            wipScrollLeftBtn.addEventListener('click', () => {
-                wipScrollContainer.scrollBy({ left: -510, behavior: 'smooth' }); // Card width 480 + gap 30
-            });
-
-            wipScrollRightBtn.addEventListener('click', () => {
-                wipScrollContainer.scrollBy({ left: 510, behavior: 'smooth' });
-            });
-        }
-
-        // Easter Egg - Konami Code
-        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        let konamiIndex = 0;
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    document.getElementById('easterEgg').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('easterEgg').classList.remove('show');
-                        konamiIndex = 0;
-                    }, 5000);
-                }
-            } else {
-                konamiIndex = 0;
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
