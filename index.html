@@ -1572,6 +1572,14 @@
 
         let currentFilter = 'all';
 
+        // Fonction pour trier les données de la 4ème à la 1ère année
+        const sortByYearDesc = (a, b) => {
+            const yearA = parseInt(a.year); // Extrait "4" de "4th year"
+            const yearB = parseInt(b.year);
+            return yearB - yearA; // Tri décroissant
+        };
+        
+                
         function openModal(type) {
             if (type === 'cv') {
                 const modal = document.getElementById('cvModal');
@@ -1580,14 +1588,19 @@
                 document.body.style.overflow = 'hidden';
                 return;
             }
-
+        
             const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
             const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
             const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
-            const data = type === 'tp' ? tpData : projectsData;
             
-            // Create filter buttons
-            const years = [...new Set(data.map(item => item.year))].sort().reverse();
+            // MODIFICATION ICI : Tri automatique décroissant
+            const data = (type === 'tp' ? [...tpData] : [...projectsData]).sort(sortByYearDesc);
+            
+            // Create filter buttons (les années seront aussi dans le bon ordre grâce au sort précédent)
+            const years = [...new Set(data.map(item => item.year))]; 
+            // .sort().reverse() n'est plus strictement nécessaire si data est déjà trié, 
+            // mais on peut le laisser par sécurité pour les boutons de filtres.
+            
             filterContainer.innerHTML = '<button class="filter-btn active" onclick="filterItems(\'' + type + '\', \'all\')">All</button>';
             years.forEach(year => {
                 filterContainer.innerHTML += '<button class="filter-btn" onclick="filterItems(\'' + type + '\', \'' + year + '\')">' + year + '</button>';
@@ -1949,6 +1962,7 @@
     </script>
 </body>
 </html>
+
 
 
 
