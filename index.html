@@ -1596,13 +1596,31 @@
                 document.body.style.overflow = 'hidden';
                 return;
             }
+            if (type === 'books') {
+                const modal = document.getElementById('booksModal');
+                renderBooks(booksData);
+                modal.classList.add('show');
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                return;
+            }
         
-            const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
-            const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
-            const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
+            let modalId = 'projectsModal';
+            let listId = 'projectsList';
+            let filterId = 'projectsFilters';
+            let rawData = projectsData;
             
-            // MODIFICATION ICI : Tri automatique décroissant
-            const data = (type === 'tp' ? [...tpData] : [...projectsData]).sort(sortByYearDesc);
+            if (type === 'tp') {
+                modalId = 'tpModal'; listId = 'tpList'; filterId = 'tpFilters'; rawData = tpData;
+            } else if (type === 'research') {
+                modalId = 'researchModal'; listId = 'researchList'; filterId = 'researchFilters'; rawData = researchData;
+            }
+
+            const modal = document.getElementById(modalId);
+            const list = document.getElementById(listId);
+            const filterContainer = document.getElementById(filterId);
+            
+            const data = [...rawData].sort(sortByYearDesc);
             
             // Create filter buttons (les années seront aussi dans le bon ordre grâce au sort précédent)
             const years = [...new Set(data.map(item => item.year))]; 
@@ -1622,7 +1640,11 @@
         }
 
         function renderItems(type, data) {
-            const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
+            let listId = 'projectsList';
+            if (type === 'tp') listId = 'tpList';
+            if (type === 'research') listId = 'researchList';
+            
+            const list = document.getElementById(listId);
             const filteredData = currentFilter === 'all' ? data : data.filter(item => item.year === currentFilter);
             
             list.innerHTML = '';
@@ -1655,8 +1677,16 @@
 
         function filterItems(type, year) {
             currentFilter = year;
-            const data = type === 'tp' ? tpData : projectsData;
-            const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
+            
+            let data = projectsData;
+            let filterId = 'projectsFilters';
+            if (type === 'tp') {
+                data = tpData; filterId = 'tpFilters';
+            } else if (type === 'research') {
+                data = researchData; filterId = 'researchFilters';
+            }
+            
+            const filterContainer = document.getElementById(filterId);
             
             // Update active button
             const buttons = filterContainer.querySelectorAll('.filter-btn');
@@ -1664,6 +1694,29 @@
             event.target.classList.add('active');
             
             renderItems(type, data);
+        }
+
+        function renderBooks(data) {
+            const list = document.getElementById('booksList');
+            list.innerHTML = '';
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'item';
+                li.innerHTML = `
+                    <div class="item-content">
+                        <div class="book-image" style="background-image: url('${item.image}');"></div>
+                        <div class="item-info">
+                            <div class="item-name">${item.title}</div>
+                            <div class="book-author">By ${item.author}</div>
+                            <div class="item-description">
+                                <strong>Description:</strong> ${item.description}
+                                <div class="book-review">" ${item.review} "</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
         }
 
         function navigateCardCarousel(button, direction) {
@@ -1790,7 +1843,19 @@
                 document.body.style.overflow = '';
                 return;
             }
-            const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
+            if (type === 'books') {
+                const modal = document.getElementById('booksModal');
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 400);
+                document.body.style.overflow = '';
+                return;
+            }
+
+            let modalId = 'projectsModal';
+            if (type === 'tp') modalId = 'tpModal';
+            if (type === 'research') modalId = 'researchModal';
+            
+            const modal = document.getElementById(modalId);
             modal.classList.remove('show');
             setTimeout(() => modal.style.display = 'none', 400);
             document.body.style.overflow = '';
@@ -1815,20 +1880,21 @@
             const tpModal = document.getElementById('tpModal');
             const projectsModal = document.getElementById('projectsModal');
             const cvModal = document.getElementById('cvModal');
-            if (event.target === tpModal) {
-                closeModal('tp');
-            }
-            if (event.target === projectsModal) {
-                closeModal('projects');
-            }
-            if (event.target === cvModal) {
-                closeModal('cv');
-            }
+            const researchModal = document.getElementById('researchModal');
+            const booksModal = document.getElementById('booksModal');
+            
+            if (event.target === tpModal) closeModal('tp');
+            if (event.target === projectsModal) closeModal('projects');
+            if (event.target === cvModal) closeModal('cv');
+            if (event.target === researchModal) closeModal('research');
+            if (event.target === booksModal) closeModal('books');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('tp-count').textContent = `${tpData.length} documents`;
             document.getElementById('project-count').textContent = `${projectsData.length} documents`;
+            document.getElementById('research-count').textContent = `${researchData.length} documents`;
+            document.getElementById('books-count').textContent = `${booksData.length} books`;
             renderWipProjects();
             renderPersonalProjects();
 
@@ -1970,17 +2036,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
