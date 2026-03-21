@@ -1438,6 +1438,20 @@
             
         ];
 
+        // Data structure for R&D and Tech Projects
+        const researchData = [];
+
+        // Data structure for Library/Books
+        const booksData = [
+            {
+                title: "Deep Work",
+                author: "Cal Newport",
+                description: "Rules for focused success in a distracted world.",
+                review: "Essential for engineering students.",
+                image: "images/book1.jpg"
+            }
+        ];
+
         // Data for Work in Progress
         const wipData = [
             {
@@ -1705,7 +1719,7 @@
                 li.className = 'item'; // Re-use existing item styling for overall structure
                 li.innerHTML = `
                     <div class="item-content">
-                        <div class="book-image" style="background-image: url('${item.image}');"></div>
+                        <div class="book-image" style="background-image: url('${item.image}');"></div> <!-- Use book-image class -->
                         <div class="item-info">
                             <div class="item-name">${item.title}</div>
                             <div class="book-author">${item.author}</div>
