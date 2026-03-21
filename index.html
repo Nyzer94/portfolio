@@ -198,43 +198,6 @@
             box-shadow: 0 0 0 2px #666;
         }
 
-        /* New container for action bars */
-        .intro-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        /* Styling for the new horizontal action bars */
-        .action-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #fff;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .action-bar:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        .action-bar .count-badge {
-            font-size: 10px;
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-left: 5px;
-        }
-
         /* IPSA ongoing / continuous line */
         .timeline-item.ongoing::before {
             border-style: dotted !important;
@@ -1214,18 +1177,6 @@
                     <div class="intro-text">
                         <p>Passionate mechanical engineer specializing in aerospace systems with a strong interest in structural analysis, fluid dynamics, and system design. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
                     </div>
-                    <!-- Relocated R&D and Library blocks as horizontal bars -->
-                    <div class="intro-actions">
-                        <div class="action-bar" onclick="openModal('research')">
-                            <span>🔬</span> R&D Projects <span class="count-badge" id="research-count-bar">0</span>
-                        </div>
-                        <div class="action-bar" onclick="openModal('books')">
-                            <span>📚</span> Library <span class="count-badge" id="books-count-bar">0</span>
-                        </div>
-                    </div>
-
-
-
                 </div>
                 <div class="header-timeline">
                     <div class="section-title">Career Timeline</div>
@@ -1281,6 +1232,23 @@
                         <h3>My Most Notable Projects</h3>
                     </div>
                     <div class="project-count" id="project-count"></div>
+                </div>
+            </div>
+            <!-- ADD MISSING GRID BLOCKS -->
+            <div class="project-block" onclick="openModal('research')">
+                <div class="section-title">R&D & Tech</div>
+                <div class="project-content">
+                    <div class="project-image" style="background-image: url('images/rd.jpg');"></div>
+                    <div class="project-text"><h3>Technical & Research Projects</h3></div>
+                    <div class="project-count" id="research-count"></div>
+                </div>
+            </div>
+            <div class="project-block" onclick="openModal('books')">
+                <div class="section-title">Library</div>
+                <div class="project-content" style="background: rgba(245, 245, 245, 0.7);">
+                    <div class="project-image" style="background-image: url('images/library.jpg');"></div>
+                    <div class="project-text"><h3>Books & General Culture</h3></div>
+                    <div class="project-count" id="books-count"></div>
                 </div>
             </div>
         </div>
@@ -1960,31 +1928,18 @@
         }
 
         function closeModal(type) {
-            let modalElement;
             if (type === 'cv') {
-                modalElement = document.getElementById('cvModal');
-            } else if (type === 'tp') {
-                modalElement = document.getElementById('tpModal');
-            } else if (type === 'projects') {
-                modalElement = document.getElementById('projectsModal');
-            } else if (type === 'research') {
-                modalElement = document.getElementById('researchModal');
-            } else if (type === 'books') {
-                modalElement = document.getElementById('booksModal');
-            } else {
-                console.error("Unknown modal type for closing:", type);
+                const modal = document.getElementById('cvModal');
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 400);
+                document.body.style.overflow = '';
                 return;
             }
-
-            if (modalElement) {
-                modalElement.classList.remove('show');
-                setTimeout(() => modalElement.style.display = 'none', 400);
-                document.body.style.overflow = '';
-                // Reset filter for relevant modals, if applicable
-                if (type === 'tp' || type === 'projects' || type === 'research') {
-                    currentFilter = 'all';
-                }
-            }
+            const modal = document.getElementById(type === 'tp' ? 'tpModal' : (type === 'projects' ? 'projectsModal' : 'researchModal'));
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 400);
+            document.body.style.overflow = '';
+            currentFilter = 'all';
         }
 
         function viewPDF(filename) {
@@ -2016,26 +1971,14 @@
             if (event.target === cvModal) {
                 closeModal('cv');
             }
-            // Add closing logic for research and books modals
             if (event.target === researchModal) {
                 closeModal('research');
             }
             if (event.target === booksModal) {
                 closeModal('books');
             }
-
         }
 
-        // Add an EventListener for the Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape") {
-                closeModal('tp');
-                closeModal('projects');
-                closeModal('cv');
-                closeModal('research');
-                closeModal('books');
-            }
-        });
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('tp-count').textContent = `${tpData.length} documents`;
             document.getElementById('project-count').textContent = `${projectsData.length} documents`;
@@ -2043,10 +1986,6 @@
             document.getElementById('books-count').textContent = `${booksData.length} items`;
             renderWipProjects();
             renderPersonalProjects();
-
-            // Sync counts for new action bars
-            document.getElementById('research-count-bar').textContent = researchData.length;
-            document.getElementById('books-count-bar').textContent = booksData.length;
 
             const emailBtn = document.getElementById('email-btn');
             if (emailBtn) {
