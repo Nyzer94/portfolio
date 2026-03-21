@@ -198,71 +198,6 @@
             box-shadow: 0 0 0 2px #666;
         }
 
-        /* New container for action bars */
-        .intro-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        /* Styling for the new horizontal action bars */
-        .action-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #fff;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .action-bar:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        .action-bar .count-badge {
-            font-size: 10px;
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-left: 5px;
-        }
-
-        /* IPSA ongoing / continuous line */
-        .timeline-item.ongoing::before {
-            border-style: dotted !important;
-            background: transparent !important;
-            box-shadow: none !important;
-        }
-        /* UTM standard item */
-        .timeline-item.university::before {
-            background: #444 !important;
-        }
-        /* Internship distinguishing style */
-        .timeline-item.internship {
-            padding-left: 50px; /* Indent the text */
-        }
-        .timeline-item.internship::before {
-            left: -34px; /* Adjust the dot position */
-            background: #fff !important; /* White circle */
-            border: 2px solid #000 !important; /* Black border */
-            width: 8px;
-            height: 8px;
-            box-shadow: 0 0 0 2px #fff !important; /* Ring effect */
-        }
-        .internship-icon { margin-right: 8px; font-size: 1.1em; }
-
-        /* New timeline organization and description styles */
-        .timeline-org { font-weight: bold; display: block; margin-bottom: 2px; font-size: 1.1em; color: #fff; }
-        .timeline-desc { display: block; color: #aaa; font-size: 0.95em; line-height: 1.4; }
-
         .header-timeline .timeline-year {
             font-size: 14px;
             color: #ccc;
@@ -317,9 +252,23 @@
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2px 1fr;
             gap: 40px;
             margin-bottom: 80px;
+        }
+
+        /* 4-column grid for the second row (R&D + Books) */
+        .projects-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 2px 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .separator {
+            background: linear-gradient(180deg, transparent 0%, #ddd 20%, #ddd 80%, transparent 100%);
+            width: 2px;
+            justify-self: center;
         }
 
         /* Project Blocks */
@@ -353,35 +302,69 @@
         .project-image {
             width: 200px;
             height: 150px;
-            background-image: url('images/pj.jpg'); /* chemin relatif depuis le CSS */
-            background-size: cover; /* l’image remplit le bloc */
-            background-position: center; /* centrée */
-            border-radius: 8px; /* optionnel, pour arrondir les coins */
+            background-image: url('images/pj.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
             z-index: 2;
             position: relative;
             flex-shrink: 0;
-            border-radius: 8px;
             margin: 20px;
             transition: all 0.4s ease;
             overflow: hidden;
         }
-        
+
         .project-image2 {
             width: 200px;
             height: 150px;
-            background-image: url('images/bloc_tp.jpg'); /* chemin relatif depuis le CSS */
-            background-size: cover; /* l’image remplit le bloc */
-            background-position: center; /* centrée */
-            border-radius: 8px; /* optionnel, pour arrondir les coins */
+            background-image: url('images/bloc_tp.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
             z-index: 2;
             position: relative;
             flex-shrink: 0;
-            border-radius: 8px;
             margin: 20px;
             transition: all 0.4s ease;
             overflow: hidden;
         }
-        
+
+        /* R&D image placeholder */
+        .project-image-rd {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            border-radius: 8px;
+            z-index: 2;
+            position: relative;
+            flex-shrink: 0;
+            margin: 20px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        /* Books image placeholder */
+        .project-image-books {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #2d1b00 0%, #5c3d00 50%, #8b5e00 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            border-radius: 8px;
+            z-index: 2;
+            position: relative;
+            flex-shrink: 0;
+            margin: 20px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
         .project-block:hover .project-image {
             transform: scale(1.05);
             filter: brightness(1.1);
@@ -484,12 +467,8 @@
         }
 
         @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
@@ -541,12 +520,6 @@
             line-height: 1;
             transition: transform 0.3s ease;
         }
-
-        /* Book image and review styles */
-        .book-image { width: 80px; height: 110px; background-size: cover; background-position: center; border-radius: 4px; flex-shrink: 0; box-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
-        .book-review { font-style: italic; color: #bbb; margin-top: 10px; border-left: 2px solid #555; padding-left: 10px; font-size: 0.9em; }
-
-
 
         .close:hover {
             transform: rotate(90deg);
@@ -628,6 +601,33 @@
 
         .item:hover .item-image {
             transform: scale(1.05);
+        }
+
+        /* Book image style */
+        .book-image {
+            width: 60px;
+            height: 80px;
+            background: #333;
+            border-radius: 4px;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+        }
+
+        .book-author {
+            font-size: 13px;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .book-review {
+            margin-top: 10px;
+            font-style: italic;
+            color: #444;
+            border-left: 3px solid #000;
+            padding-left: 10px;
         }
 
         .item-info {
@@ -712,6 +712,23 @@
             background: #666;
         }
 
+        /* Empty state for placeholder sections */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #aaa;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            font-style: italic;
+        }
+
         /* Future Projects */
         .future-projects-list {
             display: flex;
@@ -769,7 +786,7 @@
         .wip-project-image, .personal-project-image {
             position: relative;
             overflow: hidden;
-            background-color: #e0e0e0; /* Placeholder background */
+            background-color: #e0e0e0;
         }
 
         .wip-project-image {
@@ -926,7 +943,7 @@
             margin-bottom: 15px;
             flex-grow: 1;
         }
-        
+
         /* Personal Project Slider Styles */
         .pp-slider-wrapper {
             overflow: hidden;
@@ -1138,7 +1155,8 @@
                 gap: 10px;
             }
 
-            .projects-grid {
+            .projects-grid,
+            .projects-grid-4 {
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
@@ -1148,11 +1166,14 @@
             }
 
             .project-content {
-                border-left: 4px solid #000; /* Accent de rigueur */
+                border-left: 4px solid #000;
                 background: #f9f9f9;
             }
 
-            .project-image {
+            .project-image,
+            .project-image2,
+            .project-image-rd,
+            .project-image-books {
                 width: 100%;
                 height: 200px;
                 margin: 20px 20px 0 20px;
@@ -1214,42 +1235,21 @@
                     <div class="intro-text">
                         <p>Passionate mechanical engineer specializing in aerospace systems with a strong interest in structural analysis, fluid dynamics, and system design. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
                     </div>
-                    <!-- Relocated R&D and Library blocks as horizontal bars -->
-                    <div class="intro-actions">
-                        <div class="action-bar" onclick="openModal('research')">
-                            <span>🔬</span> R&D Projects <span class="count-badge" id="research-count-bar">0</span>
-                        </div>
-                        <div class="action-bar" onclick="openModal('books')">
-                            <span>📚</span> Library <span class="count-badge" id="books-count-bar">0</span>
-                        </div>
-                    </div>
-
-
-
                 </div>
                 <div class="header-timeline">
                     <div class="section-title">Career Timeline</div>
                     <div class="timeline">
-                        <div class="timeline-item internship">
-                            <div class="timeline-year">June - Sept. 2026 (Upcoming)</div>
-                            <div class="timeline-content">
-                                <span class="timeline-org">✈️Air France Industries KLM E&M</span>
-                                <span class="timeline-desc">Mechanical Engineering Intern - Engine Overhaul Department</span>
-                            </div>
-                        </div>
-                        <div class="timeline-item university">
+                        <div class="timeline-item">
                             <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
-                            <div class="timeline-content">
-                                <span class="timeline-org">University of Technology Malaysia (UTM)</span>
-                                <span class="timeline-desc">Mecanichal Engineering (aeronautical) - Exchange Semester</span>
-                            </div>
+                            <div class="timeline-content">Mecanichal Engineering (aeronautical) - University of Technology Malaysia</div>
                         </div>
-                        <div class="timeline-item ongoing">
+                        <div class="timeline-item">
                             <div class="timeline-year">2022 - 2027</div>
-                            <div class="timeline-content">
-                                <span class="timeline-org">Institut Polytechnique des Sciences Avancées (IPSA)</span>
-                                <span class="timeline-desc">Aeronautical & Aerospace Engineering Degree</span>
-                            </div>
+                            <div class="timeline-content">Aeronautical & Aerospace Engineering - Institut Polytechnique des Sciences Avancées (IPSA)</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2019 - 2022</div>
+                            <div class="timeline-content">Scientific Baccalaureate - Guillaume Apollinaire High School</div>
                         </div>
                     </div>
                 </div>
@@ -1258,7 +1258,8 @@
     </header>
 
     <div class="main-content">
-        <!-- TP and Projects Grid -->
+
+        <!-- Row 1: TP + Projects -->
         <div class="projects-grid fade-in delay-2">
             <!-- Practical Work Block -->
             <div class="project-block" onclick="openModal('tp')">
@@ -1272,6 +1273,8 @@
                 </div>
             </div>
 
+            <div class="separator"></div>
+
             <!-- Projects Block -->
             <div class="project-block" onclick="openModal('projects')">
                 <div class="section-title">Projects</div>
@@ -1281,6 +1284,35 @@
                         <h3>My Most Notable Projects</h3>
                     </div>
                     <div class="project-count" id="project-count"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: R&D + Books -->
+        <div class="projects-grid-4 fade-in delay-2">
+            <!-- R&D Block -->
+            <div class="project-block" onclick="openModal('research')">
+                <div class="section-title">R&amp;D / Research</div>
+                <div class="project-content">
+                    <div class="project-image-rd">🔬</div>
+                    <div class="project-text">
+                        <h3>Research & Development</h3>
+                    </div>
+                    <div class="project-count" id="research-count"></div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Books Block -->
+            <div class="project-block" onclick="openModal('books')">
+                <div class="section-title">Reading List</div>
+                <div class="project-content">
+                    <div class="project-image-books">📚</div>
+                    <div class="project-text">
+                        <h3>Books I've Read</h3>
+                    </div>
+                    <div class="project-count" id="books-count"></div>
                 </div>
             </div>
         </div>
@@ -1307,6 +1339,21 @@
             </div>
         </section>
 
+        <!-- Timeline Section (hidden, kept for reference) -->
+        <section class="section timeline-section fade-in delay-3">
+            <div class="section-title">Career Timeline</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Sept. 2022 - Aug. 2027</div>
+                    <div class="timeline-content">Aeronautical & Aerospace Engineering - Polytechnic Institute of Advanced Sciences (IPSA)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
+                    <div class="timeline-content">Mechanical Engineering (Aeronautics) - University of Technology Malaysia</div>
+                </div>
+            </div>
+        </section>
+
         <!-- Future Projects Section -->
         <section class="section fade-in delay-4">
             <div class="section-title-container">
@@ -1318,22 +1365,18 @@
             </div>
             <div class="future-projects-carousel">
                 <div class="future-projects-list">
-                    
                     <div class="future-project-card">
                         <h3>Computational Mechanics & FEA</h3>
                         <p>Mastering industry-standard tools (Ansys, Patran/Nastran, Solidworks, Abaqus...) to enhance proficiency in Finite Element Method (FEM), complex modeling, and structural data processing.</p>
                     </div>
-            
                     <div class="future-project-card">
                         <h3>AI Applied to Engineering</h3>
                         <p>Expanding expertise into Artificial Intelligence (Machine Learning, Deep Learning, Computer Vision). Goal: Develop a first applied project bridging mechanical engineering concepts with data-driven solutions.</p>
                     </div>
-            
                     <div class="future-project-card">
                         <h3>Generative Design & Optimization</h3>
                         <p>Exploring the synergy between algorithms and mechanics. Researching topology optimization to create lightweight, high-performance aerospace structures that defy traditional manufacturing constraints.</p>
                     </div>
-
                     <div class="future-project-card">
                         <h3>Materials Science & Composites</h3>
                         <p>Deep dive into advanced composite materials, their manufacturing processes (e.g., AFP), and non-destructive testing (NDT) methods for aerospace applications.</p>
@@ -1375,7 +1418,7 @@
         </div>
     </div>
 
-    <!-- Modal for Projets -->
+    <!-- Modal for Projects -->
     <div id="projectsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1385,6 +1428,33 @@
             <div class="modal-body">
                 <div class="filter-buttons" id="projectsFilters"></div>
                 <ul class="item-list" id="projectsList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for R&D -->
+    <div id="researchModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>R&amp;D / Research</h2>
+                <span class="close" onclick="closeModal('research')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="filter-buttons" id="researchFilters"></div>
+                <ul class="item-list" id="researchList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Books -->
+    <div id="booksModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reading List</h2>
+                <span class="close" onclick="closeModal('books')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <ul class="item-list" id="booksList"></ul>
             </div>
         </div>
     </div>
@@ -1402,10 +1472,6 @@
         </div>
     </div>
 
-    <!-- ADD MISSING MODALS -->
-    <div id="researchModal" class="modal"><div class="modal-content"><div class="modal-header"><h2>R&D Projects</h2><span class="close" onclick="closeModal('research')">&times;</span></div><div class="modal-body"><div class="filter-buttons" id="researchFilters"></div><ul class="item-list" id="researchList"></ul></div></div></div>
-    <div id="booksModal" class="modal"><div class="modal-content"><div class="modal-header"><h2>Reading List</h2><span class="close" onclick="closeModal('books')">&times;</span></div><div class="modal-body"><ul class="item-list" id="booksList"></ul></div></div></div>
-
     <!-- Easter Egg -->
     <div class="easter-egg" id="easterEgg">
         <p>🎉 You found the easter egg!</p>
@@ -1414,13 +1480,16 @@
     </div>
 
     <script>
-        // Data structure for TPs
+        // =====================================================
+        // DATA
+        // =====================================================
+
         const tpData = [
             { 
                 name: "(ENG) Parameterization of a Light Bulb Assembly", 
                 year: "4th year", 
                 tools: "CATIA V5R19",
-                description: "The primary objective of this practical work is to transition from traditional static CAD modeling to Knowledge-Based Engineering (KBE) by designing a smart, adaptive light bulb assembly. ",
+                description: "The primary objective of this practical work is to transition from traditional static CAD modeling to Knowledge-Based Engineering (KBE) by designing a smart, adaptive light bulb assembly.",
                 pdf: "projets/CAO_TP2.pdf", 
                 image: "images/bulb.png" 
             },
@@ -1428,11 +1497,10 @@
                 name: "(FR) NACA 0012 CFD Analysis", 
                 year: "3rd year", 
                 tools: "StarCCM+",
-                description: "The objective of this practical assignment is to study the aerodynamic behavior of a NACA0012 profile using STAR CCM+ simulation software. By varying the angle of incidence, we seek to analyze the evolution of the lift coefficient and determine the stall angle. This study provides a better understanding of the relationship between the airflow around the profile and the forces generated.",
+                description: "The objective of this practical assignment is to study the aerodynamic behavior of a NACA0012 profile using STAR CCM+ simulation software. By varying the angle of incidence, we seek to analyze the evolution of the lift coefficient and determine the stall angle.",
                 pdf: "projets/3VEa_20250512_CHENNAOUI_Rayan_NACA.pdf", 
                 image: "images/cfd1.png" 
             },
-    
             { 
                 name: "(FR) Thermodynamics Study: Steam Cycles Rankine/Hirn", 
                 year: "3rd year", 
@@ -1505,91 +1573,14 @@
                 pdf: "projets/Mf421_TP_LAVAL_RAYAN_CHENNAOUI.pdf", 
                 image: "images/ln.png" 
             }
-            
         ];
 
-        // Data structure for R&D and Tech Projects
-        const researchData = [
-            {
-                name: "(ENG) Physics-Informed Neural Networks for Solving the Schrödinger Equation",
-                year: "4th year",
-                tools: "Python, PyTorch, PINNs",
-                description: "Investigation of translational symmetry breaking in quantum tunneling using Physics-Informed Neural Networks (PINNs). The network is trained to solve the Schrödinger equation by minimizing a physics-based loss function, reconstructing wave functions across potential barriers without traditional mesh-based solvers.",
-                pdf: "projets/QM_Article.pdf",
-                image: "images/pinn.png"
-            },
-            {
-                name: "(FR) Applied Data Science Project: Statistical Analysis",
-                year: "3rd year",
-                tools: "Python",
-                description: "This project applies univariate, bivariate, and multivariate statistical methods to real-world datasets to extract meaningful insights. It covers topics such as regression, correlation analysis, confidence intervals, and statistical modeling, with applications ranging from agricultural data to aircraft performance analysis.",
-                pdf: "projets/PROJET___SCIENCE_DES_DONNEES (3) (1).pdf",
-                image: "images/sdd.png"
-            },
-            {
-                name: "(FR) Modeling and Control of an Elevator Actuation System (A380)",
-                year: "2nd year",
-                tools: "Matlab",
-                description: "This project focused on the modeling, simulation, and optimization of a hydraulic actuator controlling the elevator of the Airbus A380. The system was implemented in MATLAB Simulink using block-diagram representations derived from Laplace-domain modeling, first without and then with aerodynamic effects. Control parameters were tuned to meet stability, precision, and performance requirements, providing a realistic representation of an industrial flight control system.",
-                pdf: "projets/2pc2_projet1_BEAUCLAIR_CHENNAOUI.pdf",
-                image: "images/m.png"
-            }
-        ];
-
-        // Data structure for Library/Books
-        const booksData = [
-            {
-                title: "Deep Work",
-                author: "Cal Newport",
-                description: "Rules for focused success in a distracted world.",
-                review: "Essential for engineering students.",
-                image: "images/book1.jpg"
-            },
-            {
-                title: "The Martian",
-                author: "Andy Weir",
-                description: "An astronaut is stranded on Mars and must use his ingenuity to survive.",
-                review: "A fantastic blend of science and survival.",
-                image: "images/the_martian.jpg"
-            },
-            {
-                title: "Cosmos",
-                author: "Carl Sagan",
-                description: "A journey through space and time, exploring the universe and our place in it.",
-                review: "Inspiring and thought-provoking.",
-                image: "images/cosmos.jpg"
-            }
-        ];
-
-        // Data for Work in Progress
-        const wipData = [
-            {
-                name: "UAV Stability Derivatives Analysis",
-                description: "Stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods are being tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by using XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.",
-                progress: 60, // Percentage
-                images: ["images/uavwip.png", "images/uav.png"] // Example with 2 images
-            },
-            {
-                name: "Bench Vise (CAD & FEM)",
-                description: "After 3 years of modeling experience with CATIA, this upcoming project aims to master the SolidWorks environment through the complete design of a mechanical assembly. I intend to integrate Ansys (new experience) for Finite Element Analysis (FEA) to establish a comprehensive validation workflow and demonstrate compatibility between these industry-standard tools.",
-                progress: 1, // Percentage
-                images: ["images/bv.png"] // Example with 2 images
-            },
-            {
-                name: "Scientific Machine Learning (SciML)",
-                description: "Deep dive into the bridge between classical physics and AI. Currently implementing core optimization algorithms, from Maximum Likelihood Estimation to Newton-Raphson methods, with the ultimate goal of developing Physics-Informed Neural Networks (PINNs) for structural mechanics and fluid dynamics.",
-                progress: 5, // Percentage
-                images: ["images/grad.jpg"]
-            },
-        
-        ];
-        // Data structure for Projects UPLOAD
         const projectsData = [
             { 
                 name: "(ENG) UAV Stability Derivatives Analysis", 
                 year: "4th year", 
                 tools: "XFLR5, CATIA V5, OpenVSP, Matlab",
-                description: "This report presents the aerodynamic and stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods were tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by isolating wing and tail components in XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.",
+                description: "This report presents the aerodynamic and stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods were tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5.",
                 pdf: "projets/UAV_Report_2_FDAC.pdf", 
                 image: "images/uav.png" 
             },
@@ -1597,7 +1588,7 @@
                 name: "(FR) Applied Data Science Project: Statistical Analysis", 
                 year: "3rd year", 
                 tools: "Python",
-                description: "This project applies univariate, bivariate, and multivariate statistical methods to real-world datasets to extract meaningful insights. It covers topics such as regression, correlation analysis, confidence intervals, and statistical modeling, with applications ranging from agricultural data to aircraft performance analysis.",
+                description: "This project applies univariate, bivariate, and multivariate statistical methods to real-world datasets to extract meaningful insights.",
                 pdf: "projets/PROJET___SCIENCE_DES_DONNEES (3) (1).pdf", 
                 image: "images/sdd.png" 
             },
@@ -1605,7 +1596,7 @@
                 name: "CAO: CATIA Design of a Complete Aircraft Rudder Pedal Assembly", 
                 year: "2nd year", 
                 tools: "Catia V5",
-                description: "This project involved the complete mechanical design of an aircraft rudder pedal (palonnier) using CATIA, from individual parts to the full assembly. The work focused on kinematic coherence, structural integrity, and realistic integration of mechanical constraints typical of aeronautical systems.",
+                description: "This project involved the complete mechanical design of an aircraft rudder pedal (palonnier) using CATIA, from individual parts to the full assembly.",
                 pdf: "projets/PF_RAYAN.pdf", 
                 image: "images/cao.png" 
             },
@@ -1613,7 +1604,7 @@
                 name: "(FR) CAO: CATIA Design of a Mirage 2000 wing", 
                 year: "3rd year", 
                 tools: "Catia V5",
-                description: "This project focused on the complete design of a Mirage 2000 wing in CATIA, including functional elevons, leading-edge slats, and an airbrake system. Emphasis was placed on realistic kinematics, aerodynamic coherence, and accurate integration of control surfaces within a delta-wing configuration.",
+                description: "This project focused on the complete design of a Mirage 2000 wing in CATIA, including functional elevons, leading-edge slats, and an airbrake system.",
                 pdf: "projets/MIRAGE 2000 (1).pdf", 
                 image: "images/cao2.png" 
             },
@@ -1621,7 +1612,7 @@
                 name: "(FR) GoPiGo Robot for Area Measurement (0,1% uncertainty)", 
                 year: "2nd year", 
                 tools: "Python, GoPiGo",
-                description: "This project involved the design and programming of a GoPiGo autonomous robot to estimate surface areas through controlled motion and sensor data acquisition. A full uncertainty analysis was conducted, achieving a measurement precision of up to 0.1%. The work combined robotics, data processing, and error propagation to ensure reliable and repeatable results. The robot was programmed within an isolated embedded Linux environment, accessed remotely via SSH, allowing direct Python development and execution on the GoPiGo platform.",
+                description: "This project involved the design and programming of a GoPiGo autonomous robot to estimate surface areas through controlled motion and sensor data acquisition.",
                 pdf: "projets/GRAND PROJET - GOPIGO.pdf", 
                 image: "images/gpg.png" 
             },
@@ -1629,7 +1620,7 @@
                 name: "(FR) Thermodynamic Analysis of Vapor Compression Refrigeration Systems", 
                 year: "3rd year", 
                 tools: "SOLKANE Software 8.0",
-                description: "This project involved the detailed thermodynamic study of several vapor compression refrigeration cycles, including single-stage, heat exchanger-assisted, and two-stage configurations. The performance of each system was analyzed through analytical calculations and graphical representations (Mollier and T–s diagrams), and validated using Solkane simulation software. The study highlighted the impact of system architecture on energy efficiency, coefficient of performance (COP), and overall thermal behavior.",
+                description: "This project involved the detailed thermodynamic study of several vapor compression refrigeration cycles, including single-stage, heat exchanger-assisted, and two-stage configurations.",
                 pdf: "projets/BE2_CHENNAOUI_KASHANI_Aero3PVE.pdf", 
                 image: "images/solk.png" 
             },
@@ -1637,7 +1628,7 @@
                 name: "(FR) Modeling and Control of an Elevator Actuation System (A380)", 
                 year: "2nd year", 
                 tools: "Matlab",
-                description: "This project focused on the modeling, simulation, and optimization of a hydraulic actuator controlling the elevator of the Airbus A380. The system was implemented in MATLAB Simulink using block-diagram representations derived from Laplace-domain modeling, first without and then with aerodynamic effects. Control parameters were tuned to meet stability, precision, and performance requirements, providing a realistic representation of an industrial flight control system.",
+                description: "This project focused on the modeling, simulation, and optimization of a hydraulic actuator controlling the elevator of the Airbus A380.",
                 pdf: "projets/2pc2_projet1_BEAUCLAIR_CHENNAOUI.pdf", 
                 image: "images/m.png" 
             },
@@ -1645,7 +1636,7 @@
                 name: "(FR) Innovative Railway Noise Reduction Project", 
                 year: "2nd year", 
                 tools: "Office, Python, Catia V5, Noisetools",
-                description: "In this project, we developed advanced noise barriers combining active noise cancellation and high-performance materials to reduce railway sound pollution. The project focuses on improving residents’ quality of life in densely populated areas near train tracks.",
+                description: "In this project, we developed advanced noise barriers combining active noise cancellation and high-performance materials to reduce railway sound pollution.",
                 pdf: "projets/PIG-Barriere_innovante_contre_les_nuisances_sonores_ferroviaires.pdf", 
                 image: "images/pig.png" 
             },
@@ -1653,20 +1644,64 @@
                 name: "(ENG) Physics-Informed Neural Networks for Solving the Schrödinger Equation", 
                 year: "4th year", 
                 tools: "Python, PyTorch, PINNs",
-                description: "Investigation of translational symmetry breaking in quantum tunneling using Physics-Informed Neural Networks (PINNs). The network is trained to solve the Schrödinger equation by minimizing a physics-based loss function, reconstructing wave functions across potential barriers without traditional mesh-based solvers.",
+                description: "Investigation of translational symmetry breaking in quantum tunneling using Physics-Informed Neural Networks (PINNs).",
                 pdf: "projets/QM_Article.pdf", 
                 image: "images/pinn.png" 
             }
-            
         ];
 
-        // Data for Personal Projects
+        // R&D data — placeholder, add your entries here
+        const researchData = [
+            // Example entry (uncomment and fill when ready):
+            // {
+            //     name: "My Research Topic",
+            //     year: "4th year",
+            //     tools: "Tool1, Tool2",
+            //     description: "Description of the research.",
+            //     pdf: "projets/my_research.pdf",
+            //     image: "images/research.png"
+            // }
+        ];
+
+        // Books data — placeholder, add your entries here
+        const booksData = [
+            // Example entry (uncomment and fill when ready):
+            // {
+            //     title: "Book Title",
+            //     author: "Author Name",
+            //     description: "What the book is about.",
+            //     review: "Your personal take on the book.",
+            //     image: "images/book_cover.png"
+            // }
+        ];
+
+        const wipData = [
+            {
+                name: "UAV Stability Derivatives Analysis",
+                description: "Stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods are being tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by using XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.",
+                progress: 60,
+                images: ["images/uavwip.png", "images/uav.png"]
+            },
+            {
+                name: "Bench Vise (CAD & FEM)",
+                description: "After 3 years of modeling experience with CATIA, this upcoming project aims to master the SolidWorks environment through the complete design of a mechanical assembly. I intend to integrate Ansys (new experience) for Finite Element Analysis (FEA) to establish a comprehensive validation workflow.",
+                progress: 1,
+                images: ["images/bv.png"]
+            },
+            {
+                name: "Scientific Machine Learning (SciML)",
+                description: "Deep dive into the bridge between classical physics and AI. Currently implementing core optimization algorithms, from Maximum Likelihood Estimation to Newton-Raphson methods, with the ultimate goal of developing Physics-Informed Neural Networks (PINNs) for structural mechanics and fluid dynamics.",
+                progress: 5,
+                images: ["images/grad.jpg"]
+            }
+        ];
+
         const personalProjectsData = [
             {
                 name: "President of BeHard eSport",
                 description: "As president of the BeHard eSport association, I led a team of more than 40 members, managed a budget, and organized multiple gaming tournaments and events for the student community. This role developed my leadership, project management, and communication skills.",
-                images: ["images/jersey.png", "images/collection.png"], // Example with 2 images
-                pdf: "projets/doss_mark.pdf", // Placeholder PDF
+                images: ["images/jersey.png", "images/collection.png"],
+                pdf: "projets/doss_mark.pdf",
                 skills: ["Leadership", "Project Management", "Budgeting", "Event Organization", "Teamwork", "Communication"],
                 details: [
                     { label: "Cash Prize Won", value: "10k/20k$" },
@@ -1677,9 +1712,10 @@
             },
             {
                 name: "Mental Health App & Website",
-                description: "Design and development of a mobile application focused on mood and habit tracking, alongside the creation of a responsive website to present the product and collect early user feedback. The project covers the full process from UX thinking and visual identity to front/back-end development, beta testing setup, and user feedback analysis.",
-                images: ["images/app2.png", "images/app.png"], // Example with 2 images // Placeholder PDF
-                skills: ["UX/UI design", "Teamwork","Communication",  "Feedback collection & analysis", "Translate needs into concrete features"],
+                description: "Design and development of a mobile application focused on mood and habit tracking, alongside the creation of a responsive website to present the product and collect early user feedback.",
+                images: ["images/app2.png", "images/app.png"],
+                pdf: null,
+                skills: ["UX/UI design", "Teamwork", "Communication", "Feedback collection & analysis", "Translate needs into concrete features"],
                 details: [
                     { label: "Beta Testers", value: "20+" },
                     { label: "Tech Stack", value: "Swift, Brevo, Firebase" },
@@ -1688,9 +1724,9 @@
             },
             {
                 name: "Ecological Commitment",
-                description: "My commitment to sustainability started in high school by founding an ecological association: we implemented waste sorting in the cafeteria, introduced animals to the playground for biodiversity, and designed a solar-powered autonomous classroom. Today, I am a trained and certified facilitator for the 'Climate Fresco' and 'Aeronautical Fresco,' conducting awareness workshops for students and corporate teams.",
-                images: ["images/fresque.jpg"], // Remplace par tes vraies images
-                pdf: null, // Mettre un lien si tu as un diplôme/certificat, sinon null
+                description: "My commitment to sustainability started in high school by founding an ecological association: we implemented waste sorting in the cafeteria, introduced animals to the playground for biodiversity, and designed a solar-powered autonomous classroom. Today, I am a trained and certified facilitator for the 'Climate Fresco' and 'Aeronautical Fresco.'",
+                images: ["images/fresque.jpg"],
+                pdf: null,
                 skills: ["Public Speaking", "Workshop Facilitation", "Sustainability Strategy", "Environmental Awareness", "Leadership"],
                 details: [
                     { label: "Certifications", value: "Climate & Aero Fresco" },
@@ -1698,19 +1734,23 @@
                     { label: "HS Projects", value: "Solar Class & Bio-zone" },
                     { label: "Role", value: "Founder & Facilitator" }
                 ]
-            },
+            }
         ];
 
+        // =====================================================
+        // STATE
+        // =====================================================
         let currentFilter = 'all';
 
-        // Fonction pour trier les données de la 4ème à la 1ère année
         const sortByYearDesc = (a, b) => {
-            const yearA = parseInt(a.year); // Extrait "4" de "4th year"
+            const yearA = parseInt(a.year);
             const yearB = parseInt(b.year);
-            return yearB - yearA; // Tri décroissant
+            return yearB - yearA;
         };
-        
-                
+
+        // =====================================================
+        // MODAL LOGIC
+        // =====================================================
         function openModal(type) {
             if (type === 'cv') {
                 const modal = document.getElementById('cvModal');
@@ -1720,42 +1760,49 @@
                 return;
             }
 
-            // Handle books modal separately as it doesn't have filters and uses renderBooks
-            if (type === 'books') { // Books modal does not have filters
+            if (type === 'books') {
                 const modal = document.getElementById('booksModal');
-                renderBooks(booksData); // Call specific render function for books
+                renderBooks(booksData);
                 modal.classList.add('show');
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 return;
             }
 
-            let modalId, listId, filterId, rawData;
+            let modalId = 'projectsModal';
+            let listId = 'projectsList';
+            let filterId = 'projectsFilters';
+            let rawData = projectsData;
+
             if (type === 'tp') {
                 modalId = 'tpModal'; listId = 'tpList'; filterId = 'tpFilters'; rawData = tpData;
-            } else if (type === 'projects') {
-                modalId = 'projectsModal'; listId = 'projectsList'; filterId = 'projectsFilters'; rawData = projectsData;
-            } else if (type === 'research') { // New type for R&D
+            } else if (type === 'research') {
                 modalId = 'researchModal'; listId = 'researchList'; filterId = 'researchFilters'; rawData = researchData;
-            } else {
-                console.error("Unknown modal type:", type);
-                return;
             }
 
             const modal = document.getElementById(modalId);
-            const list = document.getElementById(listId);
             const filterContainer = document.getElementById(filterId);
 
-            const data = [...rawData].sort(sortByYearDesc); // Sort data for display and filter buttons
-
-            // Create filter buttons
+            const data = [...rawData].sort(sortByYearDesc);
             const years = [...new Set(data.map(item => item.year))];
+
             filterContainer.innerHTML = '<button class="filter-btn active" onclick="filterItems(\'' + type + '\', \'all\')">All</button>';
             years.forEach(year => {
                 filterContainer.innerHTML += '<button class="filter-btn" onclick="filterItems(\'' + type + '\', \'' + year + '\')">' + year + '</button>';
             });
 
-            renderItems(type, data); // Use generic renderItems for tp, projects, research
+            // Show empty state if no data yet
+            if (data.length === 0) {
+                const listEl = document.getElementById(listId);
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">${type === 'research' ? '🔬' : '📚'}</div>
+                        <p>Coming soon — content will be added here.</p>
+                    </div>
+                `;
+            } else {
+                renderItems(type, data);
+            }
 
             modal.classList.add('show');
             modal.style.display = 'block';
@@ -1763,17 +1810,20 @@
         }
 
         function renderItems(type, data) {
-            let listId;
+            let listId = 'projectsList';
             if (type === 'tp') listId = 'tpList';
-            else if (type === 'projects') listId = 'projectsList';
-            else if (type === 'research') listId = 'researchList'; // New type
-            else { console.error("Unknown renderItems type:", type); return; }
+            if (type === 'research') listId = 'researchList';
 
             const list = document.getElementById(listId);
             const filteredData = currentFilter === 'all' ? data : data.filter(item => item.year === currentFilter);
-            
+
             list.innerHTML = '';
-            
+
+            if (filteredData.length === 0) {
+                list.innerHTML = `<div class="empty-state"><div class="empty-icon">🔬</div><p>Coming soon — content will be added here.</p></div>`;
+                return;
+            }
+
             filteredData.forEach(item => {
                 const li = document.createElement('li');
                 li.className = 'item';
@@ -1802,60 +1852,111 @@
 
         function filterItems(type, year) {
             currentFilter = year;
-            let data;
-            let filterContainerId;
-            if (type === 'tp') { data = tpData; filterContainerId = 'tpFilters'; }
-            else if (type === 'projects') { data = projectsData; filterContainerId = 'projectsFilters'; }
-            else if (type === 'research') { data = researchData; filterContainerId = 'researchFilters'; } // New type
-            else { console.error("Unknown filterItems type:", type); return; }
 
-            const filterContainer = document.getElementById(filterContainerId);
+            let data = projectsData;
+            let filterId = 'projectsFilters';
+            if (type === 'tp') { data = tpData; filterId = 'tpFilters'; }
+            else if (type === 'research') { data = researchData; filterId = 'researchFilters'; }
 
-            // Update active button (event.target is not always reliable, but for this simple case it works)
+            const filterContainer = document.getElementById(filterId);
             const buttons = filterContainer.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            
+
             renderItems(type, data);
         }
 
-        // New function to render books
         function renderBooks(data) {
             const list = document.getElementById('booksList');
             list.innerHTML = '';
+
+            if (data.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📚</div>
+                        <p>Coming soon — reading list will be added here.</p>
+                    </div>
+                `;
+                return;
+            }
+
             data.forEach(item => {
                 const li = document.createElement('li');
-                li.className = 'item'; // Re-use existing item styling for overall structure
+                li.className = 'item';
                 li.innerHTML = `
                     <div class="item-content">
                         <div class="book-image" style="background-image: url('${item.image}');"></div>
                         <div class="item-info">
                             <div class="item-name">${item.title}</div>
-                            <div class="book-author">${item.author}</div>
+                            <div class="book-author">By ${item.author}</div>
                             <div class="item-description">
-                                ${item.description}
-                                <div class="book-review">${item.review}</div>
+                                <strong>Description:</strong> ${item.description}
+                                <div class="book-review">" ${item.review} "</div>
                             </div>
+                        </div>
                     </div>
-                    <!-- No buttons for books as per request -->
                 `;
                 list.appendChild(li);
             });
         }
 
+        function closeModal(type) {
+            const modalMap = {
+                cv: 'cvModal',
+                tp: 'tpModal',
+                projects: 'projectsModal',
+                research: 'researchModal',
+                books: 'booksModal'
+            };
+
+            const modalId = modalMap[type];
+            if (!modalId) return;
+
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 400);
+            document.body.style.overflow = '';
+            currentFilter = 'all';
+        }
+
+        function viewPDF(filename) {
+            window.open(filename, '_blank');
+        }
+
+        function downloadPDF(filename) {
+            const link = document.createElement('a');
+            link.href = filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            ['tpModal', 'projectsModal', 'cvModal', 'researchModal', 'booksModal'].forEach(id => {
+                const modal = document.getElementById(id);
+                if (modal && event.target === modal) {
+                    const type = id.replace('Modal', '');
+                    closeModal(type === 'tp' ? 'tp' : type === 'projects' ? 'projects' : type === 'cv' ? 'cv' : type === 'research' ? 'research' : 'books');
+                }
+            });
+        };
+
+        // =====================================================
+        // CAROUSEL HELPERS
+        // =====================================================
         function navigateCardCarousel(button, direction) {
             const wrapper = button.closest('.wip-project-image, .personal-project-image');
             const carousel = wrapper.querySelector('.card-image-carousel');
             const totalImages = carousel.children.length;
-            
-            let currentIndex = parseInt(carousel.dataset.index || '0');
 
+            let currentIndex = parseInt(carousel.dataset.index || '0');
             if (direction === 'next') {
                 currentIndex = (currentIndex + 1) % totalImages;
             } else {
                 currentIndex = (currentIndex - 1 + totalImages) % totalImages;
             }
-
             carousel.dataset.index = currentIndex;
             const imageWidth = wrapper.clientWidth;
             carousel.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
@@ -1863,26 +1964,17 @@
 
         function createImageCarouselHTML(images) {
             if (!images || images.length === 0) {
-                return '<div class="card-image"></div>'; // Return empty div with placeholder background
+                return '<div class="card-image"></div>';
             }
-
-            const imageSlides = images.map(img => 
+            const imageSlides = images.map(img =>
                 `<div class="card-image" style="background-image: url('${img}')"></div>`
             ).join('');
-
-            const carouselHTML = `
-                <div class="card-image-carousel" data-index="0">
-                    ${imageSlides}
-                </div>
-            `;
-
+            const carouselHTML = `<div class="card-image-carousel" data-index="0">${imageSlides}</div>`;
             const controlsHTML = images.length > 1 ? `
                 <div class="card-carousel-controls">
                     <button class="card-carousel-btn" onclick="navigateCardCarousel(this, 'prev')">‹</button>
                     <button class="card-carousel-btn" onclick="navigateCardCarousel(this, 'next')">›</button>
-                </div>
-            ` : '';
-
+                </div>` : '';
             return carouselHTML + controlsHTML;
         }
 
@@ -1891,11 +1983,14 @@
             slider.style.transform = `translateX(-${pageIndex * 50}%)`;
         }
 
+        // =====================================================
+        // RENDER FUNCTIONS
+        // =====================================================
         function renderWipProjects() {
             const list = document.getElementById('wip-list');
             if (!list) return;
             list.innerHTML = '';
-            wipData.forEach((item, index) => {
+            wipData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'wip-project-card';
                 card.innerHTML = `
@@ -1918,38 +2013,30 @@
             const list = document.getElementById('personal-projects-list');
             if (!list) return;
             list.innerHTML = '';
-            personalProjectsData.forEach((item, index) => {
+            personalProjectsData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'personal-project-card';
-
                 const skillsHtml = item.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('');
                 const detailsHtml = item.details ? item.details.map(d => `<li><strong>${d.label}:</strong> ${d.value}</li>`).join('') : '';
-
                 card.innerHTML = `
                     <div class="personal-project-image">
                         ${createImageCarouselHTML(item.images)}
                     </div>
                     <div class="pp-slider-wrapper">
                         <div class="pp-slider">
-                            <!-- Page 1 -->
                             <div class="pp-page">
                                 <h3>${item.name}</h3>
                                 <p>${item.description}</p>
                                 <button class="more-details-btn" onclick="slideProjectCard(this, 1)">More Details &rarr;</button>
                                 <strong>Skills Acquired:</strong>
-                                <ul class="skills-list">
-                                    ${skillsHtml}
-                                </ul>
+                                <ul class="skills-list">${skillsHtml}</ul>
                                 <div class="personal-project-buttons" style="margin-top: auto;">
                                     ${item.pdf ? `<button class="view-btn" onclick="viewPDF('${item.pdf}')">View Document</button>` : ''}
                                 </div>
                             </div>
-                            <!-- Page 2 -->
                             <div class="pp-page">
                                 <h3>Project Details</h3>
-                                <ul class="details-list" style="list-style: none; padding: 0;">
-                                    ${detailsHtml}
-                                </ul>
+                                <ul class="details-list" style="list-style: none; padding: 0;">${detailsHtml}</ul>
                                 <button class="more-details-btn" style="margin-top: auto;" onclick="slideProjectCard(this, 0)">&larr; Back</button>
                             </div>
                         </div>
@@ -1959,116 +2046,38 @@
             });
         }
 
-        function closeModal(type) {
-            let modalElement;
-            if (type === 'cv') {
-                modalElement = document.getElementById('cvModal');
-            } else if (type === 'tp') {
-                modalElement = document.getElementById('tpModal');
-            } else if (type === 'projects') {
-                modalElement = document.getElementById('projectsModal');
-            } else if (type === 'research') {
-                modalElement = document.getElementById('researchModal');
-            } else if (type === 'books') {
-                modalElement = document.getElementById('booksModal');
-            } else {
-                console.error("Unknown modal type for closing:", type);
-                return;
-            }
-
-            if (modalElement) {
-                modalElement.classList.remove('show');
-                setTimeout(() => modalElement.style.display = 'none', 400);
-                document.body.style.overflow = '';
-                // Reset filter for relevant modals, if applicable
-                if (type === 'tp' || type === 'projects' || type === 'research') {
-                    currentFilter = 'all';
-                }
-            }
-        }
-
-        function viewPDF(filename) {
-            window.open(filename, '_blank');
-        }
-
-        function downloadPDF(filename) {
-            const link = document.createElement('a');
-            link.href = filename;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const tpModal = document.getElementById('tpModal');
-            const projectsModal = document.getElementById('projectsModal');
-            const cvModal = document.getElementById('cvModal');
-            const researchModal = document.getElementById('researchModal');
-            const booksModal = document.getElementById('booksModal');
-            if (event.target === tpModal) {
-                closeModal('tp');
-            }
-            if (event.target === projectsModal) {
-                closeModal('projects');
-            }
-            if (event.target === cvModal) {
-                closeModal('cv');
-            }
-            // Add closing logic for research and books modals
-            if (event.target === researchModal) {
-                closeModal('research');
-            }
-            if (event.target === booksModal) {
-                closeModal('books');
-            }
-
-        }
-
-        // Add an EventListener for the Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape") {
-                closeModal('tp');
-                closeModal('projects');
-                closeModal('cv');
-                closeModal('research');
-                closeModal('books');
-            }
-        });
+        // =====================================================
+        // DOM READY
+        // =====================================================
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('tp-count').textContent = `${tpData.length} documents`;
             document.getElementById('project-count').textContent = `${projectsData.length} documents`;
-            document.getElementById('research-count').textContent = `${researchData.length} documents`;
-            document.getElementById('books-count').textContent = `${booksData.length} items`;
+            document.getElementById('research-count').textContent = researchData.length > 0 ? `${researchData.length} documents` : 'Coming soon';
+            document.getElementById('books-count').textContent = booksData.length > 0 ? `${booksData.length} books` : 'Coming soon';
+
             renderWipProjects();
             renderPersonalProjects();
-
-            // Sync counts for new action bars
-            document.getElementById('research-count-bar').textContent = researchData.length;
-            document.getElementById('books-count-bar').textContent = booksData.length;
 
             const emailBtn = document.getElementById('email-btn');
             if (emailBtn) {
                 emailBtn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent mailto link
+                    e.preventDefault();
                     const email = 'rayan.chennaoui@ipsa.fr';
-                    
-                    // Copy to clipboard and update button
                     navigator.clipboard.writeText(email).then(() => {
                         emailBtn.innerHTML = '<span>✅</span> Copied!';
                         setTimeout(() => {
                             emailBtn.innerHTML = '<span>📧</span> ' + email;
                         }, 2000);
-                    }).catch(err => {
+                    }).catch(() => {
                         emailBtn.innerHTML = '<span>📧</span> ' + email;
                     });
                 });
             }
         });
 
-
-        // Progress Bar
+        // =====================================================
+        // SCROLL PROGRESS BAR
+        // =====================================================
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -2076,7 +2085,9 @@
             document.querySelector('.progress-bar').style.width = scrolled + '%';
         });
 
-        // Particles Animation
+        // =====================================================
+        // PARTICLES
+        // =====================================================
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -2093,17 +2104,14 @@
                 this.speedX = Math.random() * 0.5 - 0.25;
                 this.speedY = Math.random() * 0.5 - 0.25;
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
                 if (this.y < 0) this.y = canvas.height;
             }
-
             draw() {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                 ctx.beginPath();
@@ -2112,22 +2120,13 @@
             }
         }
 
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
-
-        init();
         animate();
 
         window.addEventListener('resize', () => {
@@ -2135,40 +2134,30 @@
             canvas.height = window.innerHeight;
         });
 
-        // Carousel controls for Future Projects
+        // =====================================================
+        // CAROUSELS
+        // =====================================================
         const scrollContainer = document.querySelector('.future-projects-carousel');
         const scrollLeftBtn = document.getElementById('scroll-left');
         const scrollRightBtn = document.getElementById('scroll-right');
-
         if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
-            scrollLeftBtn.addEventListener('click', () => {
-                scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
-            });
-
-            scrollRightBtn.addEventListener('click', () => {
-                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-            });
+            scrollLeftBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: -350, behavior: 'smooth' }));
+            scrollRightBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: 350, behavior: 'smooth' }));
         }
 
-        // Carousel controls for Work in Progress
         const wipScrollContainer = document.querySelector('.wip-projects-carousel');
         const wipScrollLeftBtn = document.getElementById('wip-scroll-left');
         const wipScrollRightBtn = document.getElementById('wip-scroll-right');
-
         if (wipScrollContainer && wipScrollLeftBtn && wipScrollRightBtn) {
-            wipScrollLeftBtn.addEventListener('click', () => {
-                wipScrollContainer.scrollBy({ left: -510, behavior: 'smooth' }); // Card width 480 + gap 30
-            });
-
-            wipScrollRightBtn.addEventListener('click', () => {
-                wipScrollContainer.scrollBy({ left: 510, behavior: 'smooth' });
-            });
+            wipScrollLeftBtn.addEventListener('click', () => wipScrollContainer.scrollBy({ left: -510, behavior: 'smooth' }));
+            wipScrollRightBtn.addEventListener('click', () => wipScrollContainer.scrollBy({ left: 510, behavior: 'smooth' }));
         }
 
-        // Easter Egg - Konami Code
-        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        // =====================================================
+        // EASTER EGG — KONAMI CODE
+        // =====================================================
+        const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
         let konamiIndex = 0;
-
         document.addEventListener('keydown', (e) => {
             if (e.key === konamiCode[konamiIndex]) {
                 konamiIndex++;
