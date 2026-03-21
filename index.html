@@ -198,6 +198,30 @@
             box-shadow: 0 0 0 2px #666;
         }
 
+        /* IPSA ongoing / continuous line */
+        .timeline-item.ongoing::before {
+            border-style: dotted !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+        /* UTM standard item */
+        .timeline-item.university::before {
+            background: #444 !important;
+        }
+        /* Internship distinguishing style */
+        .timeline-item.internship {
+            padding-left: 50px; /* Indent the text */
+        }
+        .timeline-item.internship::before {
+            left: -14px; /* Adjust the dot position */
+            background: #fff !important; /* White circle */
+            border: 2px solid #000 !important; /* Black border */
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 0 2px #fff !important; /* Ring effect */
+        }
+        .internship-icon { margin-right: 8px; font-size: 1.1em; }
+
         .header-timeline .timeline-year {
             font-size: 14px;
             color: #ccc;
@@ -1153,21 +1177,27 @@
                 <div class="header-timeline">
                     <div class="section-title">Career Timeline</div>
                     <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
-                            <div class="timeline-content">Mecanichal Engineering (aeronautical) - University of Technology Malaysia</div>
-                        </div>
-                        <div class="timeline-item">
+                        <div class="timeline-item ongoing">
                             <div class="timeline-year">2022 - 2027</div>
-                            <div class="timeline-content">Aeronautical & Aerospace Engineering - Institut Polytechnique des Sciences Avancées (IPSA)</div>
+                            <div class="timeline-content">
+                                Aeronautical & Aerospace Engineering - IPSA (Institut Polytechnique des Sciences Avancées)
+                            </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2019 - 2022</div>
-                            <div class="timeline-content">Scientific Baccalaureate - Guillaume Apollinaire High School</div>
+                        <div class="timeline-item university">
+                            <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
+                            <div class="timeline-content">
+                                Mechanical Engineering (aeronautical) - University of Technology Malaysia (UTM)
+                            </div>
                         </div>
-
+                        <div class="timeline-item internship">
+                            <div class="timeline-year">June - Sept. 2026 (Upcoming)</div>
+                            <div class="timeline-content">
+                                <span class="internship-icon">✈️</span>Mechanical Engineering Intern - Air France Industries KLM Engineering & Maintenance
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </header>
@@ -1222,22 +1252,6 @@
             <div class="section-title">Personal Projects & Involvement</div>
             <div class="personal-projects-list" id="personal-projects-list">
                 <!-- Injected by JS -->
-            </div>
-        </section>
-
-        <!-- Timeline Section -->
-        <section class="section timeline-section fade-in delay-3">
-            <div class="section-title">Career Timeline</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">Sept. 2022 - Aug. 2027</div>
-                    <div class="timeline-content">Aeronautical & Aerospace Engineering - Polytechnic Institute of Advanced Sciences (IPSA)</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
-                    <div class="timeline-content">Mechanical Engineering (Aeronautics) - University of Technology Malaysia</div>
-                </div>
-                
             </div>
         </section>
 
