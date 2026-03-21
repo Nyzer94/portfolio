@@ -1596,33 +1596,57 @@
                 document.body.style.overflow = 'hidden';
                 return;
             }
-        
-            const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
-            const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
-            const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
-            
-            // MODIFICATION ICI : Tri automatique décroissant
-            const data = (type === 'tp' ? [...tpData] : [...projectsData]).sort(sortByYearDesc);
-            
-            // Create filter buttons (les années seront aussi dans le bon ordre grâce au sort précédent)
-            const years = [...new Set(data.map(item => item.year))]; 
-            // .sort().reverse() n'est plus strictement nécessaire si data est déjà trié, 
-            // mais on peut le laisser par sécurité pour les boutons de filtres.
-            
+
+            // Handle books modal separately as it doesn't have filters and uses renderBooks
+            if (type === 'books') {
+                const modal = document.getElementById('booksModal');
+                renderBooks(booksData); // Call specific render function for books
+                modal.classList.add('show');
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            let modalId, listId, filterId, rawData;
+            if (type === 'tp') {
+                modalId = 'tpModal'; listId = 'tpList'; filterId = 'tpFilters'; rawData = tpData;
+            } else if (type === 'projects') {
+                modalId = 'projectsModal'; listId = 'projectsList'; filterId = 'projectsFilters'; rawData = projectsData;
+            } else if (type === 'research') { // New type for R&D
+                modalId = 'researchModal'; listId = 'researchList'; filterId = 'researchFilters'; rawData = researchData;
+            } else {
+                console.error("Unknown modal type:", type);
+                return;
+            }
+
+            const modal = document.getElementById(modalId);
+            const list = document.getElementById(listId);
+            const filterContainer = document.getElementById(filterId);
+
+            const data = [...rawData].sort(sortByYearDesc); // Sort data for display and filter buttons
+
+            // Create filter buttons
+            const years = [...new Set(data.map(item => item.year))];
             filterContainer.innerHTML = '<button class="filter-btn active" onclick="filterItems(\'' + type + '\', \'all\')">All</button>';
             years.forEach(year => {
                 filterContainer.innerHTML += '<button class="filter-btn" onclick="filterItems(\'' + type + '\', \'' + year + '\')">' + year + '</button>';
             });
-            
-            renderItems(type, data);
-            
+
+            renderItems(type, data); // Use generic renderItems for tp, projects, research
+
             modal.classList.add('show');
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
         function renderItems(type, data) {
-            const list = document.getElementById(type === 'tp' ? 'tpList' : 'projectsList');
+            let listId;
+            if (type === 'tp') listId = 'tpList';
+            else if (type === 'projects') listId = 'projectsList';
+            else if (type === 'research') listId = 'researchList'; // New type
+            else { console.error("Unknown renderItems type:", type); return; }
+
+            const list = document.getElementById(listId);
             const filteredData = currentFilter === 'all' ? data : data.filter(item => item.year === currentFilter);
             
             list.innerHTML = '';
@@ -1655,15 +1679,46 @@
 
         function filterItems(type, year) {
             currentFilter = year;
-            const data = type === 'tp' ? tpData : projectsData;
-            const filterContainer = document.getElementById(type === 'tp' ? 'tpFilters' : 'projectsFilters');
-            
-            // Update active button
+            let data;
+            let filterContainerId;
+            if (type === 'tp') { data = tpData; filterContainerId = 'tpFilters'; }
+            else if (type === 'projects') { data = projectsData; filterContainerId = 'projectsFilters'; }
+            else if (type === 'research') { data = researchData; filterContainerId = 'researchFilters'; } // New type
+            else { console.error("Unknown filterItems type:", type); return; }
+
+            const filterContainer = document.getElementById(filterContainerId);
+
+            // Update active button (event.target is not always reliable, but for this simple case it works)
             const buttons = filterContainer.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
             renderItems(type, data);
+        }
+
+        // New function to render books
+        function renderBooks(data) {
+            const list = document.getElementById('booksList');
+            list.innerHTML = '';
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'item'; // Re-use existing item styling for overall structure
+                li.innerHTML = `
+                    <div class="item-content">
+                        <div class="book-image" style="background-image: url('${item.image}');"></div>
+                        <div class="item-info">
+                            <div class="item-name">${item.title}</div>
+                            <div class="book-author">${item.author}</div>
+                            <div class="item-description">
+                                ${item.description}
+                                <div class="book-review">${item.review}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- No buttons for books as per request -->
+                `;
+                list.appendChild(li);
+            });
         }
 
         function navigateCardCarousel(button, direction) {
@@ -1970,16 +2025,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
