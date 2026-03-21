@@ -56,14 +56,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .delay-1 { animation-delay: 0.1s; }
@@ -89,7 +83,9 @@
             pointer-events: none;
         }
 
-        /* Header Section */
+        /* =====================================================
+           HEADER
+        ===================================================== */
         header {
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             color: #fff;
@@ -152,90 +148,217 @@
             transform: translateY(-2px);
         }
 
+        /* Intro text — justified */
         .intro-text {
             max-width: 800px;
             font-size: 16px;
             line-height: 1.8;
             color: #ddd;
+            text-align: justify;
+            margin-bottom: 20px;
         }
 
-        .header-buttons {
+        /* Small pill buttons for R&D and Books under the description */
+        .header-quick-links {
             display: flex;
-            gap: 15px;
-            flex-direction: column;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
         }
 
-        /* Timeline in Header */
+        .header-quick-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 6px;
+            color: #ddd;
+            font-size: 13px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .header-quick-btn:hover {
+            background: rgba(255,255,255,0.16);
+            border-color: rgba(255,255,255,0.35);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .header-quick-btn .btn-icon {
+            font-size: 15px;
+        }
+
+        .header-quick-btn .btn-count {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #888;
+            margin-left: 2px;
+        }
+
+        /* =====================================================
+           HEADER TIMELINE
+        ===================================================== */
         .header-timeline {
             max-width: 350px;
+            min-width: 280px;
         }
 
         .header-timeline .section-title {
             font-size: 12px;
             color: #888;
             margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .header-timeline .timeline {
-            padding-left: 30px;
+        .header-timeline .tl-wrap {
+            padding-left: 28px;
+            position: relative;
         }
 
-        .header-timeline .timeline::before {
-            background: linear-gradient(180deg, #666 0%, #444 100%);
+        /* The vertical line */
+        .header-timeline .tl-wrap::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #666 0%, #333 100%);
         }
 
-        .header-timeline .timeline-item {
-            margin-bottom: 25px;
-            padding-left: 20px;
+        /* ---- University items ---- */
+        .tl-item {
+            position: relative;
+            margin-bottom: 24px;
+            padding-left: 16px;
         }
 
-        .header-timeline .timeline-item::before {
-            width: 8px;
-            height: 8px;
+        .tl-item.university::before {
+            content: '';
+            position: absolute;
             left: -34px;
-            background: #666;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
             border: 2px solid #fff;
-            box-shadow: 0 0 0 2px #666;
+            background: #555;
+            box-shadow: 0 0 0 2px #555;
         }
 
-        .header-timeline .timeline-year {
-            font-size: 14px;
-            color: #ccc;
-        }
-
-        .header-timeline .timeline-content {
+        .tl-item.university .tl-year {
             font-size: 12px;
-            color: #999;
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 3px;
         }
 
-        .cv-button {
-            padding: 12px 24px;
-            background: #fff;
-            color: #000;
+        .tl-item.university .tl-content {
+            font-size: 12px;
+            color: #bbb;
+            line-height: 1.5;
+        }
+
+        .tl-item.university .tl-content strong {
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        /* Dashed continuation for ongoing IPSA */
+        .tl-item.university.ongoing {
+            margin-bottom: 32px;
+        }
+
+        .tl-item.university.ongoing::after {
+            content: '';
+            position: absolute;
+            left: -30px;
+            bottom: -26px;
+            width: 2px;
+            height: 22px;
+            background: repeating-linear-gradient(
+                180deg,
+                #555 0px, #555 4px,
+                transparent 4px, transparent 8px
+            );
+        }
+
+        /* ---- Internship items ---- */
+        .tl-item.internship {
+            margin-left: 6px;
+        }
+
+        .tl-item.internship::before {
+            content: '✈';
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #c8a020;
+            border-radius: 4px;
+            color: #fff;
             border: none;
-            cursor: pointer;
-            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(200,160,32,0.4);
+        }
+
+        .tl-item.internship .tl-inner {
+            background: rgba(200, 160, 32, 0.1);
+            border: 1px solid rgba(200, 160, 32, 0.3);
+            border-radius: 7px;
+            padding: 10px 14px;
+        }
+
+        .tl-item.internship .tl-badge {
+            display: inline-block;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
-            display: none;
+            background: rgba(200, 160, 32, 0.22);
+            color: #c8a020;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
-        .cv-button:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+        .tl-item.internship .tl-year {
+            font-size: 12px;
+            color: #bbb;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 2px;
         }
 
-        /* Main Content */
+        .tl-item.internship .tl-content {
+            font-size: 12px;
+            color: #bbb;
+            line-height: 1.5;
+        }
+
+        .tl-item.internship .tl-content strong {
+            color: #e0d080;
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
         .main-content {
             padding: 0 40px 40px 40px;
         }
 
-        /* Section Titles */
         .section {
             margin-bottom: 80px;
         }
@@ -249,16 +372,10 @@
             color: #666;
         }
 
-        /* Projects Grid */
+        /* =====================================================
+           PROJECTS GRID
+        ===================================================== */
         .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr 2px 1fr;
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        /* 4-column grid for the second row (R&D + Books) */
-        .projects-grid-4 {
             display: grid;
             grid-template-columns: 1fr 2px 1fr;
             gap: 40px;
@@ -271,7 +388,6 @@
             justify-self: center;
         }
 
-        /* Project Blocks */
         .project-block {
             position: relative;
             cursor: pointer;
@@ -285,7 +401,6 @@
         .project-content {
             display: flex;
             align-items: center;
-            gap: 0;
             background: rgba(230, 230, 230, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 8px;
@@ -329,43 +444,8 @@
             overflow: hidden;
         }
 
-        /* R&D image placeholder */
-        .project-image-rd {
-            width: 200px;
-            height: 150px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            border-radius: 8px;
-            z-index: 2;
-            position: relative;
-            flex-shrink: 0;
-            margin: 20px;
-            transition: all 0.4s ease;
-            overflow: hidden;
-        }
-
-        /* Books image placeholder */
-        .project-image-books {
-            width: 200px;
-            height: 150px;
-            background: linear-gradient(135deg, #2d1b00 0%, #5c3d00 50%, #8b5e00 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            border-radius: 8px;
-            z-index: 2;
-            position: relative;
-            flex-shrink: 0;
-            margin: 20px;
-            transition: all 0.4s ease;
-            overflow: hidden;
-        }
-
-        .project-block:hover .project-image {
+        .project-block:hover .project-image,
+        .project-block:hover .project-image2 {
             transform: scale(1.05);
             filter: brightness(1.1);
         }
@@ -396,68 +476,16 @@
             z-index: 3;
         }
 
-        /* Timeline */
-        .timeline-section {
-            margin-bottom: 80px;
-            display: none;
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #000 0%, #666 100%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            padding-left: 30px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -46px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            background: #000;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            box-shadow: 0 0 0 2px #000;
-        }
-
-        .timeline-year {
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .timeline-content {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Modal */
+        /* =====================================================
+           MODAL
+        ===================================================== */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
             backdrop-filter: blur(5px);
         }
 
@@ -484,33 +512,23 @@
             flex-direction: column;
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            transform: scale(0.9);
             animation: modalContentZoom 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes modalContentZoom {
-            from {
-                transform: scale(0.9) translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
+            from { transform: scale(0.9) translateY(50px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         .modal-header {
             padding: 30px 40px;
-            border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+            border-bottom: 1px solid rgba(221,221,221,0.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .modal-header h2 {
-            font-size: 24px;
-            font-weight: 400;
-        }
+        .modal-header h2 { font-size: 24px; font-weight: 400; }
 
         .close {
             font-size: 36px;
@@ -521,16 +539,16 @@
             transition: transform 0.3s ease;
         }
 
-        .close:hover {
-            transform: rotate(90deg);
-        }
+        .close:hover { transform: rotate(90deg); }
 
         .modal-body {
             padding: 40px;
             overflow-y: auto;
         }
 
-        /* Filter Buttons */
+        /* =====================================================
+           FILTER BUTTONS
+        ===================================================== */
         .filter-buttons {
             display: flex;
             gap: 10px;
@@ -540,7 +558,7 @@
 
         .filter-btn {
             padding: 8px 16px;
-            background: rgba(230, 230, 230, 0.7);
+            background: rgba(230,230,230,0.7);
             border: 1px solid #ddd;
             border-radius: 20px;
             cursor: pointer;
@@ -550,25 +568,25 @@
             transition: all 0.3s ease;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: #000;
             color: #fff;
             border-color: #000;
         }
 
-        .item-list {
-            list-style: none;
-        }
+        /* =====================================================
+           ITEM LIST
+        ===================================================== */
+        .item-list { list-style: none; }
 
         .item {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             padding: 20px;
-            border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+            border-bottom: 1px solid rgba(238,238,238,0.5);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(230, 230, 230, 0.5);
+            background: rgba(230,230,230,0.5);
             border-radius: 8px;
             margin-bottom: 10px;
             overflow: hidden;
@@ -577,7 +595,7 @@
         }
 
         .item:hover {
-            background: rgba(200, 200, 200, 0.7);
+            background: rgba(200,200,200,0.7);
             transform: scale(1.01) translateX(5px);
             max-height: 500px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -599,40 +617,9 @@
             transition: transform 0.3s ease;
         }
 
-        .item:hover .item-image {
-            transform: scale(1.05);
-        }
+        .item:hover .item-image { transform: scale(1.05); }
 
-        /* Book image style */
-        .book-image {
-            width: 60px;
-            height: 80px;
-            background: #333;
-            border-radius: 4px;
-            flex-shrink: 0;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
-        }
-
-        .book-author {
-            font-size: 13px;
-            color: #888;
-            font-style: italic;
-            margin-bottom: 8px;
-        }
-
-        .book-review {
-            margin-top: 10px;
-            font-style: italic;
-            color: #444;
-            border-left: 3px solid #000;
-            padding-left: 10px;
-        }
-
-        .item-info {
-            flex-grow: 1;
-        }
+        .item-info { flex-grow: 1; }
 
         .item-name {
             font-size: 18px;
@@ -652,9 +639,7 @@
             font-family: 'Courier New', monospace;
         }
 
-        .item-year::before {
-            content: 'v';
-        }
+        .item-year::before { content: 'v'; }
 
         .item-tools {
             font-size: 14px;
@@ -704,15 +689,101 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
 
-        .download-btn {
-            background: #444;
+        .download-btn { background: #444; }
+        .download-btn:hover { background: #666; }
+
+        /* =====================================================
+           BOOKS MODAL — styled cards
+        ===================================================== */
+        .books-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            /* add top padding so overflowing covers have room */
+            padding-top: 20px;
         }
 
-        .download-btn:hover {
-            background: #666;
+        .book-card {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: rgba(230,230,230,0.5);
+            border-radius: 10px;
+            padding: 20px 24px 20px 0;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
         }
 
-        /* Empty state for placeholder sections */
+        .book-card:hover {
+            background: rgba(210,210,210,0.7);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+            transform: translateY(-3px);
+        }
+
+        /* Cover wrapper — overflows card top */
+        .book-cover-wrapper {
+            flex-shrink: 0;
+            margin-top: -22px;
+            margin-left: 24px;
+            margin-right: 20px;
+            filter: drop-shadow(4px 6px 10px rgba(0,0,0,0.35));
+        }
+
+        .book-cover {
+            width: 70px;
+            height: 100px;
+            border-radius: 2px 5px 5px 2px;
+            background: #333;
+            background-size: cover;
+            background-position: center;
+            display: block;
+            position: relative;
+        }
+
+        /* Spine illusion */
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 7px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 2px 0 0 2px;
+        }
+
+        .book-info {
+            flex-grow: 1;
+            padding-top: 2px;
+        }
+
+        .book-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: #111;
+        }
+
+        .book-author {
+            font-size: 13px;
+            color: #777;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .book-review {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.6;
+            border-left: 3px solid #aaa;
+            padding-left: 10px;
+            font-style: italic;
+        }
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -729,7 +800,9 @@
             font-style: italic;
         }
 
-        /* Future Projects */
+        /* =====================================================
+           FUTURE PROJECTS
+        ===================================================== */
         .future-projects-list {
             display: flex;
             gap: 30px;
@@ -740,7 +813,7 @@
             border: 1px solid #ddd;
             padding: 30px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(230, 230, 230, 0.6);
+            background: rgba(230,230,230,0.6);
             backdrop-filter: blur(10px);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -749,34 +822,35 @@
 
         .future-project-card:hover {
             border-color: #000;
-            background: rgba(200, 200, 200, 0.8);
+            background: rgba(200,200,200,0.8);
             transform: scale(1.02) translateY(-5px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
-        .future-project-card h3 {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 15px;
+        .future-project-card h3 { font-size: 20px; font-weight: 500; margin-bottom: 15px; }
+        .future-project-card p { font-size: 14px; color: #666; line-height: 1.6; }
+
+        .future-projects-carousel {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        .future-project-card p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-        }
+        .future-projects-carousel::-webkit-scrollbar { display: none; }
 
+        /* =====================================================
+           WORK IN PROGRESS
+        ===================================================== */
         .wip-projects-carousel {
             overflow-x: auto;
             scroll-behavior: smooth;
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        .wip-projects-carousel::-webkit-scrollbar {
-            display: none;
-        }
 
-        /* Work in Progress Section */
+        .wip-projects-carousel::-webkit-scrollbar { display: none; }
+
         .wip-projects-list {
             display: flex;
             gap: 30px;
@@ -812,8 +886,7 @@
         .card-carousel-controls {
             position: absolute;
             top: 50%;
-            left: 0;
-            right: 0;
+            left: 0; right: 0;
             transform: translateY(-50%);
             display: flex;
             justify-content: space-between;
@@ -830,10 +903,9 @@
         }
 
         .card-carousel-btn {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 30px; height: 30px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
@@ -841,19 +913,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            line-height: 1;
             transition: background-color 0.2s ease;
         }
 
-        .card-carousel-btn:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
+        .card-carousel-btn:hover { background: rgba(0,0,0,0.8); }
 
         .wip-project-card {
             border: 1px solid #ddd;
             padding: 20px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(230, 230, 230, 0.6);
+            background: rgba(230,230,230,0.6);
             backdrop-filter: blur(10px);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -863,12 +932,8 @@
             flex: 0 0 480px;
         }
 
-        .wip-project-content p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
+        .wip-project-content h3 { font-size: 18px; font-weight: 500; margin-bottom: 15px; }
+        .wip-project-content p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px; }
 
         .progress-container {
             width: 100%;
@@ -885,7 +950,9 @@
             transition: width 0.5s ease-in-out;
         }
 
-        /* Personal Projects Section */
+        /* =====================================================
+           PERSONAL PROJECTS
+        ===================================================== */
         .personal-projects-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -893,7 +960,7 @@
         }
 
         .personal-project-card {
-            background: rgba(230, 230, 230, 0.6);
+            background: rgba(230,230,230,0.6);
             backdrop-filter: blur(10px);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -908,49 +975,16 @@
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
-        .personal-project-image {
-            width: 100%;
-            height: 200px;
-        }
+        .personal-project-image { width: 100%; height: 200px; }
 
-        .wip-project-content h3 {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
+        .pp-page h3 { font-size: 20px; font-weight: 500; margin-bottom: 10px; }
+        .pp-page p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 15px; flex-grow: 1; }
 
-        /* Contact Section */
-        .contact-section {
-            text-align: center;
-            padding: 60px 40px;
-            background: rgba(230, 230, 230, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 8px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        .pp-page h3 {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .pp-page p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-
-        /* Personal Project Slider Styles */
         .pp-slider-wrapper {
             overflow: hidden;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
         .pp-slider {
@@ -984,10 +1018,7 @@
             font-weight: 600;
         }
 
-        .more-details-btn:hover {
-            background: #000;
-            color: #fff;
-        }
+        .more-details-btn:hover { background: #000; color: #fff; }
 
         .details-list li {
             margin-bottom: 8px;
@@ -1021,15 +1052,19 @@
             margin-bottom: 40px;
         }
 
-        .carousel-controls {
-            display: flex;
-            gap: 10px;
-        }
+        .carousel-controls { display: flex; gap: 10px; }
 
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* =====================================================
+           CONTACT
+        ===================================================== */
+        .contact-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(230,230,230,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         .contact-buttons {
@@ -1065,8 +1100,7 @@
         .carousel-btn {
             background: #eee;
             border: 1px solid #ddd;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 24px;
@@ -1075,157 +1109,71 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            line-height: 1;
         }
 
-        .carousel-btn:hover {
-            background: #000;
-            color: #fff;
-        }
+        .carousel-btn:hover { background: #000; color: #fff; }
 
-        .future-projects-carousel {
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        /* CV Modal */
+        #cvModal .modal-content { max-width: 900px; max-height: 90vh; }
+        .cv-viewer { width: 100%; height: 70vh; border: none; background: #f5f5f5; border-radius: 8px; }
 
-        .future-projects-carousel::-webkit-scrollbar {
-            display: none;
-        }
+        /* Timeline hidden section */
+        .timeline-section { margin-bottom: 80px; display: none; }
 
-        /* CV Modal specific styles */
-        #cvModal .modal-content {
-            max-width: 900px;
-            max-height: 90vh;
-        }
-
-        .cv-viewer {
-            width: 100%;
-            height: 70vh;
-            border: none;
-            background: #f5f5f5;
-            border-radius: 8px;
-        }
-
-        /* Easter Egg */
+        /* =====================================================
+           EASTER EGG
+        ===================================================== */
         .easter-egg {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 20px; right: 20px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0,0,0,0.9);
             color: #0f0;
             font-family: 'Courier New', monospace;
             border-radius: 8px;
             display: none;
             z-index: 10000;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: slideInRight 0.5s ease;
         }
+
+        .easter-egg.show { display: block; animation: slideInRight 0.5s ease; }
 
         @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        .easter-egg.show {
-            display: block;
-        }
-
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
         @media (max-width: 968px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .header-timeline {
-                max-width: 100%;
-            }
-
-            .subtitle-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .projects-grid,
-            .projects-grid-4 {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .separator {
-                display: none;
-            }
-
-            .project-content {
-                border-left: 4px solid #000;
-                background: #f9f9f9;
-            }
-
-            .project-image,
-            .project-image2,
-            .project-image-rd,
-            .project-image-books {
-                width: 100%;
-                height: 200px;
-                margin: 20px 20px 0 20px;
-            }
-
-            .project-text {
-                padding: 20px 30px 30px 30px;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-            }
-
-            .item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .item-content {
-                width: 100%;
-            }
-
-            .item-buttons {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .view-btn, .download-btn {
-                width: 100%;
-            }
-
-            .stats-section {
-                flex-direction: column;
-                gap: 30px;
-            }
+            .header-content { flex-direction: column; gap: 20px; }
+            .header-timeline { max-width: 100%; min-width: unset; }
+            .subtitle-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .projects-grid { grid-template-columns: 1fr; gap: 30px; }
+            .separator { display: none; }
+            .project-content { border-left: 4px solid #000; background: #f9f9f9; }
+            .project-image, .project-image2 { width: 100%; height: 200px; margin: 20px 20px 0 20px; }
+            .project-text { padding: 20px 30px 30px 30px; }
+            .modal-content { width: 95%; margin: 10% auto; }
+            .item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .item-content { width: 100%; }
+            .item-buttons { width: 100%; flex-direction: column; }
+            .view-btn, .download-btn { width: 100%; }
         }
     </style>
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
-    <!-- Progress Bar -->
     <div class="progress-bar"></div>
-
-    <!-- Particles Canvas -->
     <canvas id="particles-canvas"></canvas>
 
-    <!-- Header / Introduction -->
+    <!-- HEADER -->
     <header class="fade-in">
         <div class="container">
             <div class="header-content">
+
+                <!-- LEFT -->
                 <div class="header-left">
                     <h1>Rayan CHENNAOUI</h1>
                     <div class="subtitle-row">
@@ -1235,89 +1183,88 @@
                     <div class="intro-text">
                         <p>Passionate mechanical engineer specializing in aerospace systems with a strong interest in structural analysis, fluid dynamics, and system design. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
                     </div>
-                </div>
-                <div class="header-timeline">
-                    <div class="section-title">Career Timeline</div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
-                            <div class="timeline-content">Mecanichal Engineering (aeronautical) - University of Technology Malaysia</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2022 - 2027</div>
-                            <div class="timeline-content">Aeronautical & Aerospace Engineering - Institut Polytechnique des Sciences Avancées (IPSA)</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2019 - 2022</div>
-                            <div class="timeline-content">Scientific Baccalaureate - Guillaume Apollinaire High School</div>
-                        </div>
+                    <!-- R&D + Books quick links -->
+                    <div class="header-quick-links">
+                        <button class="header-quick-btn" onclick="openModal('research')">
+                            <span class="btn-icon">🔬</span>
+                            R&amp;D / Research
+                            <span class="btn-count" id="rd-quick-count"></span>
+                        </button>
+                        <button class="header-quick-btn" onclick="openModal('books')">
+                            <span class="btn-icon">📚</span>
+                            Reading List
+                            <span class="btn-count" id="books-quick-count"></span>
+                        </button>
                     </div>
                 </div>
+
+                <!-- RIGHT: Career Timeline -->
+                <div class="header-timeline">
+                    <div class="section-title">Career Timeline</div>
+                    <div class="tl-wrap">
+
+                        <!-- IPSA — ongoing -->
+                        <div class="tl-item university ongoing">
+                            <div class="tl-year">2022 – 2027</div>
+                            <div class="tl-content">
+                                Aeronautical &amp; Aerospace Engineering<br>
+                                <strong>Institut Polytechnique des Sciences Avancées (IPSA)</strong>
+                            </div>
+                        </div>
+
+                        <!-- Malaysia -->
+                        <div class="tl-item university">
+                            <div class="tl-year">Sept. 2025 – Feb. 2026</div>
+                            <div class="tl-content">
+                                Mechanical Engineering (Aeronautical)<br>
+                                <strong>Universiti Teknologi Malaysia (UTM)</strong>
+                            </div>
+                        </div>
+
+                        <!-- Air France internship -->
+                        <div class="tl-item internship">
+                            <div class="tl-inner">
+                                <span class="tl-badge">✈ Internship</span>
+                                <div class="tl-year">June – Sept. 2026</div>
+                                <div class="tl-content">
+                                    Engineering Intern<br>
+                                    <strong>Air France Industries KLM</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </header>
 
+    <!-- MAIN -->
     <div class="main-content">
 
-        <!-- Row 1: TP + Projects -->
+        <!-- TP + Projects -->
         <div class="projects-grid fade-in delay-2">
-            <!-- Practical Work Block -->
             <div class="project-block" onclick="openModal('tp')">
                 <div class="section-title">Practical Work</div>
                 <div class="project-content">
                     <div class="project-image2"></div>
-                    <div class="project-text">
-                        <h3>My Most Notable Practical Work</h3>
-                    </div>
+                    <div class="project-text"><h3>My Most Notable Practical Work</h3></div>
                     <div class="project-count" id="tp-count"></div>
                 </div>
             </div>
-
             <div class="separator"></div>
-
-            <!-- Projects Block -->
             <div class="project-block" onclick="openModal('projects')">
                 <div class="section-title">Projects</div>
                 <div class="project-content">
                     <div class="project-image"></div>
-                    <div class="project-text">
-                        <h3>My Most Notable Projects</h3>
-                    </div>
+                    <div class="project-text"><h3>My Most Notable Projects</h3></div>
                     <div class="project-count" id="project-count"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Row 2: R&D + Books -->
-        <div class="projects-grid-4 fade-in delay-2">
-            <!-- R&D Block -->
-            <div class="project-block" onclick="openModal('research')">
-                <div class="section-title">R&amp;D / Research</div>
-                <div class="project-content">
-                    <div class="project-image-rd">🔬</div>
-                    <div class="project-text">
-                        <h3>Research & Development</h3>
-                    </div>
-                    <div class="project-count" id="research-count"></div>
-                </div>
-            </div>
-
-            <div class="separator"></div>
-
-            <!-- Books Block -->
-            <div class="project-block" onclick="openModal('books')">
-                <div class="section-title">Reading List</div>
-                <div class="project-content">
-                    <div class="project-image-books">📚</div>
-                    <div class="project-text">
-                        <h3>Books I've Read</h3>
-                    </div>
-                    <div class="project-count" id="books-count"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Work in Progress Section -->
+        <!-- Work in Progress -->
         <section class="section fade-in delay-3">
             <div class="section-title-container">
                 <div class="section-title">Work in Progress</div>
@@ -1331,33 +1278,19 @@
             </div>
         </section>
 
-        <!-- Personal Projects Section -->
+        <!-- Personal Projects -->
         <section class="section fade-in delay-4">
-            <div class="section-title">Personal Projects & Involvement</div>
-            <div class="personal-projects-list" id="personal-projects-list">
-                <!-- Injected by JS -->
-            </div>
+            <div class="section-title">Personal Projects &amp; Involvement</div>
+            <div class="personal-projects-list" id="personal-projects-list"></div>
         </section>
 
-        <!-- Timeline Section (hidden, kept for reference) -->
-        <section class="section timeline-section fade-in delay-3">
-            <div class="section-title">Career Timeline</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">Sept. 2022 - Aug. 2027</div>
-                    <div class="timeline-content">Aeronautical & Aerospace Engineering - Polytechnic Institute of Advanced Sciences (IPSA)</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
-                    <div class="timeline-content">Mechanical Engineering (Aeronautics) - University of Technology Malaysia</div>
-                </div>
-            </div>
-        </section>
+        <!-- Timeline (hidden) -->
+        <section class="section timeline-section"></section>
 
-        <!-- Future Projects Section -->
+        <!-- Future Projects -->
         <section class="section fade-in delay-4">
             <div class="section-title-container">
-                <div class="section-title">Future Projects & Skills</div>
+                <div class="section-title">Future Projects &amp; Skills</div>
                 <div class="carousel-controls">
                     <button id="scroll-left" class="carousel-btn">‹</button>
                     <button id="scroll-right" class="carousel-btn">›</button>
@@ -1366,7 +1299,7 @@
             <div class="future-projects-carousel">
                 <div class="future-projects-list">
                     <div class="future-project-card">
-                        <h3>Computational Mechanics & FEA</h3>
+                        <h3>Computational Mechanics &amp; FEA</h3>
                         <p>Mastering industry-standard tools (Ansys, Patran/Nastran, Solidworks, Abaqus...) to enhance proficiency in Finite Element Method (FEM), complex modeling, and structural data processing.</p>
                     </div>
                     <div class="future-project-card">
@@ -1374,43 +1307,32 @@
                         <p>Expanding expertise into Artificial Intelligence (Machine Learning, Deep Learning, Computer Vision). Goal: Develop a first applied project bridging mechanical engineering concepts with data-driven solutions.</p>
                     </div>
                     <div class="future-project-card">
-                        <h3>Generative Design & Optimization</h3>
+                        <h3>Generative Design &amp; Optimization</h3>
                         <p>Exploring the synergy between algorithms and mechanics. Researching topology optimization to create lightweight, high-performance aerospace structures that defy traditional manufacturing constraints.</p>
                     </div>
                     <div class="future-project-card">
-                        <h3>Materials Science & Composites</h3>
+                        <h3>Materials Science &amp; Composites</h3>
                         <p>Deep dive into advanced composite materials, their manufacturing processes (e.g., AFP), and non-destructive testing (NDT) methods for aerospace applications.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Contact -->
         <section class="contact-section fade-in delay-4">
-            <h2 style="margin-bottom: 20px; font-size: 32px;">Get In Touch</h2>
-            <p style="color: #666; max-width: 600px; margin: 0 auto;">
-                Please feel free to contact me through any of the channels below.
-            </p>
+            <h2 style="margin-bottom:20px;font-size:32px;">Get In Touch</h2>
+            <p style="color:#666;max-width:600px;margin:0 auto;">Please feel free to contact me through any of the channels below.</p>
             <div class="contact-buttons">
-                <div class="contact-item">
-                    <a href="#" id="email-btn" class="contact-btn">
-                        <span>📧</span> Email
-                    </a>
-                </div>
-                <a href="https://www.linkedin.com/in/rayan-chennaoui-4b7608156/" target="_blank" class="contact-btn">
-                    <span>💼</span> LinkedIn
-                </a>
+                <a href="#" id="email-btn" class="contact-btn"><span>📧</span> Email</a>
+                <a href="https://www.linkedin.com/in/rayan-chennaoui-4b7608156/" target="_blank" class="contact-btn"><span>💼</span> LinkedIn</a>
             </div>
         </section>
     </div>
 
-    <!-- Modal for TP -->
+    <!-- MODALS -->
     <div id="tpModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Practical Work</h2>
-                <span class="close" onclick="closeModal('tp')">&times;</span>
-            </div>
+            <div class="modal-header"><h2>Practical Work</h2><span class="close" onclick="closeModal('tp')">&times;</span></div>
             <div class="modal-body">
                 <div class="filter-buttons" id="tpFilters"></div>
                 <ul class="item-list" id="tpList"></ul>
@@ -1418,13 +1340,9 @@
         </div>
     </div>
 
-    <!-- Modal for Projects -->
     <div id="projectsModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Projects</h2>
-                <span class="close" onclick="closeModal('projects')">&times;</span>
-            </div>
+            <div class="modal-header"><h2>Projects</h2><span class="close" onclick="closeModal('projects')">&times;</span></div>
             <div class="modal-body">
                 <div class="filter-buttons" id="projectsFilters"></div>
                 <ul class="item-list" id="projectsList"></ul>
@@ -1432,13 +1350,9 @@
         </div>
     </div>
 
-    <!-- Modal for R&D -->
     <div id="researchModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>R&amp;D / Research</h2>
-                <span class="close" onclick="closeModal('research')">&times;</span>
-            </div>
+            <div class="modal-header"><h2>R&amp;D / Research</h2><span class="close" onclick="closeModal('research')">&times;</span></div>
             <div class="modal-body">
                 <div class="filter-buttons" id="researchFilters"></div>
                 <ul class="item-list" id="researchList"></ul>
@@ -1446,732 +1360,386 @@
         </div>
     </div>
 
-    <!-- Modal for Books -->
     <div id="booksModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Reading List</h2>
-                <span class="close" onclick="closeModal('books')">&times;</span>
-            </div>
+            <div class="modal-header"><h2>Reading List</h2><span class="close" onclick="closeModal('books')">&times;</span></div>
             <div class="modal-body">
-                <ul class="item-list" id="booksList"></ul>
+                <ul class="books-list" id="booksList"></ul>
             </div>
         </div>
     </div>
 
-    <!-- Modal for CV -->
     <div id="cvModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Curriculum Vitae</h2>
-                <span class="close" onclick="closeModal('cv')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <iframe class="cv-viewer" src="projets/cv2.pdf"></iframe>
-            </div>
+            <div class="modal-header"><h2>Curriculum Vitae</h2><span class="close" onclick="closeModal('cv')">&times;</span></div>
+            <div class="modal-body"><iframe class="cv-viewer" src="projets/cv2.pdf"></iframe></div>
         </div>
     </div>
 
-    <!-- Easter Egg -->
     <div class="easter-egg" id="easterEgg">
         <p>🎉 You found the easter egg!</p>
-        <p style="margin-top: 10px;">Konami Code Master Detected!</p>
-        <p style="margin-top: 5px; font-size: 12px;">- The Hiring Team Will Love You -</p>
+        <p style="margin-top:10px;">Konami Code Master Detected!</p>
+        <p style="margin-top:5px;font-size:12px;">- The Hiring Team Will Love You -</p>
     </div>
 
     <script>
-        // =====================================================
-        // DATA
-        // =====================================================
+    // =====================================================
+    // DATA
+    // =====================================================
+    const tpData = [
+        { name:"(ENG) Parameterization of a Light Bulb Assembly", year:"4th year", tools:"CATIA V5R19", description:"The primary objective of this practical work is to transition from traditional static CAD modeling to Knowledge-Based Engineering (KBE) by designing a smart, adaptive light bulb assembly.", pdf:"projets/CAO_TP2.pdf", image:"images/bulb.png" },
+        { name:"(FR) NACA 0012 CFD Analysis", year:"3rd year", tools:"StarCCM+", description:"Study of the aerodynamic behavior of a NACA0012 profile using STAR CCM+. By varying the angle of incidence, we analyze the evolution of the lift coefficient and determine the stall angle.", pdf:"projets/3VEa_20250512_CHENNAOUI_Rayan_NACA.pdf", image:"images/cfd1.png" },
+        { name:"(FR) Thermodynamics Study: Steam Cycles Rankine/Hirn", year:"3rd year", tools:"Thermodynamics, EES/Matlab", description:"Experimental and theoretical study of Rankine and Hirn steam cycles. Focus on energy balance, efficiency optimization, and the impact of superheating on thermodynamic performance.", pdf:"projets/BE_3PVE_CHENNAOUI_KASHANI.pdf", image:"images/be.png" },
+        { name:"(FR) Electromagnetism Magnetic field: Biot-Savart Law", year:"2nd year", tools:"Physics, Magnetic Sensors", description:"Experimental validation of the Biot-Savart law. Mapping of the magnetic field generated by different coil configurations.", pdf:"projets/TP2_BEAUCLAIR_CHENNAOUI1.pdf", image:"images/bs.png" },
+        { name:"(FR) Study of an electric field using a rheographic tank", year:"2nd year", tools:"Electromagnetism", description:"Visualization and mapping of equipotential lines and electric field vectors using a rheographic tank.", pdf:"projets/C2_TP_Phs213_BEAUCLAIR_CHENNAOUI_KASHANI.pdf", image:"images/rh.png" },
+        { name:"(FR) Digital Prototyping: 7-Segment Transcoder and Comparator", year:"2nd year", tools:"Quartus Prime, FPGA", description:"Design and implementation of combinational logic circuits on an Intel FPGA using VHDL and schematic entry in Quartus Prime.", pdf:"projets/2pc2_TP_CHENNAOUI_Rayan.pdf", image:"images/qp.png" },
+        { name:"(FR) Solid Mechanics: Inertia and Gravity Measurements", year:"2nd year", tools:"Experimental Mechanics", description:"Determination of the gravitational constant and moments of inertia through oscillatory methods.", pdf:"projets/TP1_MECASO_CHENNAOUI_DELAVILLE_CHANDELIER.pdf", image:"images/pt.jpg" },
+        { name:"(FR) Strength of Materials: Beam Bending and Stiffness", year:"2nd year", tools:"RDM, Bench Testing", description:"Structural analysis of beams under various loading conditions. Experimental validation of the cubic relationship between beam thickness and stiffness.", pdf:"projets/CR_RDM_TP.pdf", image:"images/sm.png" },
+        { name:"(ENG) Finite Element Modeling: Thin Plate with a Hole", year:"4th year", tools:"Patran/Nastran", description:"Stress concentration analysis on a thin metallic plate. Study of von Mises stress distribution around a hole and mesh convergence sensitivity.", pdf:"projets/TP2_FEM_Rayan_CHENNAOUI_Felix_LAO.pdf", image:"images/tp.png" },
+        { name:"(ENG) Finite Element Modeling: Solid Lug Under Bending", year:"4th year", tools:"Patran/Nastran", description:"3D structural analysis of a mechanical lug component. Focus on load application, boundary conditions, and identifying critical failure points.", pdf:"projets/FEM___TP3.pdf", image:"images/lug.png" },
+        { name:"(ENG) Modeling and Performance Analysis of a Laval Nozzle", year:"4th year", tools:"StarCCM+, CFD", description:"CFD simulation of supersonic flow through a convergent-divergent (Laval) nozzle. Analysis of pressure distribution, Mach number evolution, and shock wave formation.", pdf:"projets/Mf421_TP_LAVAL_RAYAN_CHENNAOUI.pdf", image:"images/ln.png" }
+    ];
 
-        const tpData = [
-            { 
-                name: "(ENG) Parameterization of a Light Bulb Assembly", 
-                year: "4th year", 
-                tools: "CATIA V5R19",
-                description: "The primary objective of this practical work is to transition from traditional static CAD modeling to Knowledge-Based Engineering (KBE) by designing a smart, adaptive light bulb assembly.",
-                pdf: "projets/CAO_TP2.pdf", 
-                image: "images/bulb.png" 
-            },
-            { 
-                name: "(FR) NACA 0012 CFD Analysis", 
-                year: "3rd year", 
-                tools: "StarCCM+",
-                description: "The objective of this practical assignment is to study the aerodynamic behavior of a NACA0012 profile using STAR CCM+ simulation software. By varying the angle of incidence, we seek to analyze the evolution of the lift coefficient and determine the stall angle.",
-                pdf: "projets/3VEa_20250512_CHENNAOUI_Rayan_NACA.pdf", 
-                image: "images/cfd1.png" 
-            },
-            { 
-                name: "(FR) Thermodynamics Study: Steam Cycles Rankine/Hirn", 
-                year: "3rd year", 
-                tools: "Thermodynamics, EES/Matlab",
-                description: "Experimental and theoretical study of Rankine and Hirn steam cycles. The project focuses on energy balance, efficiency optimization, and the impact of superheating on thermodynamic performance in industrial power systems.",
-                pdf: "projets/BE_3PVE_CHENNAOUI_KASHANI.pdf", 
-                image: "images/be.png" 
-            },
-            { 
-                name: "(FR) Electromagnetism Magnetic field: Biot-Savart Law", 
-                year: "2nd year", 
-                tools: "Physics, Magnetic Sensors",
-                description: "Experimental validation of the Biot-Savart law. Mapping of the magnetic field generated by different coil configurations and analysis of the relationship between current intensity and field strength.",
-                pdf: "projets/TP2_BEAUCLAIR_CHENNAOUI1.pdf", 
-                image: "images/bs.png" 
-            },
-            { 
-                name: "(FR) Study of an electric field using a rheographic tank", 
-                year: "2nd year", 
-                tools: "Electromagnetism",
-                description: "Visualization and mapping of equipotential lines and electric field vectors using a rheographic tank. Study of electrode geometry influence on field distribution.",
-                pdf: "projets/C2_TP_Phs213_BEAUCLAIR_CHENNAOUI_KASHANI.pdf", 
-                image: "images/rh.png" 
-            },
-            { 
-                name: "(FR) Digital Prototyping: 7-Segment Transcoder and Comparator", 
-                year: "2nd year", 
-                tools: "Quartus Prime, FPGA",
-                description: "Design and implementation of combinational logic circuits on an Intel FPGA. Development of a binary-to-7-segment transcoder and a magnitude comparator using VHDL and schematic entry in Quartus Prime.",
-                pdf: "projets/2pc2_TP_CHENNAOUI_Rayan.pdf", 
-                image: "images/qp.png" 
-            },
-            { 
-                name: "(FR) Solid Mechanics: Inertia and Gravity Measurements", 
-                year: "2nd year", 
-                tools: "Experimental Mechanics",
-                description: "Determination of the gravitational constant and moments of inertia through oscillatory methods. Analysis of the influence of added masses on the dynamic behavior of a bifilar suspension system.",
-                pdf: "projets/TP1_MECASO_CHENNAOUI_DELAVILLE_CHANDELIER.pdf", 
-                image: "images/pt.jpg" 
-            },
-            { 
-                name: "(FR) Strength of Materials: Beam Bending and Stiffness", 
-                year: "2nd year", 
-                tools: "RDM, Bench Testing",
-                description: "Structural analysis of beams under various loading conditions. Experimental validation of the cubic relationship between beam thickness and stiffness, and determination of Young's modulus for different materials.",
-                pdf: "projets/CR_RDM_TP.pdf", 
-                image: "images/sm.png" 
-            },
-            { 
-                name: "(ENG) Finite Element Modeling: Thin Plate with a Hole", 
-                year: "4th year", 
-                tools: "Patran/Nastran",
-                description: "Stress concentration analysis on a thin metallic plate. Use of Finite Element Method (FEM) to study von Mises stress distribution around a hole and mesh convergence sensitivity.",
-                pdf: "projets/TP2_FEM_Rayan_CHENNAOUI_Felix_LAO.pdf", 
-                image: "images/tp.png" 
-            },
-            { 
-                name: "(ENG) Finite Element Modeling: Solid Lug Under Bending", 
-                year: "4th year", 
-                tools: "Patran/Nastran",
-                description: "3D structural analysis of a mechanical lug component. Focus on load application, boundary conditions, and identifying critical failure points through finite element simulation.",
-                pdf: "projets/FEM___TP3.pdf", 
-                image: "images/lug.png" 
-            },
-            { 
-                name: "(ENG) Modeling and Performance Analysis of a Laval Nozzle", 
-                year: "4th year", 
-                tools: "StarCCM+, CFD",
-                description: "CFD simulation of supersonic flow through a convergent-divergent (Laval) nozzle. Analysis of pressure distribution, Mach number evolution, and shock wave formation under various pressure ratios.",
-                pdf: "projets/Mf421_TP_LAVAL_RAYAN_CHENNAOUI.pdf", 
-                image: "images/ln.png" 
-            }
-        ];
+    // PINNs removed from here — moved to researchData
+    const projectsData = [
+        { name:"(ENG) UAV Stability Derivatives Analysis", year:"4th year", tools:"XFLR5, CATIA V5, OpenVSP, Matlab", description:"Aerodynamic and stability derivative analysis of a RC UAV. Methods tested include CAD-to-ANSYS simulation, OpenVSP, and XFLR5. Successfully completed via XFLR5 + MATLAB dynamic modeling.", pdf:"projets/UAV_Report_2_FDAC.pdf", image:"images/uav.png" },
+        { name:"(FR) Applied Data Science Project: Statistical Analysis", year:"3rd year", tools:"Python", description:"Univariate, bivariate, and multivariate statistical methods applied to real-world datasets — from agricultural data to aircraft performance analysis.", pdf:"projets/PROJET___SCIENCE_DES_DONNEES (3) (1).pdf", image:"images/sdd.png" },
+        { name:"CAO: CATIA Design of a Complete Aircraft Rudder Pedal Assembly", year:"2nd year", tools:"Catia V5", description:"Complete mechanical design of an aircraft rudder pedal using CATIA, from individual parts to full assembly.", pdf:"projets/PF_RAYAN.pdf", image:"images/cao.png" },
+        { name:"(FR) CAO: CATIA Design of a Mirage 2000 wing", year:"3rd year", tools:"Catia V5", description:"Complete design of a Mirage 2000 wing in CATIA, including functional elevons, leading-edge slats, and an airbrake system.", pdf:"projets/MIRAGE 2000 (1).pdf", image:"images/cao2.png" },
+        { name:"(FR) GoPiGo Robot for Area Measurement (0.1% uncertainty)", year:"2nd year", tools:"Python, GoPiGo", description:"Autonomous robot to estimate surface areas through controlled motion and sensor data acquisition. Full uncertainty analysis achieving 0.1% measurement precision.", pdf:"projets/GRAND PROJET - GOPIGO.pdf", image:"images/gpg.png" },
+        { name:"(FR) Thermodynamic Analysis of Vapor Compression Refrigeration Systems", year:"3rd year", tools:"SOLKANE Software 8.0", description:"Detailed thermodynamic study of single-stage, heat exchanger-assisted, and two-stage refrigeration cycles. Validated using Solkane simulation software.", pdf:"projets/BE2_CHENNAOUI_KASHANI_Aero3PVE.pdf", image:"images/solk.png" },
+        { name:"(FR) Modeling and Control of an Elevator Actuation System (A380)", year:"2nd year", tools:"Matlab", description:"Modeling and optimization of a hydraulic actuator controlling the elevator of the Airbus A380 in MATLAB Simulink.", pdf:"projets/2pc2_projet1_BEAUCLAIR_CHENNAOUI.pdf", image:"images/m.png" },
+        { name:"(FR) Innovative Railway Noise Reduction Project", year:"2nd year", tools:"Office, Python, Catia V5, Noisetools", description:"Advanced noise barriers combining active noise cancellation and high-performance materials to reduce railway sound pollution.", pdf:"projets/PIG-Barriere_innovante_contre_les_nuisances_sonores_ferroviaires.pdf", image:"images/pig.png" }
+    ];
 
-        const projectsData = [
-            { 
-                name: "(ENG) UAV Stability Derivatives Analysis", 
-                year: "4th year", 
-                tools: "XFLR5, CATIA V5, OpenVSP, Matlab",
-                description: "This report presents the aerodynamic and stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods were tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5.",
-                pdf: "projets/UAV_Report_2_FDAC.pdf", 
-                image: "images/uav.png" 
-            },
-            { 
-                name: "(FR) Applied Data Science Project: Statistical Analysis", 
-                year: "3rd year", 
-                tools: "Python",
-                description: "This project applies univariate, bivariate, and multivariate statistical methods to real-world datasets to extract meaningful insights.",
-                pdf: "projets/PROJET___SCIENCE_DES_DONNEES (3) (1).pdf", 
-                image: "images/sdd.png" 
-            },
-            { 
-                name: "CAO: CATIA Design of a Complete Aircraft Rudder Pedal Assembly", 
-                year: "2nd year", 
-                tools: "Catia V5",
-                description: "This project involved the complete mechanical design of an aircraft rudder pedal (palonnier) using CATIA, from individual parts to the full assembly.",
-                pdf: "projets/PF_RAYAN.pdf", 
-                image: "images/cao.png" 
-            },
-            { 
-                name: "(FR) CAO: CATIA Design of a Mirage 2000 wing", 
-                year: "3rd year", 
-                tools: "Catia V5",
-                description: "This project focused on the complete design of a Mirage 2000 wing in CATIA, including functional elevons, leading-edge slats, and an airbrake system.",
-                pdf: "projets/MIRAGE 2000 (1).pdf", 
-                image: "images/cao2.png" 
-            },
-            { 
-                name: "(FR) GoPiGo Robot for Area Measurement (0,1% uncertainty)", 
-                year: "2nd year", 
-                tools: "Python, GoPiGo",
-                description: "This project involved the design and programming of a GoPiGo autonomous robot to estimate surface areas through controlled motion and sensor data acquisition.",
-                pdf: "projets/GRAND PROJET - GOPIGO.pdf", 
-                image: "images/gpg.png" 
-            },
-            { 
-                name: "(FR) Thermodynamic Analysis of Vapor Compression Refrigeration Systems", 
-                year: "3rd year", 
-                tools: "SOLKANE Software 8.0",
-                description: "This project involved the detailed thermodynamic study of several vapor compression refrigeration cycles, including single-stage, heat exchanger-assisted, and two-stage configurations.",
-                pdf: "projets/BE2_CHENNAOUI_KASHANI_Aero3PVE.pdf", 
-                image: "images/solk.png" 
-            },
-            { 
-                name: "(FR) Modeling and Control of an Elevator Actuation System (A380)", 
-                year: "2nd year", 
-                tools: "Matlab",
-                description: "This project focused on the modeling, simulation, and optimization of a hydraulic actuator controlling the elevator of the Airbus A380.",
-                pdf: "projets/2pc2_projet1_BEAUCLAIR_CHENNAOUI.pdf", 
-                image: "images/m.png" 
-            },
-            { 
-                name: "(FR) Innovative Railway Noise Reduction Project", 
-                year: "2nd year", 
-                tools: "Office, Python, Catia V5, Noisetools",
-                description: "In this project, we developed advanced noise barriers combining active noise cancellation and high-performance materials to reduce railway sound pollution.",
-                pdf: "projets/PIG-Barriere_innovante_contre_les_nuisances_sonores_ferroviaires.pdf", 
-                image: "images/pig.png" 
-            },
-            { 
-                name: "(ENG) Physics-Informed Neural Networks for Solving the Schrödinger Equation", 
-                year: "4th year", 
-                tools: "Python, PyTorch, PINNs",
-                description: "Investigation of translational symmetry breaking in quantum tunneling using Physics-Informed Neural Networks (PINNs).",
-                pdf: "projets/QM_Article.pdf", 
-                image: "images/pinn.png" 
-            }
-        ];
+    const researchData = [
+        { name:"(ENG) Physics-Informed Neural Networks for Solving the Schrödinger Equation", year:"4th year", tools:"Python, PyTorch, PINNs", description:"Investigation of translational symmetry breaking in quantum tunneling using Physics-Informed Neural Networks (PINNs). The network is trained to solve the Schrödinger equation by minimizing a physics-based loss function, reconstructing wave functions across potential barriers without traditional mesh-based solvers.", pdf:"projets/QM_Article.pdf", image:"images/pinn.png" }
+    ];
 
-        // R&D data — placeholder, add your entries here
-        const researchData = [
-            // Example entry (uncomment and fill when ready):
-            // {
-            //     name: "My Research Topic",
-            //     year: "4th year",
-            //     tools: "Tool1, Tool2",
-            //     description: "Description of the research.",
-            //     pdf: "projets/my_research.pdf",
-            //     image: "images/research.png"
-            // }
-        ];
+    const booksData = [
+        // { title:"", author:"", description:"", review:"", image:"" }
+    ];
 
-        // Books data — placeholder, add your entries here
-        const booksData = [
-            // Example entry (uncomment and fill when ready):
-            // {
-            //     title: "Book Title",
-            //     author: "Author Name",
-            //     description: "What the book is about.",
-            //     review: "Your personal take on the book.",
-            //     image: "images/book_cover.png"
-            // }
-        ];
+    const wipData = [
+        { name:"UAV Stability Derivatives Analysis", description:"Stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods are being tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by using XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.", progress:60, images:["images/uavwip.png","images/uav.png"] },
+        { name:"Bench Vise (CAD & FEM)", description:"After 3 years of modeling experience with CATIA, this upcoming project aims to master the SolidWorks environment through the complete design of a mechanical assembly. I intend to integrate Ansys (new experience) for Finite Element Analysis (FEA) to establish a comprehensive validation workflow and demonstrate compatibility between these industry-standard tools.", progress:1, images:["images/bv.png"] },
+        { name:"Scientific Machine Learning (SciML)", description:"Deep dive into the bridge between classical physics and AI. Currently implementing core optimization algorithms, from Maximum Likelihood Estimation to Newton-Raphson methods, with the ultimate goal of developing Physics-Informed Neural Networks (PINNs) for structural mechanics and fluid dynamics.", progress:5, images:["images/grad.jpg"] }
+    ];
 
-        const wipData = [
-            {
-                name: "UAV Stability Derivatives Analysis",
-                description: "Stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods are being tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by using XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.",
-                progress: 60,
-                images: ["images/uavwip.png", "images/uav.png"]
-            },
-            {
-                name: "Bench Vise (CAD & FEM)",
-                description: "After 3 years of modeling experience with CATIA, this upcoming project aims to master the SolidWorks environment through the complete design of a mechanical assembly. I intend to integrate Ansys (new experience) for Finite Element Analysis (FEA) to establish a comprehensive validation workflow.",
-                progress: 1,
-                images: ["images/bv.png"]
-            },
-            {
-                name: "Scientific Machine Learning (SciML)",
-                description: "Deep dive into the bridge between classical physics and AI. Currently implementing core optimization algorithms, from Maximum Likelihood Estimation to Newton-Raphson methods, with the ultimate goal of developing Physics-Informed Neural Networks (PINNs) for structural mechanics and fluid dynamics.",
-                progress: 5,
-                images: ["images/grad.jpg"]
-            }
-        ];
+    const personalProjectsData = [
+        { name:"President of BeHard eSport", description:"As president of the BeHard eSport association, I led a team of more than 40 members, managed a budget, and organized multiple gaming tournaments and events for the student community. This role developed my leadership, project management, and communication skills.", images:["images/jersey.png","images/collection.png"], pdf:"projets/doss_mark.pdf", skills:["Leadership","Project Management","Budgeting","Event Organization","Teamwork","Communication"], details:[{label:"Cash Prize Won",value:"10k/20k$"},{label:"Events Organized",value:"10+"},{label:"Community Size",value:"4000+"},{label:"Views/Impressions",value:"~15'000'000"}] },
+        { name:"Mental Health App & Website", description:"Design and development of a mobile application focused on mood and habit tracking, alongside the creation of a responsive website to present the product and collect early user feedback. The project covers the full process from UX thinking and visual identity to front/back-end development, beta testing setup, and user feedback analysis.", images:["images/app2.png","images/app.png"], pdf:null, skills:["UX/UI design","Teamwork","Communication","Feedback collection & analysis","Translate needs into concrete features"], details:[{label:"Beta Testers",value:"20+"},{label:"Tech Stack",value:"Swift, Brevo, Firebase"},{label:"Status",value:"In Development"}] },
+        { name:"Ecological Commitment", description:"My commitment to sustainability started in high school by founding an ecological association: we implemented waste sorting in the cafeteria, introduced animals to the playground for biodiversity, and designed a solar-powered autonomous classroom. Today, I am a trained and certified facilitator for the 'Climate Fresco' and 'Aeronautical Fresco,' conducting awareness workshops for students and corporate teams.", images:["images/fresque.jpg"], pdf:null, skills:["Public Speaking","Workshop Facilitation","Sustainability Strategy","Environmental Awareness","Leadership"], details:[{label:"Certifications",value:"Climate & Aero Fresco"},{label:"Target Audience",value:"Students & Companies"},{label:"HS Projects",value:"Solar Class & Bio-zone"},{label:"Role",value:"Founder & Facilitator"}] }
+    ];
 
-        const personalProjectsData = [
-            {
-                name: "President of BeHard eSport",
-                description: "As president of the BeHard eSport association, I led a team of more than 40 members, managed a budget, and organized multiple gaming tournaments and events for the student community. This role developed my leadership, project management, and communication skills.",
-                images: ["images/jersey.png", "images/collection.png"],
-                pdf: "projets/doss_mark.pdf",
-                skills: ["Leadership", "Project Management", "Budgeting", "Event Organization", "Teamwork", "Communication"],
-                details: [
-                    { label: "Cash Prize Won", value: "10k/20k$" },
-                    { label: "Events Organized", value: "10+" },
-                    { label: "Community Size", value: "4000+" },
-                    { label: "Views/Impressions", value: "~15'000'000" }
-                ]
-            },
-            {
-                name: "Mental Health App & Website",
-                description: "Design and development of a mobile application focused on mood and habit tracking, alongside the creation of a responsive website to present the product and collect early user feedback.",
-                images: ["images/app2.png", "images/app.png"],
-                pdf: null,
-                skills: ["UX/UI design", "Teamwork", "Communication", "Feedback collection & analysis", "Translate needs into concrete features"],
-                details: [
-                    { label: "Beta Testers", value: "20+" },
-                    { label: "Tech Stack", value: "Swift, Brevo, Firebase" },
-                    { label: "Status", value: "In Development" }
-                ]
-            },
-            {
-                name: "Ecological Commitment",
-                description: "My commitment to sustainability started in high school by founding an ecological association: we implemented waste sorting in the cafeteria, introduced animals to the playground for biodiversity, and designed a solar-powered autonomous classroom. Today, I am a trained and certified facilitator for the 'Climate Fresco' and 'Aeronautical Fresco.'",
-                images: ["images/fresque.jpg"],
-                pdf: null,
-                skills: ["Public Speaking", "Workshop Facilitation", "Sustainability Strategy", "Environmental Awareness", "Leadership"],
-                details: [
-                    { label: "Certifications", value: "Climate & Aero Fresco" },
-                    { label: "Target Audience", value: "Students & Companies" },
-                    { label: "HS Projects", value: "Solar Class & Bio-zone" },
-                    { label: "Role", value: "Founder & Facilitator" }
-                ]
-            }
-        ];
+    // =====================================================
+    // STATE & HELPERS
+    // =====================================================
+    let currentFilter = 'all';
+    const sortByYearDesc = (a, b) => parseInt(b.year) - parseInt(a.year);
 
-        // =====================================================
-        // STATE
-        // =====================================================
-        let currentFilter = 'all';
-
-        const sortByYearDesc = (a, b) => {
-            const yearA = parseInt(a.year);
-            const yearB = parseInt(b.year);
-            return yearB - yearA;
+    // =====================================================
+    // MODAL
+    // =====================================================
+    function openModal(type) {
+        if (type === 'cv') {
+            const m = document.getElementById('cvModal');
+            m.classList.add('show'); m.style.display = 'block';
+            document.body.style.overflow = 'hidden'; return;
+        }
+        if (type === 'books') {
+            const m = document.getElementById('booksModal');
+            renderBooks(booksData);
+            m.classList.add('show'); m.style.display = 'block';
+            document.body.style.overflow = 'hidden'; return;
+        }
+        const cfg = {
+            tp:       { modalId:'tpModal',       listId:'tpList',       filterId:'tpFilters',       data:tpData },
+            projects: { modalId:'projectsModal',  listId:'projectsList', filterId:'projectsFilters', data:projectsData },
+            research: { modalId:'researchModal',  listId:'researchList', filterId:'researchFilters', data:researchData }
         };
-
-        // =====================================================
-        // MODAL LOGIC
-        // =====================================================
-        function openModal(type) {
-            if (type === 'cv') {
-                const modal = document.getElementById('cvModal');
-                modal.classList.add('show');
-                modal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-                return;
-            }
-
-            if (type === 'books') {
-                const modal = document.getElementById('booksModal');
-                renderBooks(booksData);
-                modal.classList.add('show');
-                modal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-                return;
-            }
-
-            let modalId = 'projectsModal';
-            let listId = 'projectsList';
-            let filterId = 'projectsFilters';
-            let rawData = projectsData;
-
-            if (type === 'tp') {
-                modalId = 'tpModal'; listId = 'tpList'; filterId = 'tpFilters'; rawData = tpData;
-            } else if (type === 'research') {
-                modalId = 'researchModal'; listId = 'researchList'; filterId = 'researchFilters'; rawData = researchData;
-            }
-
-            const modal = document.getElementById(modalId);
-            const filterContainer = document.getElementById(filterId);
-
-            const data = [...rawData].sort(sortByYearDesc);
-            const years = [...new Set(data.map(item => item.year))];
-
-            filterContainer.innerHTML = '<button class="filter-btn active" onclick="filterItems(\'' + type + '\', \'all\')">All</button>';
-            years.forEach(year => {
-                filterContainer.innerHTML += '<button class="filter-btn" onclick="filterItems(\'' + type + '\', \'' + year + '\')">' + year + '</button>';
-            });
-
-            // Show empty state if no data yet
-            if (data.length === 0) {
-                const listEl = document.getElementById(listId);
-                listEl.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">${type === 'research' ? '🔬' : '📚'}</div>
-                        <p>Coming soon — content will be added here.</p>
-                    </div>
-                `;
-            } else {
-                renderItems(type, data);
-            }
-
-            modal.classList.add('show');
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function renderItems(type, data) {
-            let listId = 'projectsList';
-            if (type === 'tp') listId = 'tpList';
-            if (type === 'research') listId = 'researchList';
-
-            const list = document.getElementById(listId);
-            const filteredData = currentFilter === 'all' ? data : data.filter(item => item.year === currentFilter);
-
-            list.innerHTML = '';
-
-            if (filteredData.length === 0) {
-                list.innerHTML = `<div class="empty-state"><div class="empty-icon">🔬</div><p>Coming soon — content will be added here.</p></div>`;
-                return;
-            }
-
-            filteredData.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'item';
-                li.innerHTML = `
-                    <div class="item-content">
-                        <div class="item-image" style="background-image: url('${item.image}'); background-size: cover; background-position: center;"></div>
-                        <div class="item-info">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-meta">
-                                <div class="item-year">${item.year}</div>
-                                <div class="item-tools">${item.tools}</div>
-                            </div>
-                            <div class="item-description">
-                                <strong>Description:</strong> ${item.description}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-buttons">
-                        <button class="view-btn" onclick="viewPDF('${item.pdf}')">View</button>
-                        <button class="download-btn" onclick="downloadPDF('${item.pdf}')">Download</button>
-                    </div>
-                `;
-                list.appendChild(li);
-            });
-        }
-
-        function filterItems(type, year) {
-            currentFilter = year;
-
-            let data = projectsData;
-            let filterId = 'projectsFilters';
-            if (type === 'tp') { data = tpData; filterId = 'tpFilters'; }
-            else if (type === 'research') { data = researchData; filterId = 'researchFilters'; }
-
-            const filterContainer = document.getElementById(filterId);
-            const buttons = filterContainer.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
+        const { modalId, listId, filterId, data: rawData } = cfg[type];
+        const modal = document.getElementById(modalId);
+        const filterContainer = document.getElementById(filterId);
+        const data = [...rawData].sort(sortByYearDesc);
+        const years = [...new Set(data.map(i => i.year))];
+        filterContainer.innerHTML = `<button class="filter-btn active" onclick="filterItems('${type}','all')">All</button>`;
+        years.forEach(y => { filterContainer.innerHTML += `<button class="filter-btn" onclick="filterItems('${type}','${y}')">${y}</button>`; });
+        if (data.length === 0) {
+            document.getElementById(listId).innerHTML = `<div class="empty-state"><div class="empty-icon">${type==='research'?'🔬':'📚'}</div><p>Coming soon — content will be added here.</p></div>`;
+        } else {
             renderItems(type, data);
         }
+        modal.classList.add('show'); modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 
-        function renderBooks(data) {
-            const list = document.getElementById('booksList');
-            list.innerHTML = '';
-
-            if (data.length === 0) {
-                list.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📚</div>
-                        <p>Coming soon — reading list will be added here.</p>
+    function renderItems(type, data) {
+        const listId = type==='tp' ? 'tpList' : type==='research' ? 'researchList' : 'projectsList';
+        const list = document.getElementById(listId);
+        const filtered = currentFilter==='all' ? data : data.filter(i => i.year===currentFilter);
+        list.innerHTML = '';
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="empty-state"><div class="empty-icon">🔬</div><p>Coming soon.</p></div>`; return;
+        }
+        filtered.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'item';
+            li.innerHTML = `
+                <div class="item-content">
+                    <div class="item-image" style="background-image:url('${item.image}');background-size:cover;background-position:center;"></div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-meta">
+                            <div class="item-year">${item.year}</div>
+                            <div class="item-tools">${item.tools}</div>
+                        </div>
+                        <div class="item-description"><strong>Description:</strong> ${item.description}</div>
                     </div>
-                `;
-                return;
-            }
+                </div>
+                <div class="item-buttons">
+                    <button class="view-btn" onclick="viewPDF('${item.pdf}')">View</button>
+                    <button class="download-btn" onclick="downloadPDF('${item.pdf}')">Download</button>
+                </div>`;
+            list.appendChild(li);
+        });
+    }
 
-            data.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'item';
-                li.innerHTML = `
-                    <div class="item-content">
-                        <div class="book-image" style="background-image: url('${item.image}');"></div>
-                        <div class="item-info">
-                            <div class="item-name">${item.title}</div>
-                            <div class="book-author">By ${item.author}</div>
-                            <div class="item-description">
-                                <strong>Description:</strong> ${item.description}
-                                <div class="book-review">" ${item.review} "</div>
-                            </div>
+    function filterItems(type, year) {
+        currentFilter = year;
+        const filterId = type==='tp' ? 'tpFilters' : type==='research' ? 'researchFilters' : 'projectsFilters';
+        document.querySelectorAll(`#${filterId} .filter-btn`).forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        const data = type==='tp' ? tpData : type==='research' ? researchData : projectsData;
+        renderItems(type, data);
+    }
+
+    function renderBooks(data) {
+        const list = document.getElementById('booksList');
+        list.innerHTML = '';
+        if (data.length === 0) {
+            list.innerHTML = `<div class="empty-state"><div class="empty-icon">📚</div><p>Coming soon — reading list will be added here.</p></div>`; return;
+        }
+        data.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'book-card';
+            li.innerHTML = `
+                <div class="book-cover-wrapper">
+                    <div class="book-cover" style="${item.image ? 'background-image:url(\''+item.image+'\');' : 'background:#555;'}"></div>
+                </div>
+                <div class="book-info">
+                    <div class="book-title">${item.title}</div>
+                    <div class="book-author">by ${item.author}</div>
+                    <div class="book-review">${item.review}</div>
+                </div>`;
+            list.appendChild(li);
+        });
+    }
+
+    function closeModal(type) {
+        const map = { cv:'cvModal', tp:'tpModal', projects:'projectsModal', research:'researchModal', books:'booksModal' };
+        const modal = document.getElementById(map[type]);
+        if (!modal) return;
+        modal.classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 400);
+        document.body.style.overflow = '';
+        currentFilter = 'all';
+    }
+
+    window.onclick = e => {
+        ['tpModal','projectsModal','cvModal','researchModal','booksModal'].forEach(id => {
+            const m = document.getElementById(id);
+            if (m && e.target === m) {
+                const t = id.replace('Modal','');
+                closeModal(t==='tp'?'tp':t==='projects'?'projects':t==='cv'?'cv':t==='research'?'research':'books');
+            }
+        });
+    };
+
+    function viewPDF(f) { window.open(f, '_blank'); }
+    function downloadPDF(f) { const a=document.createElement('a'); a.href=f; a.download=f; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+
+    // =====================================================
+    // CAROUSELS
+    // =====================================================
+    function navigateCardCarousel(btn, dir) {
+        const wrapper = btn.closest('.wip-project-image, .personal-project-image');
+        const carousel = wrapper.querySelector('.card-image-carousel');
+        const total = carousel.children.length;
+        let idx = parseInt(carousel.dataset.index || '0');
+        idx = dir==='next' ? (idx+1)%total : (idx-1+total)%total;
+        carousel.dataset.index = idx;
+        carousel.style.transform = `translateX(-${idx * wrapper.clientWidth}px)`;
+    }
+
+    function createImageCarouselHTML(images) {
+        if (!images || images.length===0) return '<div class="card-image"></div>';
+        const slides = images.map(img => `<div class="card-image" style="background-image:url('${img}')"></div>`).join('');
+        const controls = images.length > 1 ? `<div class="card-carousel-controls"><button class="card-carousel-btn" onclick="navigateCardCarousel(this,'prev')">‹</button><button class="card-carousel-btn" onclick="navigateCardCarousel(this,'next')">›</button></div>` : '';
+        return `<div class="card-image-carousel" data-index="0">${slides}</div>${controls}`;
+    }
+
+    function slideProjectCard(btn, pageIndex) {
+        btn.closest('.pp-slider-wrapper').querySelector('.pp-slider').style.transform = `translateX(-${pageIndex*50}%)`;
+    }
+
+    // =====================================================
+    // RENDER
+    // =====================================================
+    function renderWipProjects() {
+        const list = document.getElementById('wip-list');
+        if (!list) return;
+        list.innerHTML = '';
+        wipData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'wip-project-card';
+            card.innerHTML = `
+                <div class="wip-project-image">${createImageCarouselHTML(item.images)}</div>
+                <div class="wip-project-content">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <div class="progress-container" title="${item.progress}% complete">
+                        <div class="progress-bar-inner" style="width:${item.progress}%;"></div>
+                    </div>
+                </div>`;
+            list.appendChild(card);
+        });
+    }
+
+    function renderPersonalProjects() {
+        const list = document.getElementById('personal-projects-list');
+        if (!list) return;
+        list.innerHTML = '';
+        personalProjectsData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'personal-project-card';
+            const skillsHtml = item.skills.map(s => `<li class="skill-tag">${s}</li>`).join('');
+            const detailsHtml = (item.details||[]).map(d => `<li><strong>${d.label}:</strong> ${d.value}</li>`).join('');
+            card.innerHTML = `
+                <div class="personal-project-image">${createImageCarouselHTML(item.images)}</div>
+                <div class="pp-slider-wrapper">
+                    <div class="pp-slider">
+                        <div class="pp-page">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                            <button class="more-details-btn" onclick="slideProjectCard(this,1)">More Details &rarr;</button>
+                            <strong>Skills Acquired:</strong>
+                            <ul class="skills-list">${skillsHtml}</ul>
+                            <div style="margin-top:auto;">${item.pdf?`<button class="view-btn" onclick="viewPDF('${item.pdf}')">View Document</button>`:''}</div>
+                        </div>
+                        <div class="pp-page">
+                            <h3>Project Details</h3>
+                            <ul class="details-list" style="list-style:none;padding:0;">${detailsHtml}</ul>
+                            <button class="more-details-btn" style="margin-top:auto;" onclick="slideProjectCard(this,0)">&larr; Back</button>
                         </div>
                     </div>
-                `;
-                list.appendChild(li);
+                </div>`;
+            list.appendChild(card);
+        });
+    }
+
+    // =====================================================
+    // DOM READY
+    // =====================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('tp-count').textContent = `${tpData.length} documents`;
+        document.getElementById('project-count').textContent = `${projectsData.length} documents`;
+        const rdQ = document.getElementById('rd-quick-count');
+        const bkQ = document.getElementById('books-quick-count');
+        if (rdQ) rdQ.textContent = researchData.length > 0 ? `— ${researchData.length}` : '— coming soon';
+        if (bkQ) bkQ.textContent = booksData.length > 0 ? `— ${booksData.length}` : '— coming soon';
+
+        renderWipProjects();
+        renderPersonalProjects();
+
+        const emailBtn = document.getElementById('email-btn');
+        if (emailBtn) {
+            emailBtn.addEventListener('click', e => {
+                e.preventDefault();
+                const email = 'rayan.chennaoui@ipsa.fr';
+                navigator.clipboard.writeText(email).then(() => {
+                    emailBtn.innerHTML = '<span>✅</span> Copied!';
+                    setTimeout(() => { emailBtn.innerHTML = '<span>📧</span> ' + email; }, 2000);
+                }).catch(() => { emailBtn.innerHTML = '<span>📧</span> ' + email; });
             });
         }
+    });
 
-        function closeModal(type) {
-            const modalMap = {
-                cv: 'cvModal',
-                tp: 'tpModal',
-                projects: 'projectsModal',
-                research: 'researchModal',
-                books: 'booksModal'
-            };
+    // =====================================================
+    // SCROLL PROGRESS
+    // =====================================================
+    window.addEventListener('scroll', () => {
+        const ws = document.body.scrollTop || document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        document.querySelector('.progress-bar').style.width = (ws / h * 100) + '%';
+    });
 
-            const modalId = modalMap[type];
-            if (!modalId) return;
+    // =====================================================
+    // PARTICLES
+    // =====================================================
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('show');
-            setTimeout(() => modal.style.display = 'none', 400);
-            document.body.style.overflow = '';
-            currentFilter = 'all';
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
         }
-
-        function viewPDF(filename) {
-            window.open(filename, '_blank');
+        update() {
+            this.x += this.speedX; this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
         }
-
-        function downloadPDF(filename) {
-            const link = document.createElement('a');
-            link.href = filename;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        draw() {
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
+    }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            ['tpModal', 'projectsModal', 'cvModal', 'researchModal', 'booksModal'].forEach(id => {
-                const modal = document.getElementById(id);
-                if (modal && event.target === modal) {
-                    const type = id.replace('Modal', '');
-                    closeModal(type === 'tp' ? 'tp' : type === 'projects' ? 'projects' : type === 'cv' ? 'cv' : type === 'research' ? 'research' : 'books');
-                }
-            });
-        };
+    const particles = Array.from({ length: 50 }, () => new Particle());
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-        // =====================================================
-        // CAROUSEL HELPERS
-        // =====================================================
-        function navigateCardCarousel(button, direction) {
-            const wrapper = button.closest('.wip-project-image, .personal-project-image');
-            const carousel = wrapper.querySelector('.card-image-carousel');
-            const totalImages = carousel.children.length;
+    // =====================================================
+    // CAROUSEL BUTTONS
+    // =====================================================
+    const scrollContainer = document.querySelector('.future-projects-carousel');
+    document.getElementById('scroll-left')?.addEventListener('click', () => scrollContainer.scrollBy({ left:-350, behavior:'smooth' }));
+    document.getElementById('scroll-right')?.addEventListener('click', () => scrollContainer.scrollBy({ left:350, behavior:'smooth' }));
 
-            let currentIndex = parseInt(carousel.dataset.index || '0');
-            if (direction === 'next') {
-                currentIndex = (currentIndex + 1) % totalImages;
-            } else {
-                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+    const wipScroll = document.querySelector('.wip-projects-carousel');
+    document.getElementById('wip-scroll-left')?.addEventListener('click', () => wipScroll.scrollBy({ left:-510, behavior:'smooth' }));
+    document.getElementById('wip-scroll-right')?.addEventListener('click', () => wipScroll.scrollBy({ left:510, behavior:'smooth' }));
+
+    // =====================================================
+    // KONAMI EASTER EGG
+    // =====================================================
+    const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let konamiIndex = 0;
+    document.addEventListener('keydown', e => {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                document.getElementById('easterEgg').classList.add('show');
+                setTimeout(() => { document.getElementById('easterEgg').classList.remove('show'); konamiIndex = 0; }, 5000);
             }
-            carousel.dataset.index = currentIndex;
-            const imageWidth = wrapper.clientWidth;
-            carousel.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
-        }
-
-        function createImageCarouselHTML(images) {
-            if (!images || images.length === 0) {
-                return '<div class="card-image"></div>';
-            }
-            const imageSlides = images.map(img =>
-                `<div class="card-image" style="background-image: url('${img}')"></div>`
-            ).join('');
-            const carouselHTML = `<div class="card-image-carousel" data-index="0">${imageSlides}</div>`;
-            const controlsHTML = images.length > 1 ? `
-                <div class="card-carousel-controls">
-                    <button class="card-carousel-btn" onclick="navigateCardCarousel(this, 'prev')">‹</button>
-                    <button class="card-carousel-btn" onclick="navigateCardCarousel(this, 'next')">›</button>
-                </div>` : '';
-            return carouselHTML + controlsHTML;
-        }
-
-        function slideProjectCard(btn, pageIndex) {
-            const slider = btn.closest('.pp-slider-wrapper').querySelector('.pp-slider');
-            slider.style.transform = `translateX(-${pageIndex * 50}%)`;
-        }
-
-        // =====================================================
-        // RENDER FUNCTIONS
-        // =====================================================
-        function renderWipProjects() {
-            const list = document.getElementById('wip-list');
-            if (!list) return;
-            list.innerHTML = '';
-            wipData.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'wip-project-card';
-                card.innerHTML = `
-                    <div class="wip-project-image">
-                        ${createImageCarouselHTML(item.images)}
-                    </div>
-                    <div class="wip-project-content">
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
-                        <div class="progress-container" title="${item.progress}% complete">
-                            <div class="progress-bar-inner" style="width: ${item.progress}%;"></div>
-                        </div>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        function renderPersonalProjects() {
-            const list = document.getElementById('personal-projects-list');
-            if (!list) return;
-            list.innerHTML = '';
-            personalProjectsData.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'personal-project-card';
-                const skillsHtml = item.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('');
-                const detailsHtml = item.details ? item.details.map(d => `<li><strong>${d.label}:</strong> ${d.value}</li>`).join('') : '';
-                card.innerHTML = `
-                    <div class="personal-project-image">
-                        ${createImageCarouselHTML(item.images)}
-                    </div>
-                    <div class="pp-slider-wrapper">
-                        <div class="pp-slider">
-                            <div class="pp-page">
-                                <h3>${item.name}</h3>
-                                <p>${item.description}</p>
-                                <button class="more-details-btn" onclick="slideProjectCard(this, 1)">More Details &rarr;</button>
-                                <strong>Skills Acquired:</strong>
-                                <ul class="skills-list">${skillsHtml}</ul>
-                                <div class="personal-project-buttons" style="margin-top: auto;">
-                                    ${item.pdf ? `<button class="view-btn" onclick="viewPDF('${item.pdf}')">View Document</button>` : ''}
-                                </div>
-                            </div>
-                            <div class="pp-page">
-                                <h3>Project Details</h3>
-                                <ul class="details-list" style="list-style: none; padding: 0;">${detailsHtml}</ul>
-                                <button class="more-details-btn" style="margin-top: auto;" onclick="slideProjectCard(this, 0)">&larr; Back</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        // =====================================================
-        // DOM READY
-        // =====================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('tp-count').textContent = `${tpData.length} documents`;
-            document.getElementById('project-count').textContent = `${projectsData.length} documents`;
-            document.getElementById('research-count').textContent = researchData.length > 0 ? `${researchData.length} documents` : 'Coming soon';
-            document.getElementById('books-count').textContent = booksData.length > 0 ? `${booksData.length} books` : 'Coming soon';
-
-            renderWipProjects();
-            renderPersonalProjects();
-
-            const emailBtn = document.getElementById('email-btn');
-            if (emailBtn) {
-                emailBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const email = 'rayan.chennaoui@ipsa.fr';
-                    navigator.clipboard.writeText(email).then(() => {
-                        emailBtn.innerHTML = '<span>✅</span> Copied!';
-                        setTimeout(() => {
-                            emailBtn.innerHTML = '<span>📧</span> ' + email;
-                        }, 2000);
-                    }).catch(() => {
-                        emailBtn.innerHTML = '<span>📧</span> ' + email;
-                    });
-                });
-            }
-        });
-
-        // =====================================================
-        // SCROLL PROGRESS BAR
-        // =====================================================
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.progress-bar').style.width = scrolled + '%';
-        });
-
-        // =====================================================
-        // PARTICLES
-        // =====================================================
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 50;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // =====================================================
-        // CAROUSELS
-        // =====================================================
-        const scrollContainer = document.querySelector('.future-projects-carousel');
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
-        if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
-            scrollLeftBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: -350, behavior: 'smooth' }));
-            scrollRightBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: 350, behavior: 'smooth' }));
-        }
-
-        const wipScrollContainer = document.querySelector('.wip-projects-carousel');
-        const wipScrollLeftBtn = document.getElementById('wip-scroll-left');
-        const wipScrollRightBtn = document.getElementById('wip-scroll-right');
-        if (wipScrollContainer && wipScrollLeftBtn && wipScrollRightBtn) {
-            wipScrollLeftBtn.addEventListener('click', () => wipScrollContainer.scrollBy({ left: -510, behavior: 'smooth' }));
-            wipScrollRightBtn.addEventListener('click', () => wipScrollContainer.scrollBy({ left: 510, behavior: 'smooth' }));
-        }
-
-        // =====================================================
-        // EASTER EGG — KONAMI CODE
-        // =====================================================
-        const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-        let konamiIndex = 0;
-        document.addEventListener('keydown', (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    document.getElementById('easterEgg').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('easterEgg').classList.remove('show');
-                        konamiIndex = 0;
-                    }, 5000);
-                }
-            } else {
-                konamiIndex = 0;
-            }
-        });
+        } else { konamiIndex = 0; }
+    });
     </script>
 </body>
 </html>
