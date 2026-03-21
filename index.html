@@ -213,14 +213,18 @@
             padding-left: 50px; /* Indent the text */
         }
         .timeline-item.internship::before {
-            left: -14px; /* Adjust the dot position */
+            left: -35px; /* Adjust the dot position */
             background: #fff !important; /* White circle */
             border: 2px solid #000 !important; /* Black border */
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             box-shadow: 0 0 0 2px #fff !important; /* Ring effect */
         }
         .internship-icon { margin-right: 8px; font-size: 1.1em; }
+
+        /* New timeline organization and description styles */
+        .timeline-org { font-weight: bold; display: block; margin-bottom: 2px; font-size: 1.1em; }
+        .timeline-desc { display: block; color: #999; line-height: 1.4; }
 
         .header-timeline .timeline-year {
             font-size: 14px;
@@ -276,15 +280,9 @@
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 2px 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin-bottom: 80px;
-        }
-
-        .separator {
-            background: linear-gradient(180deg, transparent 0%, #ddd 20%, #ddd 80%, transparent 100%);
-            width: 2px;
-            justify-self: center;
         }
 
         /* Project Blocks */
@@ -506,6 +504,12 @@
             line-height: 1;
             transition: transform 0.3s ease;
         }
+
+        /* Book image and review styles */
+        .book-image { width: 80px; height: 110px; background-size: cover; background-position: center; border-radius: 4px; flex-shrink: 0; box-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+        .book-review { font-style: italic; color: #bbb; margin-top: 8px; border-left: 2px solid #555; padding-left: 10px; font-size: 0.95em; }
+
+
 
         .close:hover {
             transform: rotate(90deg);
@@ -1177,27 +1181,29 @@
                 <div class="header-timeline">
                     <div class="section-title">Career Timeline</div>
                     <div class="timeline">
-                        <div class="timeline-item ongoing">
-                            <div class="timeline-year">2022 - 2027</div>
+                        <div class="timeline-item internship">
+                            <div class="timeline-year">June - Sept. 2026 (Upcoming)</div>
                             <div class="timeline-content">
-                                Aeronautical & Aerospace Engineering - IPSA (Institut Polytechnique des Sciences Avancées)
+                                <span class="timeline-org">✈️Air France Industries KLM E&M</span>
+                                <span class="timeline-desc">Mechanical Engineering Intern - Engine Overhaul Department</span>
                             </div>
                         </div>
                         <div class="timeline-item university">
                             <div class="timeline-year">Sept. 2025 - Feb. 2026</div>
                             <div class="timeline-content">
-                                Mechanical Engineering (aeronautical) - University of Technology Malaysia (UTM)
+                                <span class="timeline-org">University of Technology Malaysia (UTM)</span>
+                                <span class="timeline-desc">Mecanichal Engineering (aeronautical) - Exchange Semester</span>
                             </div>
                         </div>
-                        <div class="timeline-item internship">
-                            <div class="timeline-year">June - Sept. 2026 (Upcoming)</div>
+                        <div class="timeline-item ongoing">
+                            <div class="timeline-year">2022 - 2027</div>
                             <div class="timeline-content">
-                                <span class="internship-icon">✈️</span>Mechanical Engineering Intern - Air France Industries KLM Engineering & Maintenance
+                                <span class="timeline-org">Institut Polytechnique des Sciences Avancées (IPSA)</span>
+                                <span class="timeline-desc">Aeronautical & Aerospace Engineering Degree</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
@@ -1217,9 +1223,6 @@
                 </div>
             </div>
 
-            <!-- Separator -->
-            <div class="separator"></div>
-
             <!-- Projects Block -->
             <div class="project-block" onclick="openModal('projects')">
                 <div class="section-title">Projects</div>
@@ -1229,6 +1232,23 @@
                         <h3>My Most Notable Projects</h3>
                     </div>
                     <div class="project-count" id="project-count"></div>
+                </div>
+            </div>
+            <!-- ADD MISSING GRID BLOCKS -->
+            <div class="project-block" onclick="openModal('research')">
+                <div class="section-title">R&D & Tech</div>
+                <div class="project-content">
+                    <div class="project-image" style="background-image: url('images/rd.jpg');"></div>
+                    <div class="project-text"><h3>Technical & Research Projects</h3></div>
+                    <div class="project-count" id="research-count"></div>
+                </div>
+            </div>
+            <div class="project-block" onclick="openModal('books')">
+                <div class="section-title">Library</div>
+                <div class="project-content" style="background: rgba(245, 245, 245, 0.7);">
+                    <div class="project-image" style="background-image: url('images/library.jpg');"></div>
+                    <div class="project-text"><h3>Books & General Culture</h3></div>
+                    <div class="project-count" id="books-count"></div>
                 </div>
             </div>
         </div>
@@ -1350,6 +1370,10 @@
         </div>
     </div>
 
+    <!-- ADD MISSING MODALS -->
+    <div id="researchModal" class="modal"><div class="modal-content"><div class="modal-header"><h2>R&D Projects</h2><span class="close" onclick="closeModal('research')">&times;</span></div><div class="modal-body"><div class="filter-buttons" id="researchFilters"></div><ul class="item-list" id="researchList"></ul></div></div></div>
+    <div id="booksModal" class="modal"><div class="modal-content"><div class="modal-header"><h2>Reading List</h2><span class="close" onclick="closeModal('books')">&times;</span></div><div class="modal-body"><ul class="item-list" id="booksList"></ul></div></div></div>
+
     <!-- Easter Egg -->
     <div class="easter-egg" id="easterEgg">
         <p>🎉 You found the easter egg!</p>
@@ -1453,7 +1477,32 @@
         ];
 
         // Data structure for R&D and Tech Projects
-        const researchData = [];
+        const researchData = [
+            {
+                name: "(ENG) Physics-Informed Neural Networks for Solving the Schrödinger Equation",
+                year: "4th year",
+                tools: "Python, PyTorch, PINNs",
+                description: "Investigation of translational symmetry breaking in quantum tunneling using Physics-Informed Neural Networks (PINNs). The network is trained to solve the Schrödinger equation by minimizing a physics-based loss function, reconstructing wave functions across potential barriers without traditional mesh-based solvers.",
+                pdf: "projets/QM_Article.pdf",
+                image: "images/pinn.png"
+            },
+            {
+                name: "(FR) Applied Data Science Project: Statistical Analysis",
+                year: "3rd year",
+                tools: "Python",
+                description: "This project applies univariate, bivariate, and multivariate statistical methods to real-world datasets to extract meaningful insights. It covers topics such as regression, correlation analysis, confidence intervals, and statistical modeling, with applications ranging from agricultural data to aircraft performance analysis.",
+                pdf: "projets/PROJET___SCIENCE_DES_DONNEES (3) (1).pdf",
+                image: "images/sdd.png"
+            },
+            {
+                name: "(FR) Modeling and Control of an Elevator Actuation System (A380)",
+                year: "2nd year",
+                tools: "Matlab",
+                description: "This project focused on the modeling, simulation, and optimization of a hydraulic actuator controlling the elevator of the Airbus A380. The system was implemented in MATLAB Simulink using block-diagram representations derived from Laplace-domain modeling, first without and then with aerodynamic effects. Control parameters were tuned to meet stability, precision, and performance requirements, providing a realistic representation of an industrial flight control system.",
+                pdf: "projets/2pc2_projet1_BEAUCLAIR_CHENNAOUI.pdf",
+                image: "images/m.png"
+            }
+        ];
 
         // Data structure for Library/Books
         const booksData = [
@@ -1463,6 +1512,20 @@
                 description: "Rules for focused success in a distracted world.",
                 review: "Essential for engineering students.",
                 image: "images/book1.jpg"
+            },
+            {
+                title: "The Martian",
+                author: "Andy Weir",
+                description: "An astronaut is stranded on Mars and must use his ingenuity to survive.",
+                review: "A fantastic blend of science and survival.",
+                image: "images/the_martian.jpg"
+            },
+            {
+                title: "Cosmos",
+                author: "Carl Sagan",
+                description: "A journey through space and time, exploring the universe and our place in it.",
+                review: "Inspiring and thought-provoking.",
+                image: "images/cosmos.jpg"
             }
         ];
 
@@ -1626,7 +1689,7 @@
             }
 
             // Handle books modal separately as it doesn't have filters and uses renderBooks
-            if (type === 'books') {
+            if (type === 'books') { // Books modal does not have filters
                 const modal = document.getElementById('booksModal');
                 renderBooks(booksData); // Call specific render function for books
                 modal.classList.add('show');
@@ -1733,7 +1796,7 @@
                 li.className = 'item'; // Re-use existing item styling for overall structure
                 li.innerHTML = `
                     <div class="item-content">
-                        <div class="book-image" style="background-image: url('${item.image}');"></div> <!-- Use book-image class -->
+                        <div class="book-image" style="background-image: url('${item.image}');"></div>
                         <div class="item-info">
                             <div class="item-name">${item.title}</div>
                             <div class="book-author">${item.author}</div>
@@ -1741,7 +1804,6 @@
                                 ${item.description}
                                 <div class="book-review">${item.review}</div>
                             </div>
-                        </div>
                     </div>
                     <!-- No buttons for books as per request -->
                 `;
@@ -1873,7 +1935,7 @@
                 document.body.style.overflow = '';
                 return;
             }
-            const modal = document.getElementById(type === 'tp' ? 'tpModal' : 'projectsModal');
+            const modal = document.getElementById(type === 'tp' ? 'tpModal' : (type === 'projects' ? 'projectsModal' : 'researchModal'));
             modal.classList.remove('show');
             setTimeout(() => modal.style.display = 'none', 400);
             document.body.style.overflow = '';
@@ -1898,6 +1960,8 @@
             const tpModal = document.getElementById('tpModal');
             const projectsModal = document.getElementById('projectsModal');
             const cvModal = document.getElementById('cvModal');
+            const researchModal = document.getElementById('researchModal');
+            const booksModal = document.getElementById('booksModal');
             if (event.target === tpModal) {
                 closeModal('tp');
             }
@@ -1907,11 +1971,19 @@
             if (event.target === cvModal) {
                 closeModal('cv');
             }
+            if (event.target === researchModal) {
+                closeModal('research');
+            }
+            if (event.target === booksModal) {
+                closeModal('books');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('tp-count').textContent = `${tpData.length} documents`;
             document.getElementById('project-count').textContent = `${projectsData.length} documents`;
+            document.getElementById('research-count').textContent = `${researchData.length} documents`;
+            document.getElementById('books-count').textContent = `${booksData.length} items`;
             renderWipProjects();
             renderPersonalProjects();
 
