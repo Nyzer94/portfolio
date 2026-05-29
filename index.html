@@ -1629,7 +1629,9 @@
                 <div class="featured-left">
                     <div class="fp-para-block">
                         <h4><span class="fp-num">1</span> Problem & Methodology</h4>
-                        <p>This project solves a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to guide a 2D vehicle from a given initial state to a target in the shortest possible time. By applying <strong>Pontryagin's Maximum Principle (PMP)</strong>, the Hamiltonian was analytically formulated and the adjoint equations derived. A rigorous proof by contradiction demonstrates that the optimal control strictly follows a <strong>Bang-Bang profile</strong>, switching only between maximum and minimum steering bounds.</p>
+                        <p><p>This project solves a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to steer a 2D vehicle to a target state via <strong>Pontryagin's Maximum Principle (PMP)</strong>. After analytically formulating the Hamiltonian and its adjoint equations, a mathematical proof by contradiction demonstrates that the optimal steering strictly follows a <strong>Bang-Bang profile</strong>, switching exclusively between maximum and minimum steering bounds.</p>
+
+<p>To handle system non-linearities, a robust <strong>three-step numerical optimization workflow</strong> was implemented in Python, sequentially utilizing a smooth approximation, a 100-point fixed-time grid optimization, and final shooting methods down to 10⁻⁶ tolerance. The study concludes with a <strong>multi-physics extension</strong> modeling viscous friction, with direct applications to spacecraft rendezvous, autonomous parking, and train braking sequences.</p></p>
                         <div class="fp-tools-row">
                             <span class="fp-tool-tag">Python</span>
                             <span class="fp-tool-tag">NumPy</span>
@@ -1638,10 +1640,7 @@
                             <span class="fp-tool-tag">Optimal Control</span>
                         </div>
                     </div>
-                    <div class="fp-para-block">
-                        <h4><span class="fp-num">2</span> Numerical Implementation & Extension</h4>
-                        <p>To handle system non-linearities, a robust <strong>three-step numerical optimization</strong> was developed in Python — smooth approximation → full trajectory optimization over 100 grid points → unconstrained horizon with tolerances down to 10⁻⁶ using shooting methods. The study concludes with a <strong>multi-physics extension</strong> tracking a cart with viscous friction, evaluating dynamics under varying friction coefficients with direct applications to spacecraft rendezvous, autonomous parking, and train stopping sequences.</p>
-                    </div>
+                    
                 </div>
 
                 <div class="featured-separator-v"></div>
