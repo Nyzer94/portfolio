@@ -206,6 +206,7 @@
         .header-timeline {
             max-width: 350px;
             min-width: 280px;
+            position: relative; /* --- NEW: To position timeline panel --- */
         }
 
         .header-timeline .section-title {
@@ -238,6 +239,7 @@
             position: relative;
             margin-bottom: 24px;
             padding-left: 16px;
+            padding-right: 30px; /* --- NEW: Padding for chevron --- */
         }
 
         .tl-item.university::before {
@@ -337,6 +339,169 @@
             color: #e0d080;
             font-weight: 600;
         }
+
+        /* --- NEW: FEATURED PROJECT --- */
+        .featured-project-container {
+            margin-top: 30px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-project-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .featured-project-container:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .featured-project-container:hover::before {
+            left: 100%;
+        }
+
+        .featured-badge {
+            background: #e74c3c;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 12px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(231,76,60,0.5);
+        }
+
+        .featured-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .featured-desc {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* --- NEW: TIMELINE CHEVRON & PANEL --- */
+        .tl-chevron {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .tl-item:hover .tl-chevron {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        .tl-chevron:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .timeline-details-panel {
+            position: absolute;
+            top: 0;
+            left: calc(100% + 10px);
+            width: 280px;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 20px;
+            color: #ddd;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-15px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .timeline-details-panel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .panel-header h3 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            margin: 0;
+        }
+
+        .panel-close {
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .panel-close:hover { color: #fff; }
+
+        .panel-body {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .panel-body ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .panel-body li {
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+        /* ----------------------------------- */
 
         /* =====================================================
            MAIN CONTENT
@@ -1146,6 +1311,19 @@
             .item-content { width: 100%; }
             .item-buttons { width: 100%; flex-direction: column; }
             .view-btn, .download-btn { width: 100%; }
+            
+            /* --- NEW: RESPONSIVE TIMELINE PANEL --- */
+            .timeline-details-panel {
+                left: 0;
+                top: 100%;
+                width: 100%;
+                margin-top: 10px;
+                transform: translateY(-15px) !important;
+            }
+            .timeline-details-panel.show {
+                transform: translateY(0) !important;
+            }
+            /* -------------------------------------- */
         }
     </style>
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -1182,6 +1360,15 @@
                             <span class="btn-count" id="books-quick-count"></span>
                         </button>
                     </div>
+                    <!-- --- NEW: FEATURED PROJECT --- -->
+                    <div class="featured-project-container" onclick="openModal('pmp')">
+                        <span class="featured-badge">NEW</span>
+                        <div class="featured-content">
+                            <span class="featured-title">Featured Project: PMP (Python)</span>
+                            <span class="featured-desc">Click to see details</span>
+                        </div>
+                    </div>
+                    <!-- ----------------------------- -->
                 </div>
 
                 <!-- RIGHT: Career Timeline -->
@@ -1198,6 +1385,9 @@
                                     
                                 </div>
                             </div>
+                            <!-- --- NEW: TIMELINE CHEVRON --- -->
+                            <button class="tl-chevron" onclick="openTimelinePanel('airfrance')">›</button>
+                            <!-- ----------------------------- -->
                         </div>
                         <!-- IPSA — ongoing -->
                         <div class="tl-item university">
@@ -1206,6 +1396,9 @@
                                 <strong>University of Technology Malaysia (UTM)</strong><br>
                                 Mechanical Engineering (Aeronautical)
                             </div>
+                            <!-- --- NEW: TIMELINE CHEVRON --- -->
+                            <button class="tl-chevron" onclick="openTimelinePanel('utm')">›</button>
+                            <!-- ----------------------------- -->
                         </div>
                         
                         <div class="tl-item university ongoing">
@@ -1365,6 +1558,26 @@
             <div class="modal-body"><iframe class="cv-viewer" src="projets/cv2.pdf"></iframe></div>
         </div>
     </div>
+
+    <!-- --- NEW: FEATURED PROJECT MODAL --- -->
+    <div id="pmpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Predictive Modeling Project (PMP)</h2>
+                <span class="close" onclick="closeModal('pmp')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:14px; color:#666; margin-bottom:15px;"><em>Python, Pandas, Scikit-Learn</em></p>
+                <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:30px;">This predictive modeling project involves analyzing complex datasets to forecast trends and behaviors. The complete workflow includes data cleaning, feature engineering, model training, and evaluation.</p>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+                    <button class="view-btn">Final Presentation & Notebook</button>
+                    <button class="view-btn">Explanatory Doc 1</button>
+                    <button class="view-btn">Explanatory Doc 2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ----------------------------------- -->
 
     <div class="easter-egg" id="easterEgg">
         <p>🎉 You found the easter egg!</p>
@@ -1557,6 +1770,39 @@
     let currentFilter = 'all';
     const sortByYearDesc = (a, b) => parseInt(b.year) - parseInt(a.year);
 
+    /* --- NEW: TIMELINE DETAILS DATA & LOGIC --- */
+    const timelineData = {
+        airfrance: {
+            title: "Air France Industries KLM",
+            content: "<p>Engineering Intern focusing on predictive maintenance.</p><ul><li>Fleet reliability analysis</li><li>Component lifecycle tracking</li><li>Process optimization</li></ul>"
+        },
+        utm: {
+            title: "University of Technology Malaysia (UTM)",
+            content: "<p>Exchange semester in Aeronautical Engineering.</p><ul><li>Advanced Aerodynamics</li><li>Flight Dynamics</li><li>Composite Materials</li></ul>"
+        },
+        ipsa: {
+            title: "IPSA",
+            content: "<p>Core engineering curriculum with aerospace specialization.</p><ul><li>Solid & Fluid Mechanics</li><li>Thermodynamics</li><li>Control Systems</li></ul>"
+        }
+    };
+
+    function openTimelinePanel(key) {
+        const panel = document.getElementById('timelineDetailsPanel');
+        const title = document.getElementById('td-title');
+        const body = document.getElementById('td-body');
+        
+        if (timelineData[key]) {
+            title.innerHTML = timelineData[key].title;
+            body.innerHTML = timelineData[key].content;
+            panel.classList.add('show');
+        }
+    }
+
+    function closeTimelinePanel() {
+        document.getElementById('timelineDetailsPanel').classList.remove('show');
+    }
+    /* ------------------------------------------ */
+
     // =====================================================
     // MODAL
     // =====================================================
@@ -1572,6 +1818,13 @@
             m.classList.add('show'); m.style.display = 'block';
             document.body.style.overflow = 'hidden'; return;
         }
+        /* --- NEW: FEATURED PROJECT --- */
+        if (type === 'pmp') {
+            const m = document.getElementById('pmpModal');
+            m.classList.add('show'); m.style.display = 'block';
+            document.body.style.overflow = 'hidden'; return;
+        }
+        /* ----------------------------- */
         const cfg = {
             tp:       { modalId:'tpModal',       listId:'tpList',       filterId:'tpFilters',       data:tpData },
             projects: { modalId:'projectsModal',  listId:'projectsList', filterId:'projectsFilters', data:projectsData },
@@ -1656,7 +1909,9 @@
     }
 
     function closeModal(type) {
-        const map = { cv:'cvModal', tp:'tpModal', projects:'projectsModal', research:'researchModal', books:'booksModal' };
+        // --- MODIFIED TO INCLUDE PMP ---
+        const map = { cv:'cvModal', tp:'tpModal', projects:'projectsModal', research:'researchModal', books:'booksModal', pmp:'pmpModal' };
+        // -------------------------------
         const modal = document.getElementById(map[type]);
         if (!modal) return;
         modal.classList.remove('show');
@@ -1666,13 +1921,15 @@
     }
 
     window.onclick = e => {
-        ['tpModal','projectsModal','cvModal','researchModal','booksModal'].forEach(id => {
+        // --- MODIFIED TO INCLUDE PMP ---
+        ['tpModal','projectsModal','cvModal','researchModal','booksModal','pmpModal'].forEach(id => {
             const m = document.getElementById(id);
             if (m && e.target === m) {
                 const t = id.replace('Modal','');
-                closeModal(t==='tp'?'tp':t==='projects'?'projects':t==='cv'?'cv':t==='research'?'research':'books');
+                closeModal(t);
             }
         });
+        // -------------------------------
     };
 
     function viewPDF(f) { window.open(f, '_blank'); }
