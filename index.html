@@ -31,8 +31,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
             pointer-events: none;
             z-index: 1;
         }
@@ -82,58 +81,83 @@
             z-index: 0;
             pointer-events: none;
         }
-                /* --- NEW: TABLE OF CONTENTS STYLES --- */
-        .toc-nav {
+
+        /* =====================================================
+           TABLE OF CONTENTS — fixed left sidebar
+        ===================================================== */
+        .toc-sidebar {
+            position: fixed;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5000;
             display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 6px;
         }
-        
-        .toc-link {
-            color: #888;
-            text-decoration: none;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            group: true;
+        }
+
+        .toc-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+            flex-shrink: 0;
+            transition: all 0.25s ease;
+        }
+
+        .toc-item:hover .toc-dot,
+        .toc-item.active .toc-dot {
+            background: #fff;
+            border-color: #fff;
+            transform: scale(1.4);
+        }
+
+        .toc-label {
+            font-size: 11px;
             font-weight: 600;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            transition: color 0.3s ease, transform 0.2s ease;
-            position: relative;
-            padding-bottom: 4px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0);
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            pointer-events: none;
         }
-        
-        .toc-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: #fff;
-            transition: width 0.3s ease;
+
+        .toc-item:hover .toc-label,
+        .toc-item.active .toc-label {
+            color: rgba(255,255,255,0.85);
         }
-        
-        .toc-link:hover, .toc-link.active {
-            color: #ffffff;
+
+        /* Hide TOC when page scrolls out of dark header zone */
+        .toc-sidebar.light-mode .toc-dot {
+            background: rgba(0,0,0,0.2);
+            border-color: rgba(0,0,0,0.4);
         }
-        
-        .toc-link:hover::after, .toc-link.active::after {
-            width: 100%;
+
+        .toc-sidebar.light-mode .toc-item:hover .toc-dot,
+        .toc-sidebar.light-mode .toc-item.active .toc-dot {
+            background: #000;
+            border-color: #000;
         }
-        
-        /* Ajustement responsive pour la table des matières */
-        @media (max-width: 968px) {
-            .toc-nav {
-                gap: 12px;
-                margin-bottom: 20px;
-            }
-            .toc-link {
-                font-size: 11px;
-                letter-spacing: 1px;
-            }
+
+        .toc-sidebar.light-mode .toc-item:hover .toc-label,
+        .toc-sidebar.light-mode .toc-item.active .toc-label {
+            color: rgba(0,0,0,0.75);
         }
-        /* ------------------------------------- */
+
+        @media (max-width: 1100px) {
+            .toc-sidebar { display: none; }
+        }
+
         /* =====================================================
            HEADER
         ===================================================== */
@@ -199,7 +223,6 @@
             transform: translateY(-2px);
         }
 
-        /* Intro text — justified */
         .intro-text {
             max-width: 800px;
             font-size: 16px;
@@ -209,7 +232,6 @@
             margin-bottom: 20px;
         }
 
-        /* Small pill buttons for R&D and Books under the description */
         .header-quick-links {
             display: flex;
             gap: 12px;
@@ -240,9 +262,7 @@
             transform: translateY(-2px);
         }
 
-        .header-quick-btn .btn-icon {
-            font-size: 15px;
-        }
+        .header-quick-btn .btn-icon { font-size: 15px; }
 
         .header-quick-btn .btn-count {
             font-family: 'Courier New', monospace;
@@ -274,7 +294,6 @@
             position: relative;
         }
 
-        /* The vertical line */
         .header-timeline .tl-wrap::before {
             content: '';
             position: absolute;
@@ -285,7 +304,6 @@
             background: linear-gradient(180deg, #666 0%, #333 100%);
         }
 
-        /* ---- University items ---- */
         .tl-item {
             position: relative;
             margin-bottom: 24px;
@@ -324,14 +342,9 @@
             font-weight: 600;
         }
 
-        .tl-item.university.ongoing {
-            margin-bottom: 32px;
-        }
+        .tl-item.university.ongoing { margin-bottom: 32px; }
 
-        /* ---- Internship items ---- */
-        .tl-item.internship {
-            margin-left: 6px;
-        }
+        .tl-item.internship { margin-left: 6px; }
 
         .tl-item.internship::before {
             content: '✈';
@@ -518,7 +531,7 @@
         }
 
         /* =====================================================
-           FEATURED PROJECT — dans la zone blanche
+           FEATURED PROJECT — zone blanche
         ===================================================== */
         .featured-section {
             background: #f2f2f2;
@@ -573,7 +586,6 @@
             align-self: stretch;
         }
 
-        /* Colonne gauche: 2 blocs de paragraphes */
         .featured-left {
             display: flex;
             flex-direction: column;
@@ -637,7 +649,6 @@
             font-family: 'Courier New', monospace;
         }
 
-        /* Colonne droite: titre + 2 emplacements de fichiers */
         .featured-right {
             display: flex;
             flex-direction: column;
@@ -701,9 +712,7 @@
             border-color: transparent #ddd transparent transparent;
         }
 
-        .fp-file-meta {
-            flex-grow: 1;
-        }
+        .fp-file-meta { flex-grow: 1; }
 
         .fp-file-meta strong {
             display: block;
@@ -743,19 +752,11 @@
             transform: translateY(-1px);
         }
 
-        .fp-btn.secondary {
-            background: #555;
-        }
-
-        .fp-btn.secondary:hover {
-            background: #777;
-        }
+        .fp-btn.secondary { background: #555; }
+        .fp-btn.secondary:hover { background: #777; }
 
         @media (max-width: 800px) {
-            .featured-project-layout {
-                grid-template-columns: 1fr;
-                gap: 24px 0;
-            }
+            .featured-project-layout { grid-template-columns: 1fr; gap: 24px 0; }
             .featured-separator-v { display: none; }
         }
 
@@ -766,9 +767,7 @@
             padding: 0 40px 40px 40px;
         }
 
-        .section {
-            margin-bottom: 80px;
-        }
+        .section { margin-bottom: 80px; }
 
         .section-title {
             font-size: 14px;
@@ -801,9 +800,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .project-block:hover {
-            transform: scale(1.02) translateY(-5px);
-        }
+        .project-block:hover { transform: scale(1.02) translateY(-5px); }
 
         .project-content {
             display: flex;
@@ -1100,7 +1097,7 @@
         .download-btn:hover { background: #666; }
 
         /* =====================================================
-           BOOKS MODAL — styled cards
+           BOOKS MODAL
         ===================================================== */
         .books-list {
             list-style: none;
@@ -1157,10 +1154,7 @@
             border-radius: 2px 0 0 2px;
         }
 
-        .book-info {
-            flex-grow: 1;
-            padding-top: 2px;
-        }
+        .book-info { flex-grow: 1; padding-top: 2px; }
 
         .book-title {
             font-size: 16px;
@@ -1194,15 +1188,8 @@
             color: #aaa;
         }
 
-        .empty-state .empty-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            font-style: italic;
-        }
+        .empty-state .empty-icon { font-size: 48px; margin-bottom: 15px; }
+        .empty-state p { font-size: 14px; font-style: italic; }
 
         /* =====================================================
            FUTURE PROJECTS
@@ -1521,7 +1508,6 @@
         #cvModal .modal-content { max-width: 900px; max-height: 90vh; }
         .cv-viewer { width: 100%; height: 70vh; border: none; background: #f5f5f5; border-radius: 8px; }
 
-        /* Timeline hidden section */
         .timeline-section { margin-bottom: 80px; display: none; }
 
         /* =====================================================
@@ -1583,22 +1569,42 @@
     <div class="progress-bar"></div>
     <canvas id="particles-canvas"></canvas>
 
-    <!-- HEADER -->
-    <header class="fade-in">
+    <nav class="toc-sidebar" id="tocSidebar">
+        <div class="toc-item" onclick="scrollToSection('section-about')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">About Me</span>
+        </div>
+        <div class="toc-item" onclick="scrollToSection('section-featured')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">Recent Project (PMP)</span>
+        </div>
+        <div class="toc-item" onclick="scrollToSection('section-work')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">Practical Work &amp; Projects</span>
+        </div>
+        <div class="toc-item" onclick="scrollToSection('section-wip')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">Work in Progress</span>
+        </div>
+        <div class="toc-item" onclick="scrollToSection('section-personal')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">Involvement</span>
+        </div>
+        <div class="toc-item" onclick="scrollToSection('section-future')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">Future Skills</span>
+        </div>
+        <div class="toc-item" onclick="scrollToSection('section-contact')">
+            <div class="toc-dot"></div>
+            <span class="toc-label">Contact Me</span>
+        </div>
+    </nav>
+
+    <header class="fade-in" id="section-about">
         <div class="container">
             <div class="header-content">
 
-                <!-- LEFT -->
                 <div class="header-left">
-                    <nav class="toc-nav">
-                        <a href="#about-me" class="toc-link active">About Me</a>
-                        <a href="#featured-pmp" class="toc-link">Recent Project (PMP)</a>
-                        <a href="#practical-work" class="toc-link">Practical Work &amp; Projects</a>
-                        <a href="#wip-section" class="toc-link">Work in Progress</a>
-                        <a href="#personal-sections" class="toc-link">Involvement</a>
-                        <a href="#future-section" class="toc-link">Future Skills</a>
-                        <a href="#contact-section" class="toc-link">Contact Me</a>
-                    </nav>
                     <h1>Rayan CHENNAOUI</h1>
                     <div class="subtitle-row">
                         <div class="subtitle">Mechanical Engineer | Aerospace</div>
@@ -1607,7 +1613,6 @@
                     <div class="intro-text">
                         <p>Passionate mechanical engineer specializing in aerospace systems with a strong interest in structural analysis, fluid dynamics, and system design. My goal is to contribute to innovative aerospace projects that push the boundaries of flight technology while maintaining the highest standards of safety and efficiency. I combine theoretical knowledge with hands-on experience to deliver practical engineering solutions.</p>
                     </div>
-                    <!-- R&D + Books quick links -->
                     <div class="header-quick-links">
                         <button class="header-quick-btn" onclick="openModal('research')">
                             <span class="btn-icon">🔬</span>
@@ -1622,7 +1627,6 @@
                     </div>
                 </div>
 
-                <!-- RIGHT: Career Timeline -->
                 <div class="header-timeline">
                     <div class="section-title">Career Timeline</div>
                     <div class="tl-wrap">
@@ -1659,7 +1663,6 @@
 
                     </div>
 
-                    <!-- Panel flottant attaché à la timeline -->
                     <div class="timeline-details-panel" id="timelineDetailsPanel">
                         <div class="panel-header">
                             <h3 id="td-title"></h3>
@@ -1673,10 +1676,7 @@
         </div>
     </header>
 
-    <!-- =====================================================
-         FEATURED PROJECT — zone blanche, au-dessus des grilles
-    ====================================================== -->
-    <div class="featured-section fade-in delay-1">
+    <div class="featured-section fade-in delay-1" id="section-featured">
         <div class="featured-section-inner">
             <div class="featured-section-label">
                 <span class="fs-badge">FEATURED</span>
@@ -1684,14 +1684,11 @@
             </div>
 
             <div class="featured-project-layout">
-
-                <!-- Colonne gauche : 2 blocs de paragraphes -->
                 <div class="featured-left">
                     <div class="fp-para-block">
-                        <h4><span class="fp-num">1</span> Problem & Methodology</h4>
-                        <p><p>This project solves a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to steer a 2D vehicle to a target state via <strong>Pontryagin's Maximum Principle (PMP)</strong>. After analytically formulating the Hamiltonian and its adjoint equations, a mathematical proof by contradiction demonstrates that the optimal steering strictly follows a <strong>Bang-Bang profile</strong>, switching exclusively between maximum and minimum steering bounds.</p>
-
-<p>To handle system non-linearities, a robust <strong>three-step numerical optimization workflow</strong> was implemented in Python, sequentially utilizing a smooth approximation, a 100-point fixed-time grid optimization, and final shooting methods down to 10⁻⁶ tolerance. The study concludes with a <strong>multi-physics extension</strong> modeling viscous friction, with direct applications to spacecraft rendezvous, autonomous parking, and train braking sequences.</p></p>
+                        <h4><span class="fp-num">1</span> Problem &amp; Methodology</h4>
+                        <p>This project solves a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to steer a 2D vehicle to a target state via <strong>Pontryagin's Maximum Principle (PMP)</strong>. After analytically formulating the Hamiltonian and its adjoint equations, a mathematical proof by contradiction demonstrates that the optimal steering strictly follows a <strong>Bang-Bang profile</strong>, switching exclusively between maximum and minimum steering bounds.</p>
+                        <p style="margin-top:10px;">To handle system non-linearities, a robust <strong>three-step numerical optimization workflow</strong> was implemented in Python, sequentially utilizing a smooth approximation, a 100-point fixed-time grid optimization, and final shooting methods down to 10⁻⁶ tolerance. The study concludes with a <strong>multi-physics extension</strong> modeling viscous friction, with direct applications to spacecraft rendezvous, autonomous parking, and train braking sequences.</p>
                         <div class="fp-tools-row">
                             <span class="fp-tool-tag">Python</span>
                             <span class="fp-tool-tag">NumPy</span>
@@ -1700,12 +1697,10 @@
                             <span class="fp-tool-tag">Optimal Control</span>
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="featured-separator-v"></div>
 
-                <!-- Colonne droite : titre + 2 slots de fichiers -->
                 <div class="featured-right">
                     <div>
                         <div class="featured-right-title">Minimum Time Car — Optimal Control Problem (OCP / PMP)</div>
@@ -1715,7 +1710,7 @@
                     <div class="fp-file-slot">
                         <div class="fp-file-icon">📄</div>
                         <div class="fp-file-meta">
-                            <strong>Final Presentation & Notebook</strong>
+                            <strong>Final Presentation &amp; Notebook</strong>
                             <span>Jupyter notebook + slides — full derivation &amp; results</span>
                         </div>
                         <div class="fp-file-btn">
@@ -1736,16 +1731,13 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- MAIN -->
     <div class="main-content">
 
-        <!-- TP + Projects -->
-        <div class="projects-grid fade-in delay-2">
+        <div class="projects-grid fade-in delay-2" id="section-work">
             <div class="project-block" onclick="openModal('tp')">
                 <div class="section-title">Practical Work</div>
                 <div class="project-content">
@@ -1765,8 +1757,7 @@
             </div>
         </div>
 
-        <!-- Work in Progress -->
-        <section class="section fade-in delay-3">
+        <section class="section fade-in delay-3" id="section-wip">
             <div class="section-title-container">
                 <div class="section-title">Work in Progress</div>
                 <div class="carousel-controls">
@@ -1779,17 +1770,14 @@
             </div>
         </section>
 
-        <!-- Personal Projects -->
-        <section class="section fade-in delay-4">
+        <section class="section fade-in delay-4" id="section-personal">
             <div class="section-title">Personal Projects &amp; Involvement</div>
             <div class="personal-projects-list" id="personal-projects-list"></div>
         </section>
 
-        <!-- Timeline (hidden) -->
         <section class="section timeline-section"></section>
 
-        <!-- Future Projects -->
-        <section class="section fade-in delay-4">
+        <section class="section fade-in delay-4" id="section-future">
             <div class="section-title-container">
                 <div class="section-title">Future Projects &amp; Skills</div>
                 <div class="carousel-controls">
@@ -1819,8 +1807,7 @@
             </div>
         </section>
 
-        <!-- Contact -->
-        <section class="contact-section fade-in delay-4">
+        <section class="contact-section fade-in delay-4" id="section-contact">
             <h2 style="margin-bottom:20px;font-size:32px;">Get In Touch</h2>
             <p style="color:#666;max-width:600px;margin:0 auto;">Please feel free to contact me through any of the channels below.</p>
             <div class="contact-buttons">
@@ -1830,7 +1817,6 @@
         </section>
     </div>
 
-    <!-- MODALS -->
     <div id="tpModal" class="modal">
         <div class="modal-content">
             <div class="modal-header"><h2>Practical Work</h2><span class="close" onclick="closeModal('tp')">&times;</span></div>
@@ -1899,12 +1885,8 @@
         { name:"(ENG) Finite Element Modeling: Thin Plate with a Hole", year:"4th year", tools:"Patran/Nastran", description:"Stress concentration analysis on a thin metallic plate. Study of von Mises stress distribution around a hole and mesh convergence sensitivity.", pdf:"projets/TP2_FEM_Rayan_CHENNAOUI_Felix_LAO.pdf", image:"images/tp.png" },
         { name:"(ENG) Finite Element Modeling: Solid Lug Under Bending", year:"4th year", tools:"Patran/Nastran", description:"3D structural analysis of a mechanical lug component. Focus on load application, boundary conditions, and identifying critical failure points.", pdf:"projets/FEM___TP3.pdf", image:"images/lug.png" },
         { name:"(ENG) Modeling and Performance Analysis of a Laval Nozzle", year:"4th year", tools:"StarCCM+, CFD", description:"CFD simulation of supersonic flow through a convergent-divergent (Laval) nozzle. Analysis of pressure distribution, Mach number evolution, and shock wave formation.", pdf:"projets/Mf421_TP_LAVAL_RAYAN_CHENNAOUI.pdf", image:"images/ln.png" },
-        { name:"(ENG) CFD Simulation of a Savonius Wind Turbine", 
-           year:"4th year", tools:"StarCCM+", 
-           description:"Unsteady CFD simulation of a two-bladed Savonius vertical-axis wind turbine. Analysis of aerodynamic performance, Von Kármán vortex shedding, and Reynolds number sensitivity (Re=4,000 vs 12,000) using a sliding mesh approach.", 
-           pdf:"projets/TP3_CFD.pdf", 
-           image:"images/sav.png" }
-         ];
+        { name:"(ENG) CFD Simulation of a Savonius Wind Turbine", year:"4th year", tools:"StarCCM+", description:"Unsteady CFD simulation of a two-bladed Savonius vertical-axis wind turbine. Analysis of aerodynamic performance, Von Kármán vortex shedding, and Reynolds number sensitivity (Re=4,000 vs 12,000) using a sliding mesh approach.", pdf:"projets/TP3_CFD.pdf", image:"images/sav.png" }
+    ];
 
     const projectsData = [
         { name:"(ENG) UAV Stability Derivatives Analysis", year:"4th year", tools:"XFLR5, CATIA V5, OpenVSP, Matlab", description:"Aerodynamic and stability derivative analysis of a RC UAV. Methods tested include CAD-to-ANSYS simulation, OpenVSP, and XFLR5. Successfully completed via XFLR5 + MATLAB dynamic modeling.", pdf:"projets/UAV_Report_2_FDAC.pdf", image:"images/uav.png" },
@@ -1915,22 +1897,8 @@
         { name:"(FR) Thermodynamic Analysis of Vapor Compression Refrigeration Systems", year:"3rd year", tools:"SOLKANE Software 8.0", description:"Detailed thermodynamic study of single-stage, heat exchanger-assisted, and two-stage refrigeration cycles. Validated using Solkane simulation software.", pdf:"projets/BE2_CHENNAOUI_KASHANI_Aero3PVE.pdf", image:"images/solk.png" },
         { name:"(FR) Modeling and Control of an Elevator Actuation System (A380)", year:"2nd year", tools:"Matlab", description:"Modeling and optimization of a hydraulic actuator controlling the elevator of the Airbus A380 in MATLAB Simulink.", pdf:"projets/2pc2_projet1_BEAUCLAIR_CHENNAOUI.pdf", image:"images/m.png" },
         { name:"(FR) Innovative Railway Noise Reduction Project", year:"2nd year", tools:"Office, Python, Catia V5, Noisetools", description:"Advanced noise barriers combining active noise cancellation and high-performance materials to reduce railway sound pollution.", pdf:"projets/PIG-Barriere_innovante_contre_les_nuisances_sonores_ferroviaires.pdf", image:"images/pig.png" },
-        { 
-          name: "(ENG) Dynamic Stability and Flying Qualities Analysis - Marchetti-S211", 
-          year: "4th year", 
-          tools: "MATLAB", 
-          description: "Comprehensive flight dynamics study evaluating the longitudinal and lateral stability of a military trainer. Includes modal analysis, transfer functions, Bode diagrams, and the design of a Stability Augmentation System (SAS) using pole placement.", 
-          pdf: "projets/Aé421_Project_Report_Rayan_CHENNAOUI_CAE3.pdf", 
-          image: "images/1.jfif" 
-        },
-        { 
-          name: "(ENG) Multi-Physics Modeling & Control of a Hydraulic Landing Gear", 
-          year: "4th year", 
-          tools: "Simcenter Amesim, Python", 
-          description: "Advanced simulation of an aircraft landing gear system using Bond Graph theory. This project covers the full power chain from electro-hydraulic actuation to mechanical deployment. It includes kinematic singularity analysis, closed-loop PID control design, and a Python-based sensitivity study on system stability and dynamic tracking.", 
-          pdf: "projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf", 
-          image: "images/amesim.png"
-        }
+        { name: "(ENG) Dynamic Stability and Flying Qualities Analysis - Marchetti-S211", year: "4th year", tools: "MATLAB", description: "Comprehensive flight dynamics study evaluating the longitudinal and lateral stability of a military trainer. Includes modal analysis, transfer functions, Bode diagrams, and the design of a Stability Augmentation System (SAS) using pole placement.", pdf: "projets/Aé421_Project_Report_Rayan_CHENNAOUI_CAE3.pdf", image: "images/1.jfif" },
+        { name: "(ENG) Multi-Physics Modeling & Control of a Hydraulic Landing Gear", year: "4th year", tools: "Simcenter Amesim, Python", description: "Advanced simulation of an aircraft landing gear system using Bond Graph theory. This project covers the full power chain from electro-hydraulic actuation to mechanical deployment. It includes kinematic singularity analysis, closed-loop PID control design, and a Python-based sensitivity study on system stability and dynamic tracking.", pdf: "projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf", image: "images/amesim.png" }
     ];
 
     const researchData = [
@@ -2040,20 +2008,14 @@
 
     function toggleTimelinePanel(key, btn) {
         const panel = document.getElementById('timelineDetailsPanel');
-        
-        // If same key clicked again → close
         if (activeTimelineKey === key && panel.classList.contains('show')) {
             closeTimelinePanel();
             return;
         }
-
-        // Update active chevron styling
         document.querySelectorAll('.tl-chevron').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const title = document.getElementById('td-title');
         const body = document.getElementById('td-body');
-
         if (timelineData[key]) {
             title.innerHTML = timelineData[key].title;
             body.innerHTML = timelineData[key].content;
@@ -2067,6 +2029,57 @@
         document.querySelectorAll('.tl-chevron').forEach(b => b.classList.remove('active'));
         activeTimelineKey = null;
     }
+
+    // =====================================================
+    // TABLE OF CONTENTS — scroll & active state
+    // =====================================================
+    const tocSections = [
+        'section-about',
+        'section-featured',
+        'section-work',
+        'section-wip',
+        'section-personal',
+        'section-future',
+        'section-contact'
+    ];
+
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const offset = 20;
+        const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    function updateTocActive() {
+        const tocItems = document.querySelectorAll('.toc-item');
+        const toc = document.getElementById('tocSidebar');
+        const scrollY = window.pageYOffset;
+        const headerHeight = document.querySelector('header').offsetHeight;
+
+        // Switch dot color: white on dark header, dark on light sections
+        if (scrollY < headerHeight - 60) {
+            toc.classList.remove('light-mode');
+        } else {
+            toc.classList.add('light-mode');
+        }
+
+        // Find which section is currently in view
+        let current = 0;
+        tocSections.forEach((id, i) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 120) current = i;
+        });
+
+        tocItems.forEach((item, i) => {
+            item.classList.toggle('active', i === current);
+        });
+    }
+
+    window.addEventListener('scroll', updateTocActive, { passive: true });
+    document.addEventListener('DOMContentLoaded', updateTocActive);
 
     // =====================================================
     // STATE & HELPERS
@@ -2185,10 +2198,7 @@
     window.onclick = e => {
         ['tpModal','projectsModal','cvModal','researchModal','booksModal'].forEach(id => {
             const m = document.getElementById(id);
-            if (m && e.target === m) {
-                const t = id.replace('Modal','');
-                closeModal(t);
-            }
+            if (m && e.target === m) { closeModal(id.replace('Modal','')); }
         });
     };
 
@@ -2284,7 +2294,6 @@
         const bkQ = document.getElementById('books-quick-count');
         if (rdQ) rdQ.textContent = researchData.length > 0 ? `— ${researchData.length}` : '— coming soon';
         if (bkQ) bkQ.textContent = booksData.length > 0 ? `— ${booksData.length}` : '— coming soon';
-
         renderWipProjects();
         renderPersonalProjects();
 
