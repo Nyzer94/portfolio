@@ -90,7 +90,7 @@
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             color: #fff;
             padding: 60px 40px;
-            margin-bottom: 60px;
+            margin-bottom: 0;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
@@ -206,7 +206,7 @@
         .header-timeline {
             max-width: 350px;
             min-width: 280px;
-            position: relative; /* --- NEW: To position timeline panel --- */
+            position: relative;
         }
 
         .header-timeline .section-title {
@@ -239,7 +239,7 @@
             position: relative;
             margin-bottom: 24px;
             padding-left: 16px;
-            padding-right: 30px; /* --- NEW: Padding for chevron --- */
+            padding-right: 38px;
         }
 
         .tl-item.university::before {
@@ -273,7 +273,6 @@
             font-weight: 600;
         }
 
-        /* Dashed continuation for ongoing IPSA */
         .tl-item.university.ongoing {
             margin-bottom: 32px;
         }
@@ -340,168 +339,374 @@
             font-weight: 600;
         }
 
-        /* --- NEW: FEATURED PROJECT --- */
-        .featured-project-container {
-            margin-top: 30px;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .featured-project-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .featured-project-container:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .featured-project-container:hover::before {
-            left: 100%;
-        }
-
-        .featured-badge {
-            background: #e74c3c;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 12px;
-            letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(231,76,60,0.5);
-        }
-
-        .featured-content {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .featured-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .featured-desc {
-            font-size: 12px;
-            color: #aaa;
-        }
-
-        /* --- NEW: TIMELINE CHEVRON & PANEL --- */
+        /* =====================================================
+           TIMELINE CHEVRON — toujours visible
+        ===================================================== */
         .tl-chevron {
             position: absolute;
             right: 0;
             top: 50%;
-            transform: translateY(-50%) translateX(-10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
+            transform: translateY(-50%);
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             color: #fff;
-            font-size: 14px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 10;
-        }
-
-        .tl-item:hover .tl-chevron {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(-50%) translateX(0);
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            line-height: 1;
         }
 
         .tl-chevron:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.28);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-50%) scale(1.12);
         }
 
+        .tl-chevron.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #fff;
+        }
+
+        /* =====================================================
+           TIMELINE DETAILS PANEL
+        ===================================================== */
         .timeline-details-panel {
             position: absolute;
             top: 0;
-            left: calc(100% + 10px);
-            width: 280px;
-            background: rgba(20, 20, 20, 0.95);
-            backdrop-filter: blur(10px);
+            left: calc(100% + 16px);
+            width: 290px;
+            background: rgba(18, 18, 18, 0.97);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 20px;
             color: #ddd;
             opacity: 0;
             visibility: hidden;
-            transform: translateX(-15px);
+            transform: translateX(-12px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 200;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+            pointer-events: none;
         }
 
         .timeline-details-panel.show {
             opacity: 1;
             visibility: visible;
             transform: translateX(0);
+            pointer-events: auto;
         }
 
         .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
         }
 
         .panel-header h3 {
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
             color: #fff;
             margin: 0;
+            line-height: 1.3;
         }
 
         .panel-close {
             font-size: 20px;
             cursor: pointer;
-            color: #888;
-            transition: color 0.3s;
+            color: #777;
+            transition: color 0.2s;
             line-height: 1;
+            flex-shrink: 0;
+            margin-left: 8px;
         }
 
         .panel-close:hover { color: #fff; }
 
         .panel-body {
-            font-size: 13px;
-            line-height: 1.6;
+            font-size: 12px;
+            line-height: 1.7;
+            color: #bbb;
+        }
+
+        .panel-body p {
+            margin-bottom: 8px;
+            color: #ccc;
         }
 
         .panel-body ul {
-            margin-top: 10px;
-            padding-left: 20px;
+            margin-top: 6px;
+            padding-left: 16px;
         }
 
         .panel-body li {
             margin-bottom: 5px;
-            color: #ccc;
+            color: #bbb;
         }
-        /* ----------------------------------- */
+
+        .panel-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #ccc;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin: 2px 2px 2px 0;
+            font-weight: 500;
+        }
+
+        /* =====================================================
+           FEATURED PROJECT — dans la zone blanche
+        ===================================================== */
+        .featured-section {
+            background: #f2f2f2;
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .featured-section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-section-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .featured-section-label .fs-badge {
+            background: #e74c3c;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 8px rgba(231,76,60,0.35);
+        }
+
+        .featured-section-label .fs-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #444;
+        }
+
+        .featured-project-layout {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            gap: 0 40px;
+            align-items: start;
+        }
+
+        .featured-separator-v {
+            background: linear-gradient(180deg, transparent, #ccc 20%, #ccc 80%, transparent);
+            width: 1px;
+            align-self: stretch;
+        }
+
+        /* Colonne gauche: 2 blocs de paragraphes */
+        .featured-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .fp-para-block {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px 22px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .fp-para-block h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #222;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fp-para-block h4 span.fp-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .fp-para-block p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .fp-tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .fp-tool-tag {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            color: #444;
+            font-size: 11px;
+            padding: 3px 9px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Colonne droite: titre + 2 emplacements de fichiers */
+        .featured-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .featured-right-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #111;
+            letter-spacing: -0.4px;
+            margin-bottom: 4px;
+        }
+
+        .featured-right-sub {
+            font-size: 13px;
+            color: #888;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 8px;
+        }
+
+        .fp-file-slot {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.25s ease;
+        }
+
+        .fp-file-slot:hover {
+            border-color: #aaa;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .fp-file-icon {
+            width: 40px;
+            height: 48px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fp-file-icon::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            border-style: solid;
+            border-width: 0 10px 10px 0;
+            border-color: transparent #ddd transparent transparent;
+        }
+
+        .fp-file-meta {
+            flex-grow: 1;
+        }
+
+        .fp-file-meta strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 3px;
+        }
+
+        .fp-file-meta span {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .fp-file-btn {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .fp-btn {
+            padding: 6px 14px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .fp-btn:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+
+        .fp-btn.secondary {
+            background: #555;
+        }
+
+        .fp-btn.secondary:hover {
+            background: #777;
+        }
+
+        @media (max-width: 800px) {
+            .featured-project-layout {
+                grid-template-columns: 1fr;
+                gap: 24px 0;
+            }
+            .featured-separator-v { display: none; }
+        }
 
         /* =====================================================
            MAIN CONTENT
@@ -851,7 +1056,6 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
-            /* add top padding so overflowing covers have room */
             padding-top: 20px;
         }
 
@@ -874,7 +1078,6 @@
             transform: translateY(-3px);
         }
 
-        /* Cover wrapper — overflows card top */
         .book-cover-wrapper {
             flex-shrink: 0;
             margin-top: -22px;
@@ -894,7 +1097,6 @@
             position: relative;
         }
 
-        /* Spine illusion */
         .book-cover::after {
             content: '';
             position: absolute;
@@ -1311,8 +1513,7 @@
             .item-content { width: 100%; }
             .item-buttons { width: 100%; flex-direction: column; }
             .view-btn, .download-btn { width: 100%; }
-            
-            /* --- NEW: RESPONSIVE TIMELINE PANEL --- */
+
             .timeline-details-panel {
                 left: 0;
                 top: 100%;
@@ -1323,7 +1524,6 @@
             .timeline-details-panel.show {
                 transform: translateY(0) !important;
             }
-            /* -------------------------------------- */
         }
     </style>
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -1360,69 +1560,127 @@
                             <span class="btn-count" id="books-quick-count"></span>
                         </button>
                     </div>
-                    <!-- --- NEW: FEATURED PROJECT --- -->
-                    <div class="featured-project-container" onclick="openModal('pmp')">
-                        <span class="featured-badge">NEW</span>
-                        <div class="featured-content">
-                            <span class="featured-title">Featured Project: PMP (Python)</span>
-                            <span class="featured-desc">Click to see details</span>
-                        </div>
-                    </div>
-                    <!-- ----------------------------- -->
                 </div>
 
                 <!-- RIGHT: Career Timeline -->
                 <div class="header-timeline">
                     <div class="section-title">Career Timeline</div>
                     <div class="tl-wrap">
-                         <div class="tl-item internship">
+
+                        <div class="tl-item internship">
                             <div class="tl-inner">
                                 <span class="tl-badge">✈ Internship</span>
                                 <div class="tl-year">June – Sept. 2026</div>
                                 <div class="tl-content">
                                     <strong>Air France Industries KLM</strong><br>
                                     Engineering Intern
-                                    
                                 </div>
                             </div>
-                            <!-- --- NEW: TIMELINE CHEVRON --- -->
-                            <button class="tl-chevron" onclick="openTimelinePanel('airfrance')">›</button>
-                            <!-- ----------------------------- -->
+                            <button class="tl-chevron" onclick="toggleTimelinePanel('airfrance', this)">›</button>
                         </div>
-                        <!-- IPSA — ongoing -->
+
                         <div class="tl-item university">
                             <div class="tl-year">Sept. 2025 – Feb. 2026</div>
                             <div class="tl-content">
                                 <strong>University of Technology Malaysia (UTM)</strong><br>
                                 Mechanical Engineering (Aeronautical)
                             </div>
-                            <!-- --- NEW: TIMELINE CHEVRON --- -->
-                            <button class="tl-chevron" onclick="openTimelinePanel('utm')">›</button>
-                            <!-- ----------------------------- -->
+                            <button class="tl-chevron" onclick="toggleTimelinePanel('utm', this)">›</button>
                         </div>
-                        
+
                         <div class="tl-item university ongoing">
                             <div class="tl-year">2022 – 2027</div>
                             <div class="tl-content">
                                 <strong>Institut Polytechnique des Sciences Avancées (IPSA)</strong><br>
                                 Aeronautical &amp; Aerospace Engineering
-                                
                             </div>
-                            <button class="tl-chevron" onclick="openTimelinePanel('ipsa')">›</button>
+                            <button class="tl-chevron" onclick="toggleTimelinePanel('ipsa', this)">›</button>
                         </div>
 
-                        <!-- Malaysia -->
-                        
+                    </div>
 
-                        <!-- Air France internship -->
-                       
-
+                    <!-- Panel flottant attaché à la timeline -->
+                    <div class="timeline-details-panel" id="timelineDetailsPanel">
+                        <div class="panel-header">
+                            <h3 id="td-title"></h3>
+                            <span class="panel-close" onclick="closeTimelinePanel()">×</span>
+                        </div>
+                        <div class="panel-body" id="td-body"></div>
                     </div>
                 </div>
 
             </div>
         </div>
     </header>
+
+    <!-- =====================================================
+         FEATURED PROJECT — zone blanche, au-dessus des grilles
+    ====================================================== -->
+    <div class="featured-section fade-in delay-1">
+        <div class="featured-section-inner">
+            <div class="featured-section-label">
+                <span class="fs-badge">FEATURED</span>
+                <span class="fs-title">Project Spotlight</span>
+            </div>
+
+            <div class="featured-project-layout">
+
+                <!-- Colonne gauche : 2 blocs de paragraphes -->
+                <div class="featured-left">
+                    <div class="fp-para-block">
+                        <h4><span class="fp-num">1</span> Problem & Methodology</h4>
+                        <p>This project solves a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to guide a 2D vehicle from a given initial state to a target in the shortest possible time. By applying <strong>Pontryagin's Maximum Principle (PMP)</strong>, the Hamiltonian was analytically formulated and the adjoint equations derived. A rigorous proof by contradiction demonstrates that the optimal control strictly follows a <strong>Bang-Bang profile</strong>, switching only between maximum and minimum steering bounds.</p>
+                        <div class="fp-tools-row">
+                            <span class="fp-tool-tag">Python</span>
+                            <span class="fp-tool-tag">NumPy</span>
+                            <span class="fp-tool-tag">SciPy</span>
+                            <span class="fp-tool-tag">Matplotlib</span>
+                            <span class="fp-tool-tag">Optimal Control</span>
+                        </div>
+                    </div>
+                    <div class="fp-para-block">
+                        <h4><span class="fp-num">2</span> Numerical Implementation & Extension</h4>
+                        <p>To handle system non-linearities, a robust <strong>three-step numerical optimization</strong> was developed in Python — smooth approximation → full trajectory optimization over 100 grid points → unconstrained horizon with tolerances down to 10⁻⁶ using shooting methods. The study concludes with a <strong>multi-physics extension</strong> tracking a cart with viscous friction, evaluating dynamics under varying friction coefficients with direct applications to spacecraft rendezvous, autonomous parking, and train stopping sequences.</p>
+                    </div>
+                </div>
+
+                <div class="featured-separator-v"></div>
+
+                <!-- Colonne droite : titre + 2 slots de fichiers -->
+                <div class="featured-right">
+                    <div>
+                        <div class="featured-right-title">Minimum Time Car — Optimal Control Problem (OCP / PMP)</div>
+                        <div class="featured-right-sub">4th year · Python, NumPy, SciPy, Matplotlib</div>
+                    </div>
+
+                    <div class="fp-file-slot">
+                        <div class="fp-file-icon">📄</div>
+                        <div class="fp-file-meta">
+                            <strong>Final Presentation & Notebook</strong>
+                            <span>Jupyter notebook + slides — full derivation &amp; results</span>
+                        </div>
+                        <div class="fp-file-btn">
+                            <button class="fp-btn" onclick="viewPDF('projets/CIRI_2D_CAR_GROUP1 (1).pdf')">View</button>
+                            <button class="fp-btn secondary" onclick="downloadPDF('projets/CIRI_2D_CAR_GROUP1 (1).pdf')">↓</button>
+                        </div>
+                    </div>
+
+                    <div class="fp-file-slot">
+                        <div class="fp-file-icon">📋</div>
+                        <div class="fp-file-meta">
+                            <strong>Theoretical Report</strong>
+                            <span>PMP proof, adjoint equations &amp; friction extension</span>
+                        </div>
+                        <div class="fp-file-btn">
+                            <button class="fp-btn" onclick="viewPDF('')">View</button>
+                            <button class="fp-btn secondary" onclick="downloadPDF('')">↓</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- MAIN -->
     <div class="main-content">
@@ -1560,32 +1818,6 @@
         </div>
     </div>
 
-    <!-- --- NEW: FEATURED PROJECT MODAL --- -->
-    <div id="pmpModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Minimum Time Car Optimal Control Problem (OCP/PMP)</h2>
-                <span class="close" onclick="closeModal('pmp')">&times;</span>
-            </div>
-           <div class="modal-body">
-    <p style="font-size:14px; color:#666; margin-bottom:15px;"><em>Python, NumPy, SciPy (optimize, fsolve), Matplotlib</em></p>
-    
-    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:20px;">This final project focuses on solving a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to guide a two-dimensional vehicle from a given initial state to a specific target state in the shortest possible time. By applying <strong>Pontryagin's Maximum Principle (PMP)</strong>, we analytically formulated the Hamiltonian and derived the adjoint system equations. Through a rigorous mathematical proof by contradiction, we demonstrated that the optimal control architecture strictly follows a <strong>Bang-Bang profile</strong>, switching exclusively between maximum and minimum steering bounds.</p>
-
-    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:20px;">To overcome system non-linearities, we developed a robust <strong>three-step numerical optimization method</strong> in Python. The workflow starts with a smooth approximation to capture the core control structure, followed by a full trajectory optimization over a fixed-time grid of 100 points to reveal a nearly perfect bang-bang control. The final step unconstrains the final horizon and implements decreasing tolerances down to 10⁻⁶ using shooting methods, locating the exact switching times and integrating the exact discontinuous dynamics forward in time.</p>
-
-    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:30px;">The study concludes with an advanced multi-physics extension tracking a <strong>cart with viscous friction</strong>. This secondary analysis evaluates system dynamics under varying friction coefficients, simulating practical aerospace and mechanical applications such as spacecraft rendezvous, autonomous vehicle parking, and train stopping sequences. The numerical results perfectly illustrate how increased structural damping directly impacts and extends the optimal transit time.</p>
-    
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
-        <button class="view-btn" onclick="viewPDF('projets/CIRI_2D_CAR_GROUP1 (1).pdf')">Final Presentation & Notebook</button>
-        <button class="view-btn">Theoretical Report (PMP & Proof)</button>
-        <button class="view-btn">Numerical Methods & Friction Study</button>
-    </div>
-</div>
-        </div>
-    </div>
-    <!-- ----------------------------------- -->
-
     <div class="easter-egg" id="easterEgg">
         <p>🎉 You found the easter egg!</p>
         <p style="margin-top:10px;">Konami Code Master Detected!</p>
@@ -1615,7 +1847,6 @@
            image:"images/sav.png" }
          ];
 
-    // PINNs removed from here — moved to researchData
     const projectsData = [
         { name:"(ENG) UAV Stability Derivatives Analysis", year:"4th year", tools:"XFLR5, CATIA V5, OpenVSP, Matlab", description:"Aerodynamic and stability derivative analysis of a RC UAV. Methods tested include CAD-to-ANSYS simulation, OpenVSP, and XFLR5. Successfully completed via XFLR5 + MATLAB dynamic modeling.", pdf:"projets/UAV_Report_2_FDAC.pdf", image:"images/uav.png" },
         { name:"(FR) Applied Data Science Project: Statistical Analysis", year:"3rd year", tools:"Python", description:"Univariate, bivariate, and multivariate statistical methods applied to real-world datasets — from agricultural data to aircraft performance analysis.", pdf:"projets/PROJET___SCIENCE_DES_DONNEES (3) (1).pdf", image:"images/sdd.png" },
@@ -1639,7 +1870,7 @@
           tools: "Simcenter Amesim, Python", 
           description: "Advanced simulation of an aircraft landing gear system using Bond Graph theory. This project covers the full power chain from electro-hydraulic actuation to mechanical deployment. It includes kinematic singularity analysis, closed-loop PID control design, and a Python-based sensitivity study on system stability and dynamic tracking.", 
           pdf: "projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf", 
-          image: "images/amesim.png" // L'image carrée générée précédemment
+          image: "images/amesim.png"
         }
     ];
 
@@ -1648,115 +1879,24 @@
     ];
 
     const booksData = [
-        {
-        title: "Hollywood Story",
-        author: "Frank Capra",
-        review: "...",
-        image: "images/capra.jpg"
-    },
-    {
-        title: "A Pale Blue Dot",
-        author: "Carl Sagan",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Contact",
-        author: "Carl Sagan",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Animal Farm",
-        author: "George Orwell",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "A Pale Blue Dot",
-        author: "Carl Sagan",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "The Great Gatsby",
-        author: "F. Scott Fitzgerald",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "The Genealogy of Morals",
-        author: "Friedrich Nietzsche",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "The Genealogy of Morals",
-        author: "Friedrich Nietzsche",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Brave New World",
-        author: "Aldous Huxley",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "The Old Man And The See",
-        author: "Ernest Hemingway",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Les Misérables",
-        author: "Victor Hugo",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "The Old Man And The See",
-        author: "Ernest Hemingway",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Nouvelles Réalistes",
-        author: "Guy de Maupassant",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Le Horla",
-        author: "Guy de Maupassant",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Bel Ami",
-        author: "Guy de Maupassant",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "L'Assomoir",
-        author: "Emile Zola",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Au Bonheur Des Dames",
-        author: "Emile Zola",
-        review: "...",
-        image: "images/livre2.jpg"
-    },
-    {
-        title: "Germinal",
-        author: "Emile Zola",
-        review: "...",
-        image: "images/livre2.jpg"
-    }
-    
+        { title: "Hollywood Story", author: "Frank Capra", review: "...", image: "images/capra.jpg" },
+        { title: "A Pale Blue Dot", author: "Carl Sagan", review: "...", image: "images/livre2.jpg" },
+        { title: "Contact", author: "Carl Sagan", review: "...", image: "images/livre2.jpg" },
+        { title: "Animal Farm", author: "George Orwell", review: "...", image: "images/livre2.jpg" },
+        { title: "A Pale Blue Dot", author: "Carl Sagan", review: "...", image: "images/livre2.jpg" },
+        { title: "The Great Gatsby", author: "F. Scott Fitzgerald", review: "...", image: "images/livre2.jpg" },
+        { title: "The Genealogy of Morals", author: "Friedrich Nietzsche", review: "...", image: "images/livre2.jpg" },
+        { title: "The Genealogy of Morals", author: "Friedrich Nietzsche", review: "...", image: "images/livre2.jpg" },
+        { title: "Brave New World", author: "Aldous Huxley", review: "...", image: "images/livre2.jpg" },
+        { title: "The Old Man And The See", author: "Ernest Hemingway", review: "...", image: "images/livre2.jpg" },
+        { title: "Les Misérables", author: "Victor Hugo", review: "...", image: "images/livre2.jpg" },
+        { title: "The Old Man And The See", author: "Ernest Hemingway", review: "...", image: "images/livre2.jpg" },
+        { title: "Nouvelles Réalistes", author: "Guy de Maupassant", review: "...", image: "images/livre2.jpg" },
+        { title: "Le Horla", author: "Guy de Maupassant", review: "...", image: "images/livre2.jpg" },
+        { title: "Bel Ami", author: "Guy de Maupassant", review: "...", image: "images/livre2.jpg" },
+        { title: "L'Assomoir", author: "Emile Zola", review: "...", image: "images/livre2.jpg" },
+        { title: "Au Bonheur Des Dames", author: "Emile Zola", review: "...", image: "images/livre2.jpg" },
+        { title: "Germinal", author: "Emile Zola", review: "...", image: "images/livre2.jpg" }
     ];
 
     const wipData = [
@@ -1772,43 +1912,108 @@
     ];
 
     // =====================================================
-    // STATE & HELPERS
+    // TIMELINE DETAILS DATA
     // =====================================================
-    let currentFilter = 'all';
-    const sortByYearDesc = (a, b) => parseInt(b.year) - parseInt(a.year);
-
-    /* --- NEW: TIMELINE DETAILS DATA & LOGIC --- */
     const timelineData = {
         airfrance: {
             title: "Air France Industries KLM",
-            content: "<p>Engineering Intern focusing on predictive maintenance.</p><ul><li>Fleet reliability analysis</li><li>Component lifecycle tracking</li><li>Process optimization</li></ul> <li>Ta Matière / Compétence</li>"
+            content: `
+                <p><strong>Engineering Intern</strong> — June to Sept. 2026</p>
+                <p style="margin-top:8px;">Main missions (bullshit placeholder — à modifier) :</p>
+                <ul>
+                    <li>Predictive maintenance analysis on CFM56 engine fleet</li>
+                    <li>Component lifecycle tracking &amp; MTBF modelling</li>
+                    <li>Process optimization for MRO workflows</li>
+                    <li>Data extraction &amp; KPI dashboards (Python, SQL)</li>
+                    <li>Cross-functional coordination with engineering teams</li>
+                </ul>
+                <div style="margin-top:12px;">
+                    <span class="panel-tag">MRO</span>
+                    <span class="panel-tag">CFM56</span>
+                    <span class="panel-tag">Python</span>
+                    <span class="panel-tag">SQL</span>
+                    <span class="panel-tag">Predictive Maintenance</span>
+                </div>`
         },
         utm: {
-            title: "University of Technology Malaysia (UTM)",
-            content: "<p>Exchange semester in Aeronautical Engineering.</p><ul><li>Advanced Aerodynamics</li><li>Flight Dynamics</li><li>Composite Materials</li></ul>"
+            title: "Univ. of Technology Malaysia (UTM)",
+            content: `
+                <p><strong>Exchange Semester</strong> — Sept. 2025 – Feb. 2026</p>
+                <p style="margin-top:8px;">Courses followed (placeholder) :</p>
+                <ul>
+                    <li>Advanced Aerodynamics &amp; Compressible Flow</li>
+                    <li>Flight Dynamics &amp; Control</li>
+                    <li>Composite Materials &amp; Structures</li>
+                    <li>Computational Fluid Dynamics (OpenFOAM)</li>
+                    <li>Engineering Ethics &amp; Project Management</li>
+                </ul>
+                <div style="margin-top:12px;">
+                    <span class="panel-tag">Aerodynamics</span>
+                    <span class="panel-tag">Composites</span>
+                    <span class="panel-tag">OpenFOAM</span>
+                    <span class="panel-tag">CFD</span>
+                </div>`
         },
         ipsa: {
-            title: "IPSA",
-            content: "<p>Core engineering curriculum with aerospace specialization.</p><ul><li>Solid & Fluid Mechanics</li><li>Thermodynamics</li><li>Control Systems</li></ul>"
+            title: "IPSA — Aerospace Engineering",
+            content: `
+                <p><strong>Ingénieur diplômé</strong> — 2022 – 2027</p>
+                <p style="margin-top:8px;">Core curriculum (placeholder) :</p>
+                <ul>
+                    <li>Structural Mechanics &amp; FEM (Patran/Nastran)</li>
+                    <li>Fluid Mechanics &amp; CFD (StarCCM+)</li>
+                    <li>Thermodynamics &amp; Propulsion</li>
+                    <li>Automatic Control &amp; Amesim</li>
+                    <li>CAD/CAM (CATIA V5, SolidWorks)</li>
+                    <li>Applied Mathematics &amp; Optimal Control</li>
+                </ul>
+                <div style="margin-top:12px;">
+                    <span class="panel-tag">FEM</span>
+                    <span class="panel-tag">CFD</span>
+                    <span class="panel-tag">CATIA</span>
+                    <span class="panel-tag">Amesim</span>
+                    <span class="panel-tag">Control</span>
+                </div>`
         }
     };
 
-    function openTimelinePanel(key) {
+    let activeTimelineKey = null;
+
+    function toggleTimelinePanel(key, btn) {
         const panel = document.getElementById('timelineDetailsPanel');
+        
+        // If same key clicked again → close
+        if (activeTimelineKey === key && panel.classList.contains('show')) {
+            closeTimelinePanel();
+            return;
+        }
+
+        // Update active chevron styling
+        document.querySelectorAll('.tl-chevron').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
         const title = document.getElementById('td-title');
         const body = document.getElementById('td-body');
-        
+
         if (timelineData[key]) {
             title.innerHTML = timelineData[key].title;
             body.innerHTML = timelineData[key].content;
             panel.classList.add('show');
+            activeTimelineKey = key;
         }
     }
 
     function closeTimelinePanel() {
         document.getElementById('timelineDetailsPanel').classList.remove('show');
+        document.querySelectorAll('.tl-chevron').forEach(b => b.classList.remove('active'));
+        activeTimelineKey = null;
     }
-    /* ------------------------------------------ */
+
+    // =====================================================
+    // STATE & HELPERS
+    // =====================================================
+    let currentFilter = 'all';
+    const sortByYearDesc = (a, b) => parseInt(b.year) - parseInt(a.year);
 
     // =====================================================
     // MODAL
@@ -1825,13 +2030,6 @@
             m.classList.add('show'); m.style.display = 'block';
             document.body.style.overflow = 'hidden'; return;
         }
-        /* --- NEW: FEATURED PROJECT --- */
-        if (type === 'pmp') {
-            const m = document.getElementById('pmpModal');
-            m.classList.add('show'); m.style.display = 'block';
-            document.body.style.overflow = 'hidden'; return;
-        }
-        /* ----------------------------- */
         const cfg = {
             tp:       { modalId:'tpModal',       listId:'tpList',       filterId:'tpFilters',       data:tpData },
             projects: { modalId:'projectsModal',  listId:'projectsList', filterId:'projectsFilters', data:projectsData },
@@ -1916,9 +2114,7 @@
     }
 
     function closeModal(type) {
-        // --- MODIFIED TO INCLUDE PMP ---
-        const map = { cv:'cvModal', tp:'tpModal', projects:'projectsModal', research:'researchModal', books:'booksModal', pmp:'pmpModal' };
-        // -------------------------------
+        const map = { cv:'cvModal', tp:'tpModal', projects:'projectsModal', research:'researchModal', books:'booksModal' };
         const modal = document.getElementById(map[type]);
         if (!modal) return;
         modal.classList.remove('show');
@@ -1928,19 +2124,17 @@
     }
 
     window.onclick = e => {
-        // --- MODIFIED TO INCLUDE PMP ---
-        ['tpModal','projectsModal','cvModal','researchModal','booksModal','pmpModal'].forEach(id => {
+        ['tpModal','projectsModal','cvModal','researchModal','booksModal'].forEach(id => {
             const m = document.getElementById(id);
             if (m && e.target === m) {
                 const t = id.replace('Modal','');
                 closeModal(t);
             }
         });
-        // -------------------------------
     };
 
-    function viewPDF(f) { window.open(f, '_blank'); }
-    function downloadPDF(f) { const a=document.createElement('a'); a.href=f; a.download=f; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+    function viewPDF(f) { if (f) window.open(f, '_blank'); }
+    function downloadPDF(f) { if (!f) return; const a=document.createElement('a'); a.href=f; a.download=f; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 
     // =====================================================
     // CAROUSELS
