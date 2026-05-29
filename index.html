@@ -1563,18 +1563,24 @@
     <div id="pmpModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Predictive Modeling Project (PMP)</h2>
+                <h2>Minimum Time Car Optimal Control Problem (OCP/PMP)</h2>
                 <span class="close" onclick="closeModal('pmp')">&times;</span>
             </div>
-            <div class="modal-body">
-                <p style="font-size:14px; color:#666; margin-bottom:15px;"><em>Python, Pandas, Scikit-Learn</em></p>
-                <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:30px;">This predictive modeling project involves analyzing complex datasets to forecast trends and behaviors. The complete workflow includes data cleaning, feature engineering, model training, and evaluation.</p>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
-                    <button class="view-btn">Final Presentation & Notebook</button>
-                    <button class="view-btn">Explanatory Doc 1</button>
-                    <button class="view-btn">Explanatory Doc 2</button>
-                </div>
-            </div>
+           <div class="modal-body">
+    <p style="font-size:14px; color:#666; margin-bottom:15px;"><em>Python, NumPy, SciPy (optimize, fsolve), Matplotlib</em></p>
+    
+    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:20px;">This final project focuses on solving a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to guide a two-dimensional vehicle from a given initial state to a specific target state in the shortest possible time. By applying <strong>Pontryagin's Maximum Principle (PMP)</strong>, we analytically formulated the Hamiltonian and derived the adjoint system equations. Through a rigorous mathematical proof by contradiction, we demonstrated that the optimal control architecture strictly follows a <strong>Bang-Bang profile</strong>, switching exclusively between maximum and minimum steering bounds.</p>
+
+    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:20px;">To overcome system non-linearities, we developed a robust <strong>three-step numerical optimization method</strong> in Python. The workflow starts with a smooth approximation to capture the core control structure, followed by a full trajectory optimization over a fixed-time grid of 100 points to reveal a nearly perfect bang-bang control. The final step unconstrains the final horizon and implements decreasing tolerances down to 10⁻⁶ using shooting methods, locating the exact switching times and integrating the exact discontinuous dynamics forward in time.</p>
+
+    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:30px;">The study concludes with an advanced multi-physics extension tracking a <strong>cart with viscous friction</strong>. This secondary analysis evaluates system dynamics under varying friction coefficients, simulating practical aerospace and mechanical applications such as spacecraft rendezvous, autonomous vehicle parking, and train stopping sequences. The numerical results perfectly illustrate how increased structural damping directly impacts and extends the optimal transit time.</p>
+    
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+        <button class="view-btn" onclick="viewPDF('projets/CIRI_2D_CAR_GROUP1 (1).pdf')">Final Presentation & Notebook</button>
+        <button class="view-btn">Theoretical Report (PMP & Proof)</button>
+        <button class="view-btn">Numerical Methods & Friction Study</button>
+    </div>
+</div>
         </div>
     </div>
     <!-- ----------------------------------- -->
