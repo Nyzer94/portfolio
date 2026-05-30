@@ -1965,7 +1965,24 @@
     ];
 
     const wipData = [
-        { name:"UAV Stability Derivatives Analysis", description:"Stability derivative analysis of a RC UAV based on the provided geometry and airfoil data. Several methods are being tested, including CAD-to-ANSYS simulation, OpenVSP, and XFLR5. After multiple unsuccessful attempts with full 3D simulation, the analysis was successfully completed by using XFLR5, extracting the aerodynamic data, and processing the stability derivatives analytically and through MATLAB dynamic modeling.", progress:60, images:["images/uavwip.png","images/uav.png"] },
+       { 
+          name: "ARN-26 - VTOL Tactical ISR UAV (Final Year Project)", 
+          description: "Co-lead of a 3-engineer project team developing the ARN-26, a 75kg MTOW all-electric VTOL tactical drone for long-range ISR missions. Spearheaded the full-cycle engineering process: structural design in CAD, flight dynamics modeling, and selection of high-density battery propulsion. Optimized the airframe for tropical resilience and integrated a high-performance optronic payload. The project focuses on industrial-grade performance, targeting low-maintenance, autonomous operation for critical infrastructure surveillance.", 
+          progress: 15, 
+          images: ["images/arn26_cad_final.png", "images/arn26_propulsion_layout.png", "images/arn26_flight_envelope.png"] 
+        },
+        { 
+          name: "Advanced Aerospace Pre-Processing — Altair HyperMesh Mastery", 
+          description: "Dedicated R&D initiative focused on mastering Altair HyperMesh to bridge the gap between academic modeling and US aerospace industrial standards. Training intensively on high-fidelity shell meshing, mid-surface extraction of thin-walled structures, and CAD clean-up for complex fuselage geometries. Implementing industry-grade quality criteria (jacobian, aspect ratio, warping) to prepare optimized models for structural static and buckling analyses, ensuring immediate operational readiness for large-scale aircraft computational design.", 
+          progress: 1, 
+          images: ["images/hypermesh_fuselage_quads.png", "images/mid_surface_extraction.png", "images/mesh_quality_metrics.png"] 
+        },
+        { 
+          name: "F1-PINN — Physics-Informed Neural Networks for High-Performance Braking Systems", 
+          description: "Initiated an R&D project focused on the hybridization of structural mechanics, thermodynamics, and Scientific Machine Learning (SciML). Developed a custom pipeline leveraging SymPy for backward generation of algebraic physics equations and automated mapping to PyTorch modules. Implementing a PINN framework to predict real-time transient thermal stresses and structural integrity of Formula 1 carbon-ceramic brake discs under extreme dynamic deceleration. The tool aims to bypass traditional heavy FEA transient loops to achieve real-time telemetry optimization.", 
+          progress: 5, 
+          images: ["images/f1_pinn_architecture.png", "images/sympy_symbolic_tree.png", "images/brake_thermal_profile.png"] 
+        },
         { name:"Bench Vise (CAD & FEM)", description:"After 3 years of modeling experience with CATIA, this upcoming project aims to master the SolidWorks environment through the complete design of a mechanical assembly. I intend to integrate Ansys (new experience) for Finite Element Analysis (FEA) to establish a comprehensive validation workflow and demonstrate compatibility between these industry-standard tools.", progress:1, images:["images/bv.png"] },
         { name:"Scientific Machine Learning (SciML)", description:"Deep dive into the bridge between classical physics and AI. Currently implementing core optimization algorithms, from Maximum Likelihood Estimation to Newton-Raphson methods, with the ultimate goal of developing Physics-Informed Neural Networks (PINNs) for structural mechanics and fluid dynamics.", progress:5, images:["images/grad.jpg"] }
     ];
