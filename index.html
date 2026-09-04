@@ -45,7 +45,7 @@
             height: 3px;
             background: linear-gradient(90deg, #000, #444);
             z-index: 9998;
-            transition: width 0.1s ease;
+            will-change: width;
         }
 
         /* Page Load Animation */
@@ -83,7 +83,7 @@
         }
 
         /* =====================================================
-           TABLE OF CONTENTS — fixed left sidebar
+            TABLE OF CONTENTS — fixed left sidebar
         ===================================================== */
         .toc-sidebar {
             position: fixed;
@@ -94,12 +94,10 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            /* --- AJOUTS POUR LE FOND GRIS --- */
-            background: rgba(30, 30, 30, 0.85); /* Gris foncé opaque à 85% */
-            padding: 15px 12px;                 /* Espace intérieur pour pas que les points collent aux bords */
-            border-radius: 8px;                 /* Arrondir légèrement les angles */
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Micro bordure pour le style */
-            backdrop-filter: blur(4px);         /* Floute légèrement ce qu'il y a derrière */
+            background: rgba(30, 30, 30, 0.9);
+            padding: 15px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .toc-item {
@@ -107,7 +105,6 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            group: true;
         }
 
         .toc-dot {
@@ -117,7 +114,7 @@
             background: rgba(255,255,255,0.3);
             border: 1px solid rgba(255,255,255,0.5);
             flex-shrink: 0;
-            transition: all 0.25s ease;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
 
         .toc-item:hover .toc-dot,
@@ -134,7 +131,7 @@
             text-transform: uppercase;
             color: rgba(255,255,255,0.7);
             white-space: nowrap;
-            transition: all 0.25s ease;
+            transition: color 0.2s ease;
             pointer-events: none;
         }
 
@@ -143,7 +140,6 @@
             color: #ffffff;
         }
 
-        /* Hide TOC when page scrolls out of dark header zone */
         .toc-sidebar.light-mode .toc-dot {
             background: rgba(0,0,0,0.2);
             border-color: rgba(0,0,0,0.4);
@@ -165,7 +161,7 @@
         }
 
         /* =====================================================
-           HEADER
+            HEADER
         ===================================================== */
         header {
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
@@ -220,7 +216,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border-radius: 4px;
-            transition: all 0.3s ease;
+            transition: background 0.2s ease, transform 0.2s ease;
             font-weight: 500;
         }
 
@@ -257,8 +253,7 @@
             font-size: 13px;
             font-family: 'Helvetica Neue', Arial, sans-serif;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(6px);
+            transition: background 0.2s ease, transform 0.2s ease;
         }
 
         .header-quick-btn:hover {
@@ -278,7 +273,7 @@
         }
 
         /* =====================================================
-           HEADER TIMELINE
+            HEADER TIMELINE
         ===================================================== */
         .header-timeline {
             max-width: 350px;
@@ -410,7 +405,7 @@
         }
 
         /* =====================================================
-           TIMELINE CHEVRON — toujours visible
+            TIMELINE CHEVRON — toujours visible
         ===================================================== */
         .tl-chevron {
             position: absolute;
@@ -429,7 +424,7 @@
             justify-content: center;
             cursor: pointer;
             z-index: 10;
-            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
             line-height: 1;
         }
 
@@ -445,15 +440,14 @@
         }
 
         /* =====================================================
-           TIMELINE DETAILS PANEL
+            TIMELINE DETAILS PANEL
         ===================================================== */
         .timeline-details-panel {
             position: absolute;
             top: 0;
             left: calc(100% + 16px);
             width: 290px;
-            background: rgba(18, 18, 18, 0.97);
-            backdrop-filter: blur(12px);
+            background: rgba(18, 18, 18, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 10px;
             padding: 20px;
@@ -461,7 +455,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateX(-12px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
             z-index: 200;
             box-shadow: 0 12px 36px rgba(0,0,0,0.6);
             pointer-events: none;
@@ -537,7 +531,7 @@
         }
 
         /* =====================================================
-           FEATURED PROJECT — zone blanche
+            FEATURED PROJECT — zone blanche
         ===================================================== */
         .featured-section {
             background: #f2f2f2;
@@ -685,7 +679,7 @@
             align-items: center;
             gap: 14px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         .fp-file-slot:hover {
@@ -749,7 +743,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             white-space: nowrap;
         }
 
@@ -767,7 +761,7 @@
         }
 
         /* =====================================================
-           MAIN CONTENT
+            MAIN CONTENT
         ===================================================== */
         .main-content {
             padding: 0 40px 40px 40px;
@@ -785,7 +779,7 @@
         }
 
         /* =====================================================
-           PROJECTS GRID
+            PROJECTS GRID
         ===================================================== */
         .projects-grid {
             display: grid;
@@ -803,7 +797,7 @@
         .project-block {
             position: relative;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease;
         }
 
         .project-block:hover { transform: scale(1.02) translateY(-5px); }
@@ -811,16 +805,15 @@
         .project-content {
             display: flex;
             align-items: center;
-            background: rgba(230, 230, 230, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(230, 230, 230, 0.85);
             border-radius: 8px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         .project-block:hover .project-content {
-            background: rgba(200, 200, 200, 0.8);
+            background: rgba(200, 200, 200, 0.95);
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
@@ -835,7 +828,7 @@
             position: relative;
             flex-shrink: 0;
             margin: 20px;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease, filter 0.3s ease;
             overflow: hidden;
         }
 
@@ -850,7 +843,7 @@
             position: relative;
             flex-shrink: 0;
             margin: 20px;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease, filter 0.3s ease;
             overflow: hidden;
         }
 
@@ -887,7 +880,7 @@
         }
 
         /* =====================================================
-           MODAL
+            MODAL
         ===================================================== */
         .modal {
             display: none;
@@ -896,12 +889,11 @@
             left: 0; top: 0;
             width: 100%; height: 100%;
             background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(5px);
         }
 
         .modal.show {
             display: block;
-            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: modalSlideIn 0.3s ease forwards;
         }
 
         @keyframes modalSlideIn {
@@ -910,8 +902,7 @@
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
             margin: 5% auto;
             padding: 0;
             width: 90%;
@@ -922,11 +913,11 @@
             flex-direction: column;
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalContentZoom 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: modalContentZoom 0.3s ease forwards;
         }
 
         @keyframes modalContentZoom {
-            from { transform: scale(0.9) translateY(50px); opacity: 0; }
+            from { transform: scale(0.9) translateY(30px); opacity: 0; }
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
 
@@ -946,7 +937,7 @@
             color: #000;
             cursor: pointer;
             line-height: 1;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .close:hover { transform: rotate(90deg); }
@@ -957,7 +948,7 @@
         }
 
         /* =====================================================
-           FILTER BUTTONS
+            FILTER BUTTONS
         ===================================================== */
         .filter-buttons {
             display: flex;
@@ -968,14 +959,14 @@
 
         .filter-btn {
             padding: 8px 16px;
-            background: rgba(230,230,230,0.7);
+            background: rgba(230,230,230,0.85);
             border: 1px solid #ddd;
             border-radius: 20px;
             cursor: pointer;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .filter-btn:hover, .filter-btn.active {
@@ -985,7 +976,7 @@
         }
 
         /* =====================================================
-           ITEM LIST
+            ITEM LIST
         ===================================================== */
         .item-list { list-style: none; }
 
@@ -995,8 +986,8 @@
             align-items: flex-start;
             padding: 20px;
             border-bottom: 1px solid rgba(238,238,238,0.5);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(230,230,230,0.5);
+            transition: all 0.3s ease;
+            background: rgba(230,230,230,0.6);
             border-radius: 8px;
             margin-bottom: 10px;
             overflow: hidden;
@@ -1005,7 +996,7 @@
         }
 
         .item:hover {
-            background: rgba(200,200,200,0.7);
+            background: rgba(200,200,200,0.8);
             transform: scale(1.01) translateX(5px);
             max-height: 500px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -1024,7 +1015,7 @@
             background: #000;
             border-radius: 8px;
             flex-shrink: 0;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .item:hover .item-image { transform: scale(1.05); }
@@ -1064,7 +1055,7 @@
             margin-top: 10px;
             opacity: 0;
             max-height: 0;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         .item:hover .item-description {
@@ -1085,7 +1076,7 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-radius: 4px;
@@ -1103,7 +1094,7 @@
         .download-btn:hover { background: #666; }
 
         /* =====================================================
-           BOOKS MODAL
+            BOOKS MODAL
         ===================================================== */
         .books-list {
             list-style: none;
@@ -1117,17 +1108,17 @@
             display: flex;
             align-items: center;
             gap: 0;
-            background: rgba(230,230,230,0.5);
+            background: rgba(230,230,230,0.6);
             border-radius: 10px;
             padding: 20px 24px 20px 0;
             box-shadow: 0 4px 14px rgba(0,0,0,0.07);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
             overflow: visible;
         }
 
         .book-card:hover {
-            background: rgba(210,210,210,0.7);
+            background: rgba(210,210,210,0.8);
             box-shadow: 0 8px 24px rgba(0,0,0,0.13);
             transform: translateY(-3px);
         }
@@ -1186,7 +1177,7 @@
         }
 
         /* =====================================================
-           EMPTY STATE
+            EMPTY STATE
         ===================================================== */
         .empty-state {
             text-align: center;
@@ -1198,7 +1189,7 @@
         .empty-state p { font-size: 14px; font-style: italic; }
 
         /* =====================================================
-           FUTURE PROJECTS
+            FUTURE PROJECTS
         ===================================================== */
         .future-projects-list {
             display: flex;
@@ -1209,9 +1200,8 @@
         .future-project-card {
             border: 1px solid #ddd;
             padding: 30px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(230,230,230,0.6);
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            background: rgba(230,230,230,0.7);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             flex: 0 0 320px;
@@ -1219,7 +1209,7 @@
 
         .future-project-card:hover {
             border-color: #000;
-            background: rgba(200,200,200,0.8);
+            background: rgba(200,200,200,0.9);
             transform: scale(1.02) translateY(-5px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
@@ -1237,7 +1227,7 @@
         .future-projects-carousel::-webkit-scrollbar { display: none; }
 
         /* =====================================================
-           WORK IN PROGRESS
+            WORK IN PROGRESS
         ===================================================== */
         .wip-projects-carousel {
             overflow-x: auto;
@@ -1270,7 +1260,7 @@
         .card-image-carousel {
             display: flex;
             height: 100%;
-            transition: transform 0.4s ease-in-out;
+            transition: transform 0.3s ease-in-out;
         }
 
         .card-image {
@@ -1290,7 +1280,7 @@
             padding: 0 10px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
         .wip-project-image:hover .card-carousel-controls,
@@ -1318,9 +1308,8 @@
         .wip-project-card {
             border: 1px solid #ddd;
             padding: 20px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(230,230,230,0.6);
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            background: rgba(230,230,230,0.7);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             display: flex;
@@ -1348,7 +1337,7 @@
         }
 
         /* =====================================================
-           PERSONAL PROJECTS
+            PERSONAL PROJECTS
         ===================================================== */
         .personal-projects-list {
             display: grid;
@@ -1357,12 +1346,11 @@
         }
 
         .personal-project-card {
-            background: rgba(230,230,230,0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(230,230,230,0.7);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
@@ -1388,7 +1376,7 @@
             display: flex;
             width: 200%;
             height: 100%;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease;
         }
 
         .pp-page {
@@ -1411,7 +1399,7 @@
             letter-spacing: 1px;
             margin: 10px 0 15px 0;
             align-self: flex-start;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-weight: 600;
         }
 
@@ -1452,13 +1440,12 @@
         .carousel-controls { display: flex; gap: 10px; }
 
         /* =====================================================
-           CONTACT
+            CONTACT
         ===================================================== */
         .contact-section {
             text-align: center;
             padding: 60px 40px;
-            background: rgba(230,230,230,0.5);
-            backdrop-filter: blur(10px);
+            background: rgba(230,230,230,0.6);
             border-radius: 8px;
             margin-bottom: 40px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -1478,7 +1465,7 @@
             color: #fff;
             text-decoration: none;
             border-radius: 4px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 14px;
@@ -1502,7 +1489,7 @@
             cursor: pointer;
             font-size: 24px;
             color: #333;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -1517,7 +1504,7 @@
         .timeline-section { margin-bottom: 80px; display: none; }
 
         /* =====================================================
-           EASTER EGG
+            EASTER EGG
         ===================================================== */
         .easter-egg {
             position: fixed;
@@ -1532,7 +1519,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .easter-egg.show { display: block; animation: slideInRight 0.5s ease; }
+        .easter-egg.show { display: block; animation: slideInRight 0.3s ease; }
 
         @keyframes slideInRight {
             from { transform: translateX(400px); opacity: 0; }
@@ -1540,7 +1527,7 @@
         }
 
         /* =====================================================
-           RESPONSIVE
+            RESPONSIVE
         ===================================================== */
         @media (max-width: 968px) {
             .header-content { flex-direction: column; gap: 20px; }
@@ -2105,31 +2092,37 @@
         window.scrollTo({ top, behavior: 'smooth' });
     }
 
+    // Throttle for scroll performance
+    let isScrolling = false;
     function updateTocActive() {
-        const tocItems = document.querySelectorAll('.toc-item');
-        const toc = document.getElementById('tocSidebar');
-        const scrollY = window.pageYOffset;
-        const headerHeight = document.querySelector('header').offsetHeight;
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                const tocItems = document.querySelectorAll('.toc-item');
+                const toc = document.getElementById('tocSidebar');
+                const scrollY = window.pageYOffset;
+                const headerHeight = document.querySelector('header').offsetHeight;
 
-        // Switch dot color: white on dark header, dark on light sections
-        if (scrollY < headerHeight - 60) {
-            toc.classList.remove('light-mode');
-        } else {
-            toc.classList.add('light-mode');
+                if (scrollY < headerHeight - 60) {
+                    toc.classList.remove('light-mode');
+                } else {
+                    toc.classList.add('light-mode');
+                }
+
+                let current = 0;
+                tocSections.forEach((id, i) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= 120) current = i;
+                });
+
+                tocItems.forEach((item, i) => {
+                    item.classList.toggle('active', i === current);
+                });
+                isScrolling = false;
+            });
+            isScrolling = true;
         }
-
-        // Find which section is currently in view
-        let current = 0;
-        tocSections.forEach((id, i) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const rect = el.getBoundingClientRect();
-            if (rect.top <= 120) current = i;
-        });
-
-        tocItems.forEach((item, i) => {
-            item.classList.toggle('active', i === current);
-        });
     }
 
     window.addEventListener('scroll', updateTocActive, { passive: true });
@@ -2157,7 +2150,7 @@
             document.body.style.overflow = 'hidden'; return;
         }
         const cfg = {
-            tp:       { modalId:'tpModal',       listId:'tpList',       filterId:'tpFilters',       data:tpData },
+            tp:        { modalId:'tpModal',        listId:'tpList',        filterId:'tpFilters',        data:tpData },
             projects: { modalId:'projectsModal',  listId:'projectsList', filterId:'projectsFilters', data:projectsData },
             research: { modalId:'researchModal',  listId:'researchList', filterId:'researchFilters', data:researchData }
         };
@@ -2244,7 +2237,7 @@
         const modal = document.getElementById(map[type]);
         if (!modal) return;
         modal.classList.remove('show');
-        setTimeout(() => modal.style.display = 'none', 400);
+        setTimeout(() => modal.style.display = 'none', 300);
         document.body.style.overflow = '';
         currentFilter = 'all';
     }
@@ -2368,13 +2361,15 @@
     // SCROLL PROGRESS
     // =====================================================
     window.addEventListener('scroll', () => {
-        const ws = document.body.scrollTop || document.documentElement.scrollTop;
-        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        document.querySelector('.progress-bar').style.width = (ws / h * 100) + '%';
-    });
+        window.requestAnimationFrame(() => {
+            const ws = document.body.scrollTop || document.documentElement.scrollTop;
+            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.querySelector('.progress-bar').style.width = (ws / h * 100) + '%';
+        });
+    }, { passive: true });
 
     // =====================================================
-    // PARTICLES
+    // PARTICLES (Optimized: fewer particles, no continuous loop if idle)
     // =====================================================
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
@@ -2387,8 +2382,8 @@
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
             this.size = Math.random() * 2 + 1;
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.speedY = Math.random() * 0.5 - 0.25;
+            this.speedX = Math.random() * 0.3 - 0.15;
+            this.speedY = Math.random() * 0.3 - 0.15;
         }
         update() {
             this.x += this.speedX; this.y += this.speedY;
@@ -2398,14 +2393,14 @@
             if (this.y < 0) this.y = canvas.height;
         }
         draw() {
-            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
     }
 
-    const particles = Array.from({ length: 50 }, () => new Particle());
+    const particles = Array.from({ length: 25 }, () => new Particle()); // Réduit de 50 à 25 pour alléger
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });
