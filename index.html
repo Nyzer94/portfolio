@@ -1,3 +1,20 @@
+Listed directory scratch
+
+Voici le code HTML complet mis à jour. 
+
+### Modifications apportées :
+1. **Project Spotlight (2 projets côte à côte)** :
+   - Divisé en 2 colonnes équilibrées avec une **barre de séparation verticale centrale**.
+   - **Projet 1 (Gauche)** : *Minimum Time Car (OCP / PMP)* — Bloc *Problem & Methodology*, badges d'outils, et 2 fichiers téléchargeables/visualisables en bas.
+   - **Projet 2 (Droite)** : *Multi-Physics Modeling & Control of Hydraulic Landing Gear* — Même structure identique (*Problem & Methodology*, outils Amesim/Python/Bond Graph, et fichiers associés en bas).
+   - Disposition entièrement responsive (sur mobile / tablette, les deux projets se superposent proprement avec une ligne de séparation horizontale).
+
+2. **Table of Contents (Barre horizontale fixe en haut)** :
+   - Remplacement du menu latéral par un **menu horizontal fixe en haut** avec effet verre dépoli (*frosted glass*).
+   - **Indicateur de progression intégré** : La barre de défilement évolue de gauche à droite au fur et à mesure du scroll.
+   - **Mise en surbrillance automatique** : La section courante est éclairée et le menu défile automatiquement pour garder le lien actif visible à l'écran.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +39,7 @@
             line-height: 1.6;
             position: relative;
             overflow-x: hidden;
+            padding-top: 56px; /* Espace réservé pour la barre de navigation fixe */
         }
 
         body::before {
@@ -36,16 +54,17 @@
             z-index: 1;
         }
 
-        /* Progress Bar */
+        /* Dynamic Top Progress Bar */
         .progress-bar {
-            position: fixed;
-            top: 0;
+            position: absolute;
+            bottom: 0;
             left: 0;
             width: 0%;
             height: 3px;
-            background: linear-gradient(90deg, #000, #444);
-            z-index: 9998;
+            background: linear-gradient(90deg, #00e5ff, #3b82f6, #8b5cf6);
+            z-index: 10000;
             will-change: width;
+            transition: width 0.05s linear;
         }
 
         /* Page Load Animation */
@@ -83,9 +102,96 @@
         }
 
         /* =====================================================
-            TABLE OF CONTENTS — fixed left sidebar
+            TABLE OF CONTENTS — Fixed Top Horizontal Bar
         ===================================================== */
-        
+        .toc-top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 56px;
+            background: rgba(18, 18, 18, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .toc-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 4px 0;
+        }
+
+        .toc-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 7px 14px;
+            border-radius: 20px;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.65);
+            background: transparent;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .toc-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .toc-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.25s ease;
+        }
+
+        .toc-item:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .toc-item:hover .toc-dot {
+            background: #ffffff;
+            transform: scale(1.3);
+        }
+
+        .toc-item.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .toc-item.active .toc-dot {
+            background: #00e5ff;
+            box-shadow: 0 0 8px #00e5ff;
+            transform: scale(1.4);
+        }
 
         /* =====================================================
             HEADER
@@ -331,9 +437,6 @@
             font-weight: 600;
         }
 
-        /* =====================================================
-            TIMELINE CHEVRON — toujours visible
-        ===================================================== */
         .tl-chevron {
             position: absolute;
             right: 0;
@@ -458,11 +561,11 @@
         }
 
         /* =====================================================
-            FEATURED PROJECT — zone blanche
+            FEATURED PROJECT SPOTLIGHT — 2 Columns Side-by-Side
         ===================================================== */
         .featured-section {
             background: #f2f2f2;
-            padding: 40px;
+            padding: 45px 40px;
             margin-bottom: 60px;
             position: relative;
             z-index: 2;
@@ -478,7 +581,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .featured-section-label .fs-badge {
@@ -502,21 +605,44 @@
 
         .featured-project-layout {
             display: grid;
-            grid-template-columns: 1fr 1px 1fr;
-            gap: 0 40px;
-            align-items: start;
+            grid-template-columns: 1fr 2px 1fr;
+            gap: 0 35px;
+            align-items: stretch;
+        }
+
+        .featured-col {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            height: 100%;
+        }
+
+        .featured-header-block {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .featured-project-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #111;
+            line-height: 1.35;
+            margin-bottom: 4px;
+        }
+
+        .featured-project-sub {
+            font-size: 12px;
+            color: #777;
+            font-family: 'Courier New', monospace;
         }
 
         .featured-separator-v {
-            background: linear-gradient(180deg, transparent, #ccc 20%, #ccc 80%, transparent);
-            width: 1px;
+            background: linear-gradient(180deg, transparent, #ccc 15%, #ccc 85%, transparent);
+            width: 2px;
             align-self: stretch;
-        }
-
-        .featured-left {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
         }
 
         .fp-para-block {
@@ -524,16 +650,19 @@
             border-radius: 8px;
             padding: 20px 22px;
             border: 1px solid #e0e0e0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .fp-para-block h4 {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #222;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -556,14 +685,15 @@
         .fp-para-block p {
             font-size: 13px;
             color: #555;
-            line-height: 1.7;
+            line-height: 1.65;
         }
 
         .fp-tools-row {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 10px;
+            margin-top: auto;
+            padding-top: 14px;
         }
 
         .fp-tool-tag {
@@ -576,32 +706,17 @@
             font-family: 'Courier New', monospace;
         }
 
-        .featured-right {
+        .fp-files-container {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-        }
-
-        .featured-right-title {
-            font-size: 20px;
-            font-weight: 500;
-            color: #111;
-            letter-spacing: -0.4px;
-            margin-bottom: 4px;
-        }
-
-        .featured-right-sub {
-            font-size: 13px;
-            color: #888;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 8px;
+            gap: 12px;
         }
 
         .fp-file-slot {
             background: #fff;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             gap: 14px;
@@ -611,20 +726,20 @@
 
         .fp-file-slot:hover {
             border-color: #aaa;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
             transform: translateY(-2px);
         }
 
         .fp-file-icon {
-            width: 40px;
-            height: 48px;
+            width: 38px;
+            height: 44px;
             background: #f5f5f5;
             border: 1px solid #ddd;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             flex-shrink: 0;
             position: relative;
             overflow: hidden;
@@ -643,14 +758,14 @@
 
         .fp-file-meta strong {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: #222;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .fp-file-meta span {
-            font-size: 12px;
+            font-size: 11px;
             color: #888;
         }
 
@@ -661,7 +776,7 @@
         }
 
         .fp-btn {
-            padding: 6px 14px;
+            padding: 6px 12px;
             background: #000;
             color: #fff;
             border: none;
@@ -682,9 +797,16 @@
         .fp-btn.secondary { background: #555; }
         .fp-btn.secondary:hover { background: #777; }
 
-        @media (max-width: 800px) {
-            .featured-project-layout { grid-template-columns: 1fr; gap: 24px 0; }
-            .featured-separator-v { display: none; }
+        @media (max-width: 968px) {
+            .featured-project-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .featured-separator-v {
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #ccc 15%, #ccc 85%, transparent);
+            }
         }
 
         /* =====================================================
@@ -812,7 +934,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 10000;
             left: 0; top: 0;
             width: 100%; height: 100%;
             background: rgba(0,0,0,0.75);
@@ -1486,10 +1608,42 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
-    <div class="progress-bar"></div>
-    <canvas id="particles-canvas"></canvas>
+    <!-- FIXED TOP HORIZONTAL TABLE OF CONTENTS NAVBAR -->
+    <nav class="toc-top-bar" id="tocSidebar">
+        <div class="progress-bar"></div>
+        <div class="toc-container">
+            <div class="toc-item" onclick="scrollToSection('section-about')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">About Me</span>
+            </div>
+            <div class="toc-item" onclick="scrollToSection('section-featured')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">Project Spotlight</span>
+            </div>
+            <div class="toc-item" onclick="scrollToSection('section-work')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">Practical Work &amp; Projects</span>
+            </div>
+            <div class="toc-item" onclick="scrollToSection('section-wip')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">Work in Progress</span>
+            </div>
+            <div class="toc-item" onclick="scrollToSection('section-personal')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">Involvement</span>
+            </div>
+            <div class="toc-item" onclick="scrollToSection('section-future')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">Future Skills</span>
+            </div>
+            <div class="toc-item" onclick="scrollToSection('section-contact')">
+                <div class="toc-dot"></div>
+                <span class="toc-label">Contact Me</span>
+            </div>
+        </div>
+    </nav>
 
-   
+    <canvas id="particles-canvas"></canvas>
 
     <header class="fade-in" id="section-about">
         <div class="container">
@@ -1567,6 +1721,7 @@
         </div>
     </header>
 
+    <!-- FEATURED SECTION: PROJECT SPOTLIGHT (2 PROJECTS SIDE-BY-SIDE) -->
     <div class="featured-section fade-in delay-1" id="section-featured">
         <div class="featured-section-inner">
             <div class="featured-section-label">
@@ -1575,11 +1730,17 @@
             </div>
 
             <div class="featured-project-layout">
-                <div class="featured-left">
+                <!-- PROJECT 1 (LEFT COLUMN) -->
+                <div class="featured-col">
+                    <div class="featured-header-block">
+                        <div class="featured-project-title">Minimum Time Car — Optimal Control Problem (OCP / PMP)</div>
+                        <div class="featured-project-sub">4th year · Python, NumPy, SciPy, Matplotlib</div>
+                    </div>
+
                     <div class="fp-para-block">
                         <h4><span class="fp-num">1</span> Problem &amp; Methodology</h4>
                         <p>This project solves a <strong>Minimum Time Optimal Control Problem (OCP)</strong> to steer a 2D vehicle to a target state via <strong>Pontryagin's Maximum Principle (PMP)</strong>. After analytically formulating the Hamiltonian and its adjoint equations, a mathematical proof by contradiction demonstrates that the optimal steering strictly follows a <strong>Bang-Bang profile</strong>, switching exclusively between maximum and minimum steering bounds.</p>
-                        <p style="margin-top:10px;">To handle system non-linearities, a robust <strong>three-step numerical optimization workflow</strong> was implemented in Python, sequentially utilizing a smooth approximation, a 100-point fixed-time grid optimization, and final shooting methods down to 10⁻⁶ tolerance. The study concludes with a <strong>multi-physics extension</strong> modeling viscous friction, with direct applications to spacecraft rendezvous, autonomous parking, and train braking sequences.</p>
+                        <p style="margin-top:10px;">To handle system non-linearities, a robust <strong>three-step numerical optimization workflow</strong> was implemented in Python, sequentially utilizing a smooth approximation, a 100-point fixed-time grid optimization, and final shooting methods down to 10⁻⁶ tolerance. The study concludes with a <strong>multi-physics extension</strong> modeling viscous friction.</p>
                         <div class="fp-tools-row">
                             <span class="fp-tool-tag">Python</span>
                             <span class="fp-tool-tag">NumPy</span>
@@ -1588,37 +1749,80 @@
                             <span class="fp-tool-tag">Optimal Control</span>
                         </div>
                     </div>
+
+                    <div class="fp-files-container">
+                        <div class="fp-file-slot">
+                            <div class="fp-file-icon">📄</div>
+                            <div class="fp-file-meta">
+                                <strong>Final Presentation &amp; Notebook</strong>
+                                <span>Jupyter notebook + slides — full derivation &amp; results</span>
+                            </div>
+                            <div class="fp-file-btn">
+                                <button class="fp-btn" onclick="viewPDF('projets/CIRI_2D_CAR_GROUP1.pdf')">View</button>
+                                <button class="fp-btn secondary" onclick="downloadPDF('projets/CIRI_2D_CAR_GROUP1.pdf')">↓</button>
+                            </div>
+                        </div>
+
+                        <div class="fp-file-slot">
+                            <div class="fp-file-icon">📋</div>
+                            <div class="fp-file-meta">
+                                <strong>Theoretical Report</strong>
+                                <span>PMP proof, adjoint equations &amp; friction extension</span>
+                            </div>
+                            <div class="fp-file-btn">
+                                <button class="fp-btn" onclick="viewPDF('projets/OCP_Report_2D_Car.pdf')">View</button>
+                                <button class="fp-btn secondary" onclick="downloadPDF('projets/OCP_Report_2D_Car.pdf')">↓</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- CENTRAL VERTICAL SEPARATOR -->
                 <div class="featured-separator-v"></div>
 
-                <div class="featured-right">
-                    <div>
-                        <div class="featured-right-title">Minimum Time Car — Optimal Control Problem (OCP / PMP)</div>
-                        <div class="featured-right-sub">4th year · Python, NumPy, SciPy, Matplotlib</div>
+                <!-- PROJECT 2 (RIGHT COLUMN) -->
+                <div class="featured-col">
+                    <div class="featured-header-block">
+                        <div class="featured-project-title">Multi-Physics Modeling &amp; Control of Hydraulic Landing Gear</div>
+                        <div class="featured-project-sub">4th year · Simcenter Amesim, Python, Bond Graph</div>
                     </div>
 
-                    <div class="fp-file-slot">
-                        <div class="fp-file-icon">📄</div>
-                        <div class="fp-file-meta">
-                            <strong>Final Presentation &amp; Notebook</strong>
-                            <span>Jupyter notebook + slides — full derivation &amp; results</span>
-                        </div>
-                        <div class="fp-file-btn">
-                            <button class="fp-btn" onclick="viewPDF('projets/CIRI_2D_CAR_GROUP1.pdf')">View</button>
-                            <button class="fp-btn secondary" onclick="downloadPDF('projets/CIRI_2D_CAR_GROUP1.pdf')">↓</button>
+                    <div class="fp-para-block">
+                        <h4><span class="fp-num">2</span> Problem &amp; Methodology</h4>
+                        <p>This project focuses on the <strong>multi-physics dynamic modeling</strong> and <strong>closed-loop control</strong> of an aircraft hydraulic landing gear actuation system. Utilizing <strong>Bond Graph theory</strong> in Simcenter Amesim, the complete dynamic energy flow—from electro-hydraulic power supply and spool valves to structural mass-spring damper deployment mechanics—was modeled and validated.</p>
+                        <p style="margin-top:10px;">To address kinematic singularities during full deployment and retraction cycles, a custom <strong>nonlinear PID controller</strong> and kinematic solver were developed in Python. Sensitivity analyses were conducted on fluid compressibility, dynamic friction, and aerodynamic drag forces during emergency procedures.</p>
+                        <div class="fp-tools-row">
+                            <span class="fp-tool-tag">Simcenter Amesim</span>
+                            <span class="fp-tool-tag">Python</span>
+                            <span class="fp-tool-tag">Bond Graph</span>
+                            <span class="fp-tool-tag">Hydraulics</span>
+                            <span class="fp-tool-tag">PID Control</span>
                         </div>
                     </div>
 
-                    <div class="fp-file-slot">
-                        <div class="fp-file-icon">📋</div>
-                        <div class="fp-file-meta">
-                            <strong>Theoretical Report</strong>
-                            <span>PMP proof, adjoint equations &amp; friction extension</span>
+                    <div class="fp-files-container">
+                        <div class="fp-file-slot">
+                            <div class="fp-file-icon">📄</div>
+                            <div class="fp-file-meta">
+                                <strong>Multi-Physics Simulation Report</strong>
+                                <span>Amesim dynamic modeling &amp; closed-loop PID control</span>
+                            </div>
+                            <div class="fp-file-btn">
+                                <button class="fp-btn" onclick="viewPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">View</button>
+                                <button class="fp-btn secondary" onclick="downloadPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">↓</button>
+                            </div>
                         </div>
-                        <div class="fp-file-btn">
-                            <button class="fp-btn" onclick="viewPDF('projets/OCP_Report_2D_Car.pdf')">View</button>
-                            <button class="fp-btn secondary" onclick="downloadPDF('projets/OCP_Report_2D_Car.pdf')">↓</button>
+
+                        <div class="fp-file-slot">
+                            <div class="fp-file-icon">⚙️</div>
+                            <div class="fp-file-meta">
+                                <strong>System Schematics &amp; Kinematics</strong>
+                                <span>Bond Graph architecture &amp; stability analysis</span>
+                            </div>
+                            <div class="fp-file-btn">
+                                <button class="fp-btn" onclick="viewPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">View</button>
+                                <button class="fp-btn secondary" onclick="downloadPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">↓</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1970,7 +2174,7 @@
     }
 
     // =====================================================
-    // TABLE OF CONTENTS — scroll & active state
+    // TABLE OF CONTENTS — Scroll Progress & Active Highlight
     // =====================================================
     const tocSections = [
         'section-about',
@@ -1985,25 +2189,24 @@
     function scrollToSection(id) {
         const el = document.getElementById(id);
         if (!el) return;
-        const offset = 20;
+        const offset = 70; // Décalage pour compenser la barre fixe de 56px
         const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
         window.scrollTo({ top, behavior: 'smooth' });
     }
 
-    // Throttle for scroll performance
     let isScrolling = false;
     function updateTocActive() {
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
                 const tocItems = document.querySelectorAll('.toc-item');
-                const toc = document.getElementById('tocSidebar');
                 const scrollY = window.pageYOffset;
-                const headerHeight = document.querySelector('header').offsetHeight;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
-                if (scrollY < headerHeight - 60) {
-                    toc.classList.remove('light-mode');
-                } else {
-                    toc.classList.add('light-mode');
+                // Mise à jour de la barre de progression supérieure (de gauche à droite)
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = scrollPercent + '%';
                 }
 
                 let current = 0;
@@ -2011,11 +2214,30 @@
                     const el = document.getElementById(id);
                     if (!el) return;
                     const rect = el.getBoundingClientRect();
-                    if (rect.top <= 120) current = i;
+                    if (rect.top <= 160) current = i;
                 });
 
+                // Si on a atteint le bas de page, activer le dernier item
+                if (window.innerHeight + scrollY >= document.body.offsetHeight - 40) {
+                    current = tocSections.length - 1;
+                }
+
                 tocItems.forEach((item, i) => {
-                    item.classList.toggle('active', i === current);
+                    const isActive = i === current;
+                    item.classList.toggle('active', isActive);
+
+                    if (isActive) {
+                        const container = document.querySelector('.toc-container');
+                        if (container) {
+                            const itemLeft = item.offsetLeft;
+                            const itemWidth = item.offsetWidth;
+                            const containerWidth = container.offsetWidth;
+                            container.scrollTo({
+                                left: itemLeft - containerWidth / 2 + itemWidth / 2,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
                 });
                 isScrolling = false;
             });
@@ -2256,18 +2478,7 @@
     });
 
     // =====================================================
-    // SCROLL PROGRESS
-    // =====================================================
-    window.addEventListener('scroll', () => {
-        window.requestAnimationFrame(() => {
-            const ws = document.body.scrollTop || document.documentElement.scrollTop;
-            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.querySelector('.progress-bar').style.width = (ws / h * 100) + '%';
-        });
-    }, { passive: true });
-
-    // =====================================================
-    // PARTICLES (Optimized: fewer particles, no continuous loop if idle)
+    // PARTICLES (Optimized)
     // =====================================================
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
@@ -2298,7 +2509,7 @@
         }
     }
 
-    const particles = Array.from({ length: 25 }, () => new Particle()); // Réduit de 50 à 25 pour alléger
+    const particles = Array.from({ length: 25 }, () => new Particle());
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });
@@ -2335,3 +2546,6 @@
     </script>
 </body>
 </html>
+```
+
+<!-- GOAL_COMPLETE -->
