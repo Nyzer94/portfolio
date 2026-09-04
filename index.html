@@ -1764,47 +1764,59 @@
                 <div class="featured-separator-v"></div>
 
                 <!-- PROJECT 2 (RIGHT COLUMN) -->
-                <div class="featured-col">
+               <div class="featured-col">
                     <div class="featured-header-block">
-                        <div class="featured-project-title">Multi-Physics Modeling &amp; Control of Hydraulic Landing Gear</div>
-                        <div class="featured-project-sub">4th year · Simcenter Amesim, Python, Bond Graph</div>
+                        <div class="featured-project-title">STHENOS — AI-Driven FEA Metamodeling &amp; Solver Substitution</div>
+                        <div class="featured-project-sub">4th year · MSC Nastran, Python, Scikit-Learn, Streamlit</div>
                     </div>
-
+                
                     <div class="fp-para-block">
-                        <h4><span class="fp-num">2</span> Problem &amp; Methodology</h4>
-                        <p>This project focuses on the <strong>multi-physics dynamic modeling</strong> and <strong>closed-loop control</strong> of an aircraft hydraulic landing gear actuation system. Utilizing <strong>Bond Graph theory</strong> in Simcenter Amesim, the complete dynamic energy flow—from electro-hydraulic power supply and spool valves to structural mass-spring damper deployment mechanics—was modeled and validated.</p>
-                        <p style="margin-top:10px;">To address kinematic singularities during full deployment and retraction cycles, a custom <strong>nonlinear PID controller</strong> and kinematic solver were developed in Python. Sensitivity analyses were conducted on fluid compressibility, dynamic friction, and aerodynamic drag forces during emergency procedures.</p>
+                        <h4><span class="fp-num">3</span> Problem &amp; Methodology</h4>
+                        <p>This project introduces <strong>STHENOS</strong>, an end-to-end <strong>AI surrogate modeling pipeline</strong> designed to bypass the computational cost of MSC Nastran (SOL 101) for 3D structural analysis (HEXA20 volumetric elements). Using a <strong>Latin Hypercube Sampling (LHS)</strong> design of experiments over beam length and load parameters, an automated batch simulation and regex-based <code>.f06</code> extraction pipeline was built.</p>
+                        <p style="margin-top:10px;">Three machine learning architectures were developed and benchmarked: Polynomial Ridge Regression, Random Forest, and a Multi-Layer Perceptron (MLP). The optimized MLP achieved <strong>$R^2 &gt; 0.999$</strong> accuracy with an inference <strong>speed-up factor of $\mathbf{\times 50\,000}$</strong>, deployed in an interactive real-time Streamlit dashboard.</p>
                         <div class="fp-tools-row">
-                            <span class="fp-tool-tag">Simcenter Amesim</span>
+                            <span class="fp-tool-tag">MSC Nastran</span>
                             <span class="fp-tool-tag">Python</span>
-                            <span class="fp-tool-tag">Bond Graph</span>
-                            <span class="fp-tool-tag">Hydraulics</span>
-                            <span class="fp-tool-tag">PID Control</span>
+                            <span class="fp-tool-tag">Scikit-Learn</span>
+                            <span class="fp-tool-tag">FEA / SOL 101</span>
+                            <span class="fp-tool-tag">Surrogate Modeling</span>
+                            <span class="fp-tool-tag">Streamlit</span>
                         </div>
                     </div>
-
+                
                     <div class="fp-files-container">
                         <div class="fp-file-slot">
                             <div class="fp-file-icon">📄</div>
                             <div class="fp-file-meta">
-                                <strong>Multi-Physics Simulation Report</strong>
-                                <span>Amesim dynamic modeling &amp; closed-loop PID control</span>
+                                <strong>STHENOS Research Paper (IEEE Format)</strong>
+                                <span>Data-driven surrogate modeling &amp; solver automation</span>
                             </div>
                             <div class="fp-file-btn">
-                                <button class="fp-btn" onclick="viewPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">View</button>
-                                <button class="fp-btn secondary" onclick="downloadPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">↓</button>
+                                <button class="fp-btn" onclick="viewPDF('projets/STHENOS_Etape_1_Rayan_CHENNAOUI.pdf')">View</button>
+                                <button class="fp-btn secondary" onclick="downloadPDF('projets/STHENOS_Etape_1_Rayan_CHENNAOUI.pdf')">↓</button>
                             </div>
                         </div>
-
+                
                         <div class="fp-file-slot">
                             <div class="fp-file-icon">⚙️</div>
                             <div class="fp-file-meta">
-                                <strong>System Schematics &amp; Kinematics</strong>
-                                <span>Bond Graph architecture &amp; stability analysis</span>
+                                <strong>ML Pipeline &amp; Streamlit App</strong>
+                                <span>LHS sampling, BDF generator &amp; inference dashboard</span>
                             </div>
                             <div class="fp-file-btn">
-                                <button class="fp-btn" onclick="viewPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">View</button>
-                                <button class="fp-btn secondary" onclick="downloadPDF('projets/Au421_CAE3_Rapport_Rayan_CHENNAOUI.pdf')">↓</button>
+                                <button class="fp-btn" onclick="viewPDF('projets/STHENOS.pdf')">View</button>
+                                </div>
+                        </div>
+                        <div class="fp-file-slot">
+                            <div class="fp-file-icon">🚀</div>
+                            <div class="fp-file-meta">
+                                <strong>Live Streamlit Demonstrator</strong>
+                                <span>Real-time surrogate inference &amp; speed-up benchmark</span>
+                            </div>
+                            <div class="fp-file-btn">
+                                <a href="https://sthenos-ai-study.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                                    <button class="fp-btn">Launch App ↗</button>
+                                </a>
                             </div>
                         </div>
                     </div>
