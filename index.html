@@ -1981,6 +1981,30 @@
             description: "Finite element analysis of a multidirectional carbon/epoxy laminated plate under uniform transverse pressure. Evaluation of directional stiffness mismatches and jagged through-thickness von Mises stress distributions. Includes full spatial discretization convergence studies and structural optimization analyzing alternative stacking sequences ($[0/45/-45]_s$ vs $[45/-45/90]_s$) to evaluate bending-twisting coupling, as well as fiber constituent influence (Carbon vs Glass) on out-of-plane deflection.", 
             pdf: "projets/CAE3_P13___Prod__Elec__Hydro_ (1).pdf", 
             image: "images/composite_bending.png" 
+        },
+        {
+            name: "(ENG) Finite Elements Modeling & Topology Optimization - Control Lever Fatigue & Sizing (Mé518 TP1)",
+            year: "5th year",
+            tools: "MSC Patran / Nastran (SOL 101, SOL 200), MATLAB, CATIA V5",
+            description: "Comparative structural analysis and design optimization of an industrial rotary bottle-blowing machine control lever subjected to severe cyclic bending (20 kN)[cite: 8, 14]. Part I derives 1D Euler-Bernoulli analytical formulations for a tapered cantilever beam in MATLAB, locating the critical section (x = 119.7 mm, σ = 242.9 MPa)[cite: 8, 9] and projecting operational fatigue life on experimental Wöhler S-N curves (Nf ~ 10^8 cycles)[cite: 9]. Part II establishes a 2D Quad4 finite element model (47k+ elements) in MSC Patran to assess localized stress concentrations, evaluate RBE3 flexible pin boundary conditions against rigid over-stiffening, and validate skin stress profiles (2.4% error)[cite: 10, 11, 12]. Part III implements topology optimization (SOL 200) followed by parametric CAD redesign in CATIA V5, resolving notch-induced yielding from initial cutouts (σ_VM = 662 MPa down to 238 MPa) to secure a compliant 11.5–12.5% mass reduction while preserving full structural integrity[cite: 12, 13, 14].",
+            pdf: "projets/TP1_Patran_Mé518_CHENNAOUI_LAO.pdf",
+            image: "images/tp11.png"
+        },
+        {
+            name: "(ENG) Dynamic Modal Analysis & Shell Vibration - 1D Beams, Thin Cylinders & Thick Tubes (Mé518 TP2)",
+            year: "5th year",
+            tools: "MSC Patran / Nastran (SOL 103), MATLAB, CATIA V5",
+            description: "Advanced structural dynamics and normal modes extraction (SOL 103 Lanczos solver) across multi-dimensional geometries benchmarked against closed-form analytical solutions[cite: 14]. Analyzes Euler-Bernoulli flexural vibrations of slender 1D CBAR beams under SS-SS and CC-CC boundary conditions (relative errors < 0.017%)[cite: 14, 20], clarifying spectral interleaving caused by strong-axis bending (5x frequency scaling from aspect ratio), torsion, and axial modes[cite: 20]. Investigates free vibrations of an ultra-thin cylindrical shell (R/h = 1000, L = 10 m) with shear diaphragm constraints, condensing degenerate orthogonal doublets and validating the first 20 physical modes against Flügge's exact shell theory[cite: 14, 21, 22]—physically demonstrating that membrane vs. bending strain energy competition shifts the fundamental mode to circumferential wavenumber i = 4 (6.15 Hz)[cite: 21, 22]. Evaluates a thick cylindrical tube (R/h = 5) via 3D solid hexahedral elements (Jacobian ratio 1.02–1.03), characterizing rigid-body modes, torsional shears, and 3-2-1/SUPORT kinematic constraint formulations[cite: 23, 24, 28, 29].",
+            pdf: "projets/CAE1_TP2_CHENNAOUI_LAO.pdf",
+            image: "images/tp22.png"
+        },
+        {
+            name: "(ENG) Structural Stability & Linear Buckling Analysis - Columns, Trusses & Thin Plates (Mé518 TP3)",
+            year: "5th year",
+            tools: "MSC Patran / Nastran (SOL 105), Python (Matplotlib, NumPy), MATLAB",
+            description: "Investigation of elastic bifurcation buckling and geometric stiffness matrices [K_D] across 1D and 2D aerospace structures using MSC Nastran SOL 105 alongside analytical benchmarks[cite: 31, 32, 33]. Evaluates Euler column buckling under clamped-free, pinned-pinned, and clamped-pinned constraints, quantifying effective length factor sensitivity (K = 2.0 to 0.7) and load multipliers (1.43 to 11.37 MN) against pure plastic limits[cite: 32, 33, 34]. Solves a 25-member planar roof truss (SOL 101) to identify governing compressive load paths governed by global bending couples and depth variation (lever arm z(x)), proving non-buckling safety margins (σ_cr / σ = 8.11)[cite: 34, 35, 36]. Computes uniaxial buckling on a simply supported thin aluminum square plate (a = 1 m, h = 5 mm) using a quarter-symmetric model with work-equivalent consistent nodal forces, capturing Kirchhoff-Love analytical solutions within 0.27% error[cite: 36, 37]. Includes a custom automated Python verification script generating publication-grade multi-panel stability benchmarks[cite: 38, 39, 40].",
+            pdf: "projets/CAE1_TP3_CHENNAOUI_LAO.pdf",
+            image: "images/tp33.png"
         }
     ];
 
